@@ -439,7 +439,7 @@ function Gengar.Window(Gengar)
     Gengar:DrawRoundedRect(x, y, width, height, 17, {12, 12, 12, 255}, 10) -- BackGround
     Gengar:DrawRoundedRect(x, y, 200, height, 17, {15, 15, 15, 255}, 10) -- BackGround Esquerda
     Gengar:DrawText('Gengar', x + 20, y + 15, width - 200, height - 200, false, {255, 255, 255, 255})
-    Gengar:DrawText('MENU', x + 120, y + 15, width - 200, height - 200, false, {0,0,0,0})
+        Gengar:DrawText('MENU', x + 120, y + 15, width - 200, height - 200, false, {255, 0, 0, 255})
     Gengar:DrawRoundedRect(x + 32, y + 46, 135, 3, 15, Gengar.colors.theme, 10)
     Gengar:DrawRoundedRect(x + 210, y + 10, width - 220, height - 20, 15, {15, 15, 15, 255}, 10) -- TRAS DOS BOTOES
     Gengar:DrawRoundedRect(x + 210, y + 10, width - 220, 35, 15, {25, 25, 25, 255}, 10) -- PARTE CIMA SUBTAB
@@ -544,7 +544,7 @@ function Gengar.CheckBox(Gengar, Title, SubTitle, toggleName, callback)
 
         if isHovered and IsDisabledControlJustPressed(0, 24)then
             Gengar.toggles[toggleName] = not toggleState
-            if type(callback) == 'func  tion' then
+            if type(callback) == 'function' then
                 Citizen.CreateThread(function()
                     callback(Gengar.toggles[toggleName])
                 end)
@@ -788,92 +788,92 @@ Citizen.CreateThread(function()
 
 
 
-                                        -- Tabela de bind de teclas
+                    -- Tabela de bind de teclas
 local bindKeys = {
-    ['F1'] = 288, ['F2'] = 289, ['F3'] = 170, ['F5'] = 166, ['F6'] = 167,
-    ['F7'] = 168, ['F8'] = 169, ['F9'] = 56, ['F10'] = 57, ['F11'] = 344,
-    ['1'] = 157, ['2'] = 158, ['3'] = 160, ['4'] = 164, ['5'] = 165,
-    ['6'] = 159, ['7'] = 161, ['8'] = 162, ['9'] = 163, ['-'] = 84,
-    ['='] = 83, ['.'] = 81, q = 44, w = 32, e = 38, r = 45, t = 245, y = 246,
-    u = 303, p = 199, a = 34, s = 8, d = 9, f = 23, g = 47, h = 74,
-    k = 311, l = 182, z = 20, x = 73, c = 26, v = 0, b = 29, n = 306,
-    m = 244, caps = 137, home = 212, space = 22, ctrl = 60, shift = 21, 
-    tab = 37,
-    }
-    
-    -- Função para obter a direção da câmera
-    function camDirect()
-    local camRot = GetGameplayCamRot(2) -- Obtém a rotação da câmera
-    local camX = math.sin(math.rad(camRot.z)) * -1.0
-    local camY = math.cos(math.rad(camRot.z))
-    local camZ = math.sin(math.rad(camRot.x))
-    return camX, camY, camZ
-    end
-    
-    -- Variáveis para controlar o estado do noclip
-    local isNoclipEnabled = false  -- Controla se o noclip está habilitado (CheckBox)
-    local isNoclipActive = false   -- Controla se o noclip está ativo (tecla Caps Lock pressionada)
-    local noclipKey = 137  -- Tecla padrão: Caps Lock (código 137)
-    
-    -- Loop do noclip
-    Citizen.CreateThread(function()
-    while true do
-        if isNoclipEnabled then  -- Só funciona se o CheckBox estiver marcado
-            if IsControlPressed(0, noclipKey) then  -- Tecla Caps Lock pressionada
-                isNoclipActive = true
-            else
-                isNoclipActive = false
-            end
-    
-            if isNoclipActive then
-                local ttspeed = 1.0  -- Velocidade do noclip
-                local speed = ttspeed
-                local player = PlayerPedId()
-                local vehicleCheck = IsPedInAnyVehicle(player, false)
-                local entity = vehicleCheck and GetVehiclePedIsIn(player, false) or player
-                local camRot = GetGameplayCamRot(2)
-                local Camerax, Cameray, Cameraz = camDirect()
-                local x, y, z = table.unpack(GetEntityCoords(entity, true))
-    
-                -- Movimento para frente e para trás
-                if IsDisabledControlPressed(0, 32) then  -- Tecla W (frente)
-                    x = x + speed * Camerax
-                    y = y + speed * Cameray
-                    z = z + speed * Cameraz
-                elseif IsDisabledControlPressed(0, 269) then  -- Tecla S (trás)
-                    x = x - speed * Camerax
-                    y = y - speed * Cameray
-                    z = z - speed * Cameraz
-                end
-    
-                -- Aplica a nova posição
-                SetEntityRotation(entity, camRot.x, camRot.y, camRot.z, 2, true)
-                SetEntityCoordsNoOffset(entity, x, y, z, true, true, true)
-    
-                -- Desativa controles de movimento
-                DisableControlAction(0, 30, true)  -- Movimento para a esquerda
-                DisableControlAction(0, 31, true)  -- Movimento para a direita
-                DisableControlAction(0, 44, true)  -- Tecla Q
-                DisableControlAction(0, 23, true)  -- Tecla F
-                SetEntityVelocity(entity, 0.0, 0.0, 0.0)
-            end
+['F1'] = 288, ['F2'] = 289, ['F3'] = 170, ['F5'] = 166, ['F6'] = 167,
+['F7'] = 168, ['F8'] = 169, ['F9'] = 56, ['F10'] = 57, ['F11'] = 344,
+['1'] = 157, ['2'] = 158, ['3'] = 160, ['4'] = 164, ['5'] = 165,
+['6'] = 159, ['7'] = 161, ['8'] = 162, ['9'] = 163, ['-'] = 84,
+['='] = 83, ['.'] = 81, q = 44, w = 32, e = 38, r = 45, t = 245, y = 246,
+u = 303, p = 199, a = 34, s = 8, d = 9, f = 23, g = 47, h = 74,
+k = 311, l = 182, z = 20, x = 73, c = 26, v = 0, b = 29, n = 306,
+m = 244, caps = 137, home = 212, space = 22, ctrl = 60, shift = 21, 
+tab = 37,
+}
+
+-- Função para obter a direção da câmera
+function camDirect()
+local camRot = GetGameplayCamRot(2) -- Obtém a rotação da câmera
+local camX = math.sin(math.rad(camRot.z)) * -1.0
+local camY = math.cos(math.rad(camRot.z))
+local camZ = math.sin(math.rad(camRot.x))
+return camX, camY, camZ
+end
+
+-- Variáveis para controlar o estado do noclip
+local isNoclipEnabled = false  -- Controla se o noclip está habilitado (CheckBox)
+local isNoclipActive = false   -- Controla se o noclip está ativo (tecla Caps Lock pressionada)
+local noclipKey = 137  -- Tecla padrão: Caps Lock (código 137)
+
+-- Loop do noclip
+Citizen.CreateThread(function()
+while true do
+    if isNoclipEnabled then  -- Só funciona se o CheckBox estiver marcado
+        if IsControlPressed(0, noclipKey) then  -- Tecla Caps Lock pressionada
+            isNoclipActive = true
         else
-            isNoclipActive = false  -- Garante que o noclip seja desativado se o CheckBox estiver desmarcado
+            isNoclipActive = false
         end
-    
-        Citizen.Wait(0)  -- Evita travar o jogo
-    end
-    end)
-    
-    -- CheckBox para habilitar/desabilitar o noclip
-    Gengar:CheckBox('Noclip (Segurar Caps Lock)', 'Ativar Noclip enquanto a tecla Caps Lock estiver pressionada', 'noclipToggle', function(toggleState)
-    isNoclipEnabled = toggleState  -- Atualiza o estado do CheckBox
-    if isNoclipEnabled then
-        print('Noclip habilitado. Segure a tecla Caps Lock para ativar.')
+
+        if isNoclipActive then
+            local ttspeed = 1.0  -- Velocidade do noclip
+            local speed = ttspeed
+            local player = PlayerPedId()
+            local vehicleCheck = IsPedInAnyVehicle(player, false)
+            local entity = vehicleCheck and GetVehiclePedIsIn(player, false) or player
+            local camRot = GetGameplayCamRot(2)
+            local Camerax, Cameray, Cameraz = camDirect()
+            local x, y, z = table.unpack(GetEntityCoords(entity, true))
+
+            -- Movimento para frente e para trás
+            if IsDisabledControlPressed(0, 32) then  -- Tecla W (frente)
+                x = x + speed * Camerax
+                y = y + speed * Cameray
+                z = z + speed * Cameraz
+            elseif IsDisabledControlPressed(0, 269) then  -- Tecla S (trás)
+                x = x - speed * Camerax
+                y = y - speed * Cameray
+                z = z - speed * Cameraz
+            end
+
+            -- Aplica a nova posição
+            SetEntityRotation(entity, camRot.x, camRot.y, camRot.z, 2, true)
+            SetEntityCoordsNoOffset(entity, x, y, z, true, true, true)
+
+            -- Desativa controles de movimento
+            DisableControlAction(0, 30, true)  -- Movimento para a esquerda
+            DisableControlAction(0, 31, true)  -- Movimento para a direita
+            DisableControlAction(0, 44, true)  -- Tecla Q
+            DisableControlAction(0, 23, true)  -- Tecla F
+            SetEntityVelocity(entity, 0.0, 0.0, 0.0)
+        end
     else
-        print('Noclip desabilitado.')
+        isNoclipActive = false  -- Garante que o noclip seja desativado se o CheckBox estiver desmarcado
     end
-    end)
+
+    Citizen.Wait(0)  -- Evita travar o jogo
+end
+end)
+
+-- CheckBox para habilitar/desabilitar o noclip
+Gengar:CheckBox('Noclip (Segurar Caps Lock)', 'Ativar Noclip enquanto a tecla Caps Lock estiver pressionada', 'noclipToggle', function(toggleState)
+isNoclipEnabled = toggleState  -- Atualiza o estado do CheckBox
+if isNoclipEnabled then
+    print('Noclip habilitado. Segure a tecla Caps Lock para ativar.')
+else
+    print('Noclip desabilitado.')
+end
+end)
 
 Gengar:CheckBox('Super Pulo', 'Ativar/Desativar Super Pulo', 'superJumpAtivado', function(state)
     Gengar.toggles.superJumpAtivado = state
@@ -1221,25 +1221,25 @@ end
 end)
 
 
-                -- Botão para destrancar todos os veículos próximos em loop
-                local destrancarVeiculos = false
+local destrancarVeiculos = false
 
-                Gengar:CheckBox('Destrancar Veículos Próximos', 'Destranca continuamente todos os veículos próximos', 'destrancarproximo', function(state)
-                    if Gengar.toggles.destrancarproximo then
-                        local playerPed = PlayerPedId()
-                        local playerCoords = GetEntityCoords(playerPed)
-                        for _, vehicle in pairs(GetGamePool('CVehicle')) do
-                            local vehicleCoords = GetEntityCoords(vehicle)
-                            if #(playerCoords - vehicleCoords) < 20.0 then -- Raio de 20 metros
-                                SetVehicleDoorsLocked(vehicle, 1)
-                                SetVehicleDoorsLockedForAllPlayers(vehicle, false)
-                            end
-                        end
-                        Citizen.Wait(500) -- Aguarda meio segundo antes de repetir
-                    end
-                end)
-                
-
+Gengar:CheckBox('Destrancar Veículos Próximos', 'Destranca continuamente todos os veículos próximos', function(state)
+    destrancarVeiculos = state
+    Citizen.CreateThread(function()
+        while destrancarVeiculos do
+            local playerPed = PlayerPedId()
+            local playerCoords = GetEntityCoords(playerPed)
+            for _, vehicle in pairs(GetGamePool('CVehicle')) do
+                local vehicleCoords = GetEntityCoords(vehicle)
+                if #(playerCoords - vehicleCoords) < 20.0 then -- Raio de 20 metros
+                    SetVehicleDoorsLocked(vehicle, 1)
+                    SetVehicleDoorsLockedForAllPlayers(vehicle, false)
+                end
+            end
+            Citizen.Wait(500) -- Aguarda meio segundo antes de repetir
+        end
+    end)
+end, 'right')
 
 local trancarVeiculos = false
 
@@ -1389,18 +1389,6 @@ end, 'right')
                     
 
             elseif Gengar.subtabs.active == 'Seu Veiculo' then -- SE O SUBTAB 3 JOGADOR ESTIVER ATIVO ENTAO
-
-                Gengar:CheckBox('Auto Reparar veiculo', 'Destranca continuamente todos os veículos próximos', 'autoreparar', function(autoreparar2)
-                    while autoreparar2 do
-                
-                        SetVehicleFixed(GetVehiclePedIsIn(PlayerPedId(), false))
-                        SetVehicleDirtLevel(GetVehiclePedIsIn(PlayerPedId(), false), 0.0)
-                        SetVehicleLights(GetVehiclePedIsIn(PlayerPedId(), false), 0)
-                        SetVehicleBurnout(GetVehiclePedIsIn(PlayerPedId(), false), false)
-                        SetVehicleLightsMode(GetVehiclePedIsIn(PlayerPedId(), false), 0)
-                        Citizen.Wait(500) -- Aguarda meio segundo antes de repetir
-                    end
-                end)
 
                 Gengar:Button('Reparar Veículo', 'Voce Vai reparar seu veiculo', function() -- SEMPRE USAR ESSA LÓGICA, TITULO PRIMEIRO DEPOIS SUBTITULO
             
@@ -2640,405 +2628,437 @@ end)
                     end
                 end)
 
-                Gengar:CheckBox('Free Cam', 'Ativar o Modo Drone', 'isFreeCamActive', function(isFreeCamActive)
-                    Gengar.toggles.isFreeCamActive = isFreeCamActive
-                    local spectate_cam = nil
+                
 
-                    Citizen.CreateThread(function()
-                        while true do
-                            Citizen.Wait(0)
-
-                            if isFreeCamActive then
-                                if not DoesCamExist(spectate_cam) then
-                                    local playerPed = PlayerPedId()
-                                    local coords = GetEntityCoords(playerPed)
-
-                                    -- Criar e ativar a câmera
-                                    spectate_cam = CreateCam("DEFAULT_SCRIPTED_CAMERA", true)
-                                    SetCamCoord(spectate_cam, coords.x, coords.y, coords.z + 3.0)
-                                    SetCamActive(spectate_cam, true)
-                                    RenderScriptCams(true, false, 0, true, true)
-
-                                    FreezeEntityPosition(playerPed, true)
-                                    SetEntityVisible(playerPed, true, false)
+                    Gengar:CheckBox('Free Cam', 'Ativar o Modo Drone', 'isFreeCamActive', function(freecamstate)
+                        Gengar.toggles.isFreeCamActive = freecamstate
+                        local spectate_cam = nil
+                    
+                        if freecamstate then
+                            local playerPed = PlayerPedId()
+                            local coords = GetEntityCoords(playerPed)
+                    
+                            -- Criar e ativar a câmera
+                            spectate_cam = CreateCam("DEFAULT_SCRIPTED_CAMERA", true)
+                            SetCamCoord(spectate_cam, coords.x, coords.y, coords.z + 3.0)
+                            SetCamActive(spectate_cam, true)
+                            RenderScriptCams(true, false, 0, true, true)
+                    
+                            FreezeEntityPosition(playerPed, true)
+                            SetEntityVisible(playerPed, false, false) -- Torna o jogador invisível
+                    
+                            -- Variável para controlar a velocidade do Freecam
+                            local speed = 0.5
+                    
+                            -- Loop para movimentação da câmera
+                            Citizen.CreateThread(function()
+                                while Gengar.toggles.isFreeCamActive do
+                                    Citizen.Wait(0) -- Executa a cada frame
+                    
+                                    -- Movimentação do Freecam
+                                    local camCoords = GetCamCoord(spectate_cam)
+                                    local camRot = GetCamRot(spectate_cam, 2)
+                                    local forwardVector = RotationToDirection(camRot)
+                    
+                                    -- Movimentação da câmera
+                                    if IsControlPressed(0, 32) then -- W (Mover para frente)
+                                        camCoords = camCoords + (forwardVector * speed)
+                                    end
+                                    if IsControlPressed(0, 33) then -- S (Mover para trás)
+                                        camCoords = camCoords - (forwardVector * speed)
+                                    end
+                                    if IsControlPressed(0, 34) then -- A (Mover para a esquerda)
+                                        camCoords = camCoords + vector3(-forwardVector.y, forwardVector.x, 0.0) * speed
+                                    end
+                                    if IsControlPressed(0, 35) then -- D (Mover para a direita)
+                                        camCoords = camCoords + vector3(forwardVector.y, -forwardVector.x, 0.0) * speed
+                                    end
+                                    if IsControlPressed(0, 44) then -- Q (Subir)
+                                        camCoords = camCoords + vector3(0.0, 0.0, speed)
+                                    end
+                                    if IsControlPressed(0, 36) then -- Ctrl (Descer)
+                                        camCoords = camCoords - vector3(0.0, 0.0, speed)
+                                    end
+                    
+                                    -- Rotação da câmera com o mouse
+                                    local rotX = camRot.x - (GetDisabledControlNormal(1, 2) * 10.0)
+                                    local rotZ = camRot.z - (GetDisabledControlNormal(1, 1) * 10.0)
+                    
+                                    -- Atualiza a posição e rotação da câmera
+                                    SetCamCoord(spectate_cam, camCoords.x, camCoords.y, camCoords.z)
+                                    SetCamRot(spectate_cam, rotX, 0.0, rotZ, 2)
+                    
+                                    -- Exibe o texto com as opções do Freecam
+                                    Gengar.DrawText("Freecam Ativado!", 0.5, 0.05, 1.0, {255, 255, 255, 255})
+                                    Gengar.DrawText("Controles: W - Frente, S - Trás, A - Esquerda, D - Direita", 0.5, 0.1, 0.8, {255, 255, 255, 255})
+                                    Gengar.DrawText("Velocidade: " .. tostring(speed), 0.5, 0.15, 0.8, {255, 255, 255, 255})
+                                    Gengar.DrawText("Q - Subir, Ctrl - Descer", 0.5, 0.2, 0.8, {255, 255, 255, 255})
                                 end
-
-                                -- Movimentação do Freecam
-                                local speed = 0.5
-                                local camCoords = GetCamCoord(spectate_cam)
-                                local camRot = GetCamRot(spectate_cam, 2)
-                                local forwardVector = RotationToDirection(camRot)
-
-                                if IsControlPressed(0, 32) then -- W
-                                    camCoords = camCoords + (forwardVector * speed)
-                                end
-                                if IsControlPressed(0, 33) then -- S
-                                    camCoords = camCoords - (forwardVector * speed)
-                                end
-                                if IsControlPressed(0, 34) then -- A
-                                    camCoords = camCoords + vector3(-forwardVector.y, forwardVector.x, 0.0) * speed
-                                end
-                                if IsControlPressed(0, 35) then -- D
-                                    camCoords = camCoords + vector3(forwardVector.y, -forwardVector.x, 0.0) * speed
-                                end
-                                if IsControlPressed(0, 44) then -- Q (Subir)
-                                    camCoords = camCoords + vector3(0.0, 0.0, speed)
-                                end
-                                if IsControlPressed(0, 36) then -- Ctrl (Descer)
-                                    camCoords = camCoords - vector3(0.0, 0.0, speed)
-                                end
-
-                                -- Rotação da câmera com o mouse
-                                local rotX = camRot.x - (GetDisabledControlNormal(1, 2) * 10.0)
-                                local rotZ = camRot.z - (GetDisabledControlNormal(1, 1) * 10.0)
-
-                                SetCamCoord(spectate_cam, camCoords.x, camCoords.y, camCoords.z)
-                                SetCamRot(spectate_cam, rotX, 0.0, rotZ, 2)
-                            else
-                                    -- Desativar Freecam
-                                    RenderScriptCams(false, false, 0, true, true)
-                                    DestroyCam(spectate_cam, false)
-                                    spectate_cam = nil
-
-                                    local playerPed = PlayerPedId()
-                                    FreezeEntityPosition(playerPed, false)
-                                    SetEntityVisible(playerPed, true, false)
-                                    SetFocusEntity(playerPed)
-                                
-                            end
+                            end)
+                    
+                            print("Freecam Ativado!")
+                        else
+                            -- Desativar Freecam
+                            RenderScriptCams(false, false, 0, true, true)
+                            DestroyCam(spectate_cam, false)
+                            spectate_cam = nil
+                    
+                            local playerPed = PlayerPedId()
+                            FreezeEntityPosition(playerPed, false)
+                            SetEntityVisible(playerPed, true, false)
+                            SetFocusEntity(playerPed)
+                            print("Freecam Desativado!")
                         end
                     end)
-                    -- Função auxiliar para converter rotação em direção
-                    function RotationToDirection(rotation)
-                        local x = math.rad(rotation.x)
-                        local z = math.rad(rotation.z)
-                        local num = math.abs(math.cos(x))
 
-                        return vector3(-math.sin(z) * num, math.cos(z) * num, math.sin(x))
-                    end
-                end)
+                    local vehicleModule = vehicleModule or {}
 
-                    Gengar:CheckBox('Magneto', 'Pegue o Controle dos Veiculos Antes!', 'MagnetoForce', function(toggleState)
-                        Gengar.toggles.MagnetoForce = toggleState
-                    
-                        if toggleState then
-                            local PullKey = 38
-                            local Distance = 40
-                            local BallHeightOffset = 2.0
-                            local SphereRadius = 5.0
-                    
-                            local function RotationToDirection(rotation)
-                                local radZ = math.rad(rotation.z)
-                                local radX = math.rad(rotation.x)
-                                local num = math.abs(math.cos(radX))
-                                return vector3(-math.sin(radZ) * num, math.cos(radZ) * num, math.sin(radX))
-                            end
-                    
-                            local function getControl(vehicle)
-                                NetworkRequestControlOfEntity(vehicle)
-                                local startTime = GetGameTimer()
-                                while not NetworkHasControlOfEntity(vehicle) and GetGameTimer() - startTime < 5000 do
-                                    Citizen.Wait(0)
-                                end
-                                return NetworkHasControlOfEntity(vehicle)
-                            end
-                    
-                            local function distributeCarsInSphere(veh, Markerloc)
-                                local vehCoords = GetEntityCoords(veh)
-                                local direction = Markerloc - vehCoords
-                                local distanceToMarker = #direction
-                    
-                                if distanceToMarker > SphereRadius then
-                                    direction = direction / distanceToMarker
-                                    local forceMultiplier = 0.25
-                                    ApplyForceToEntity(veh, 3, direction.x * forceMultiplier, direction.y * forceMultiplier, direction.z * forceMultiplier, 0.0, 0.0, 0.0, 0, 0, 1, 1, 0, 1)
-                                else
-                                    local spherePos = Markerloc + (direction / distanceToMarker) * SphereRadius
-                                    local forceDirection = (spherePos - vehCoords) * 0.5
-                                    ApplyForceToEntity(veh, 3, forceDirection.x, forceDirection.y, forceDirection.z, 0.0, 0.0, 0.0, 0, 0, 1, 1, 0, 1)
-                                end
-                            end
-                    
-                            local function unlockAllVehicles()
-                                local vehicles = GetGamePool("CVehicle")
-                                for _, veh in ipairs(vehicles) do
-                                    SetVehicleDoorsLocked(veh, 1)
-                                    SetVehicleDoorsLockedForPlayer(veh, PlayerId(), false)
-                                    SetVehicleDoorsLockedForAllPlayers(veh, false)
-                                end
-                            end
-                    
-                            local function forcetick()
-                                if IsControlPressed(0, 15) then
-                                    Distance = Distance + 1
-                                elseif IsControlPressed(0, 14) and Distance > 20 then
-                                    Distance = Distance - 1
-                                end
-                    
-                                local StartPull = IsControlPressed(0, PullKey)
-                    
-                                local pid = PlayerPedId()
-                                local PlayerVeh = GetVehiclePedIsIn(pid, false)
-                                local vehicles = GetGamePool("CVehicle")
-                                local camRot = GetGameplayCamRot(2)
-                                local camCoord = GetGameplayCamCoord()
-                                local Markerloc = camCoord + (RotationToDirection(camRot) * Distance)
-                                Markerloc = vector3(Markerloc.x, Markerloc.y, Markerloc.z + BallHeightOffset)
-                    
-                                if StartPull then
-                                    DrawMarker(
-                                        28,
-                                        Markerloc.x, Markerloc.y, Markerloc.z,
-                                        0.0, 0.0, 0.0,
-                                        0.0, 0.0, 0.0,
-                                        SphereRadius * 2.0, SphereRadius * 2.0, SphereRadius * 2.0,
-                                        255, 0, 0, 200,
-                                        false,
-                                        true,
-                                        2,
-                                        nil, nil,
-                                        false
-                                    )
-                                end
-                    
-                                unlockAllVehicles()
-                    
-                                for _, veh in ipairs(vehicles) do
-                                    if getControl(veh) and GetPedInVehicleSeat(veh, -1) == 0 and GetDistanceBetweenCoords(GetEntityCoords(pid), GetEntityCoords(veh), true) < 1000 then
-                                        SetEntityInvincible(veh, true)
-                                        if IsEntityOnScreen(veh) and veh ~= PlayerVeh then
-                                            if StartPull then
-                                                distributeCarsInSphere(veh, Markerloc)
-                                            else
-                                                FreezeEntityPosition(veh, false)
-                                            end
-                                        end
-                                    end
-                                end
-                            end
-                    
-                            Citizen.CreateThread(function()
-                                while Gengar.toggles.MagnetoForce do
-                                    forcetick()
-                                    Citizen.Wait(0)
-                                end
-                            end)
-                        else
-                            local vehicles = GetGamePool("CVehicle")
-                            for _, veh in ipairs(vehicles) do
-                                SetEntityInvincible(veh, false)
-                                FreezeEntityPosition(veh, false)
-                            end
-                        end
-                    end)     
+Gengar:CheckBox('Magneto', 'Pegue o Controle dos Veiculos Antes!', 'MagnetoForce', function(toggleState)
+    Gengar.toggles.MagnetoForce = toggleState
 
+    if toggleState then
+        local PullKey = 38
+        local Distance = 40
+        local BallHeightOffset = 2.0
+        local SphereRadius = 5.0
 
-                    local holdingEntity = false
-                    local heldEntity = nil
-                    
-                    Gengar:CheckBox('Modo Hulk', 'Segure e arremesse veículos com [Y]', 'ModoHulk', function(toggleState)
-                        if toggleState then
-                            print('Modo Hulk Ativado')
-                    
-                            Citizen.CreateThread(function()
-                                while Gengar.toggles.ModoHulk do
-                                    Citizen.Wait(0)
-                    
-                                    local playerPed = PlayerPedId()
-                                    local camPos = GetGameplayCamCoord()
-                                    local camRot = GetGameplayCamRot(2)
-                                    local direction = RotationToDirection(camRot)
-                                    local dest = camPos + (direction * 10.0)
-                    
-                                    local rayHandle = StartShapeTestRay(camPos.x, camPos.y, camPos.z, dest.x, dest.y, dest.z, 10, playerPed, 0)
-                                    local _, hit, endCoords, _, entityHit = GetShapeTestResult(rayHandle)
-                                    local validTarget = false
-                    
-                                    if hit == 1 and GetEntityType(entityHit) == 2 then
-                                        validTarget = true
-                                        DrawText3Ds(endCoords.x, endCoords.y, endCoords.z + 0.5, "Pressione [Y] para pegar o veículo")
-                                    end
-                    
-                                    if IsControlJustReleased(0, 246) then
-                                        if validTarget and not holdingEntity then
-                                            holdingEntity = true
-                                            heldEntity = entityHit
-                    
-                                            NetworkRequestControlOfEntity(heldEntity)
-                                            Citizen.Wait(500)
-                    
-                                            SetVehicleDoorsLocked(heldEntity, 1)
-                                            SetVehicleDoorsLockedForPlayer(heldEntity, PlayerId(), false)
-                                            SetVehicleDoorsLockedForAllPlayers(heldEntity, false)
-                    
-                                            RequestAnimDict('anim@mp_rollarcoaster')
-                                            while not HasAnimDictLoaded('anim@mp_rollarcoaster') do
-                                                Citizen.Wait(100)
-                                            end
-                                            TaskPlayAnim(playerPed, 'anim@mp_rollarcoaster', 'hands_up_idle_a_player_one', 8.0, -8.0, -1, 50, 0, false, false, false)
-                    
-                                            AttachEntityToEntity(heldEntity, playerPed, GetPedBoneIndex(playerPed, 57005), 0.4, 0.0, 0.0, 0.0, 0.0, 0.0, true, true, false, true, 1, true)
-                                            print("Você agora está segurando o veículo!")
-                                        elseif holdingEntity then
-                                            holdingEntity = false
-                                            DetachEntity(heldEntity, true, true)
-                                            ClearPedTasks(playerPed)
-                    
-                                            local force = 80.0
-                                            local verticalForce = 150.0
-                                            local camDir = RotationToDirection(GetGameplayCamRot(2))
-                                            
-                                            ApplyForceToEntityCenterOfMass(heldEntity, 1, camDir.x * force, camDir.y * force, verticalForce, true, true, true, true)
-                    
-                                            heldEntity = nil
-                                            print("Você lançou o veículo com sucesso!")
-                                        end
-                                    end
-                                end
-                            end)
-                        else
-                            print('Modo Hulk Desativado')
-                            holdingEntity = false
-                            if heldEntity then
-                                DetachEntity(heldEntity, true, true)
-                                heldEntity = nil
-                            end
-                        end
-                    end, 'right')
-                    
-                    function RotationToDirection(rotation)
-                        local radZ = math.rad(rotation.z)
-                        local radX = math.rad(rotation.x)
-                        local cosX = math.cos(radX)
-                    
-                        return vector3(-math.sin(radZ) * cosX, math.cos(radZ) * cosX, math.sin(radX))
-                    end
-                    
-                    function DrawText3Ds(x, y, z, text)
-                        local onScreen, _x, _y = World3dToScreen2d(x, y, z)
-                        local px, py, pz = table.unpack(GetGameplayCamCoords())
-                        local scale = (1 / GetDistanceBetweenCoords(px, py, pz, x, y, z, 1)) * 2
-                        local fov = (1 / GetGameplayCamFov()) * 100
-                        scale = scale * fov
-                    
-                        if onScreen then
-                            SetTextScale(0.8 * scale, 0.8 * scale)
-                            SetTextFont(4)
-                            SetTextProportional(1)
-                            SetTextColour(255, 255, 255, 255)
-                            SetTextDropshadow(1, 0, 0, 0, 255)
-                            SetTextEdge(2, 0, 0, 0, 150)
-                            SetTextDropShadow()
-                            SetTextOutline()
-                            SetTextEntry("STRING")
-                            SetTextCentre(1)
-                            AddTextComponentString(text)
-                            DrawText(_x, _y)
-                        end
-                    end
-                    
+        local function RotationToDirection(rotation)
+            local radZ = math.rad(rotation.z)
+            local radX = math.rad(rotation.x)
+            local num = math.abs(math.cos(radX))
+            return vector3(-math.sin(radZ) * num, math.cos(radZ) * num, math.sin(radX))
+        end
 
-Gengar:Button('Modo Caos Nos Carros', 'Carros livres entram no modo caos', function()
-    Citizen.CreateThread(function()
-        local playerPed = PlayerPedId()
-        local oldPos = GetEntityCoords(playerPed)
-        local VeiculosCaos = {}
+        local function getControl(vehicle)
+            NetworkRequestControlOfEntity(vehicle)
+            local startTime = GetGameTimer()
+            while not NetworkHasControlOfEntity(vehicle) and GetGameTimer() - startTime < 5000 do
+                Citizen.Wait(0)
+            end
+            return NetworkHasControlOfEntity(vehicle)
+        end
 
-        for _, vehicle in pairs(GetGamePool('CVehicle')) do
-            local driver = GetPedInVehicleSeat(vehicle, -1)
-            if driver == 0 then
-                TaskWarpPedIntoVehicle(playerPed, vehicle, -1)
-                table.insert(VeiculosCaos, vehicle)
-                Wait(50)
-                ClearPedTasks(playerPed)
+        local function distributeCarsInSphere(veh, Markerloc)
+            local vehCoords = GetEntityCoords(veh)
+            local direction = Markerloc - vehCoords
+            local distanceToMarker = #direction
+
+            if distanceToMarker > SphereRadius then
+                direction = direction / distanceToMarker
+                local forceMultiplier = 0.25  -- Ajuste da força
+                ApplyForceToEntity(veh, 3, direction.x * forceMultiplier, direction.y * forceMultiplier, direction.z * forceMultiplier, 0.0, 0.0, 0.0, 0, 0, 1, 1, 0, 1)
+            else
+                local spherePos = Markerloc + (direction / distanceToMarker) * SphereRadius
+                SetEntityCoordsNoOffset(veh, spherePos.x, spherePos.y, spherePos.z, false, false, false)
+                SetEntityVelocity(veh, 0.0, 0.0, 0.0)
+                FreezeEntityPosition(veh, true)
             end
         end
 
-        TaskLeaveAnyVehicle(playerPed, 0, 0)
-        ClearPedTasks(playerPed)
-        Wait(50)
-        SetEntityCoordsNoOffset(playerPed, oldPos.x, oldPos.y, oldPos.z)
-        Wait(1000)
-
-        for _, vehicle in pairs(VeiculosCaos) do
-            Citizen.CreateThread(function()
-                local buzina = true
-                local turbo = false
-                local rgbAtivo = true
-
-                Citizen.Wait(5000)
-                buzina = false
-                turbo = true
-
-                while rgbAtivo do
-                    local r = math.random(0, 255)
-                    local g = math.random(0, 255)
-                    local b = math.random(0, 255)
-                    SetVehicleCustomPrimaryColour(vehicle, r, g, b)
-                    Citizen.Wait(1000)
-                end
-
-                while buzina do
-                    StartVehicleHorn(vehicle, 10000, 0, false)
-                    Citizen.Wait(1000)
-                end
-
-                if turbo then
-                    SetVehicleBoostActive(vehicle, true)
-                    SetVehicleForwardSpeed(vehicle, 7000.0)
-                    Citizen.Wait(4000)
-                    NetworkExplodeVehicle(vehicle, true, false, false)
-                    rgbAtivo = false
-                end
-            end)
+        local function unlockAllVehicles()
+            local vehicles = GetGamePool("CVehicle")
+            for _, veh in ipairs(vehicles) do
+                SetVehicleDoorsLocked(veh, 1)
+                SetVehicleDoorsLockedForPlayer(veh, PlayerId(), false)
+                SetVehicleDoorsLockedForAllPlayers(veh, false)
+            end
         end
-    end)
-end)
 
-Gengar:Button('Pegar Controle dos Carros', 'Pegar Controle dos Carros Livres', function()
-    local function pegarControleCarros()
+        local function forcetick()
+            if IsDisabledControlPressed(0, 15) then
+                Distance = Distance + 1
+            elseif IsDisabledControlPressed(0, 14) and Distance > 20 then
+                Distance = Distance - 1
+            end
+
+            local StartPull = IsDisabledControlPressed(0, PullKey)
+
+            local pid = PlayerPedId()
+            local PlayerVeh = GetVehiclePedIsIn(pid, false)
+            local vehicles = GetGamePool("CVehicle")
+            local camRot = GetGameplayCamRot(2)
+            local camCoord = GetGameplayCamCoord()
+            local Markerloc = camCoord + (RotationToDirection(camRot) * Distance)
+            Markerloc = vector3(Markerloc.x, Markerloc.y, Markerloc.z + BallHeightOffset)
+
+            if StartPull then
+                DrawMarker(
+                    28,
+                    Markerloc.x, Markerloc.y, Markerloc.z,
+                    0.0, 0.0, 0.0,
+                    0.0, 0.0, 0.0,
+                    1.0, 1.0, 1.0,
+                    255, 0, 0, 200,
+                    false,
+                    true,
+                    2,
+                    nil, nil,
+                    false
+                )
+            end
+
+            unlockAllVehicles()
+
+            for _, veh in ipairs(vehicles) do
+                if getControl(veh) and GetPedInVehicleSeat(veh, -1) == 0 and GetDistanceBetweenCoords(GetEntityCoords(pid), GetEntityCoords(veh), true) < 1000 then
+                    SetEntityInvincible(veh, true)
+                    if IsEntityOnScreen(veh) and veh ~= PlayerVeh then
+                        if StartPull then
+                            distributeCarsInSphere(veh, Markerloc)
+                        else
+                            FreezeEntityPosition(veh, false)
+                        end
+                    end
+                end
+            end
+        end
+
         Citizen.CreateThread(function()
-            local playerPed = PlayerPedId()
-            local oldCoords = GetEntityCoords(playerPed)
-            local veiculosArmazenados = {}
-
-            for vehicle in EnumerateVehicles() do
-                if DoesEntityExist(vehicle) and not IsEntityDead(vehicle) then
-                    local driver = GetPedInVehicleSeat(vehicle, -1)
-                    if driver == 0 then
-                        NetworkRequestControlOfEntity(vehicle)
-                        local timeout = 0
-                        while not NetworkHasControlOfEntity(vehicle) and timeout < 1000 do
-                            Citizen.Wait(10)
-                            timeout = timeout + 10
-                        end
-
-                        if NetworkHasControlOfEntity(vehicle) then
-                            SetPedIntoVehicle(playerPed, vehicle, -1)
-                            table.insert(veiculosArmazenados, vehicle)
-                            Citizen.Wait(50)
-                            ClearPedTasks(playerPed)
-                        end
-                    end
-                end
-            end
-
-            TaskLeaveAnyVehicle(playerPed, 0, 0)
-            ClearPedTasks(playerPed)
-            Citizen.Wait(50)
-            SetEntityCoordsNoOffset(playerPed, oldCoords.x, oldCoords.y, oldCoords.z)
-
-            -- Exemplo de uso dos veículos armazenados
-            for _, veiculo in pairs(veiculosArmazenados) do
-                print("Veículo armazenado:", veiculo)
+            while Gengar.toggles.MagnetoForce do
+                forcetick()
+                Citizen.Wait(0)
             end
         end)
+    else
+        ForceTog = false
     end
-
-    pegarControleCarros()
 end)
+
+                    
+
+
+local holdingEntity = false
+local heldEntity = nil
+
+Gengar:CheckBox('Modo Hulk', 'Segure e arremesse veículos com [Y]', 'ModoHulk', function(toggleState)
+    if toggleState then
+        print('Modo Hulk Ativado')
+
+        Citizen.CreateThread(function()
+            while Gengar.toggles.ModoHulk do
+                Citizen.Wait(0)
+
+                local playerPed = PlayerPedId()
+                local camPos = GetGameplayCamCoord()
+                local camRot = GetGameplayCamRot(2)
+                local direction = RotationToDirection(camRot)
+                local dest = camPos + (direction * 10.0)
+
+                local rayHandle = StartShapeTestRay(camPos.x, camPos.y, camPos.z, dest.x, dest.y, dest.z, 10, playerPed, 0)
+                local _, hit, endCoords, _, entityHit = GetShapeTestResult(rayHandle)
+                local validTarget = false
+
+                if hit == 1 and GetEntityType(entityHit) == 2 then
+                    validTarget = true
+                    DrawText3Ds(endCoords.x, endCoords.y, endCoords.z + 0.5, "Pressione [Y] para pegar o veículo")
+                end
+
+                if IsControlJustReleased(0, 246) then
+                    if validTarget and not holdingEntity then
+                        holdingEntity = true
+                        heldEntity = entityHit
+
+                        SetVehicleDoorsLocked(heldEntity, 1)
+                        SetVehicleDoorsLockedForPlayer(heldEntity, PlayerId(), false)
+                        SetVehicleDoorsLockedForAllPlayers(heldEntity, false)
+
+                        TaskWarpPedIntoVehicle(playerPed, heldEntity, -1)
+                        Citizen.Wait(500)
+                        TaskLeaveVehicle(playerPed, heldEntity, 16)
+                        Citizen.Wait(500)
+
+                        NetworkRequestControlOfEntity(heldEntity)
+                        Citizen.Wait(500)
+
+                        RequestAnimDict('anim@mp_rollarcoaster')
+                        while not HasAnimDictLoaded('anim@mp_rollarcoaster') do
+                            Citizen.Wait(100)
+                        end
+                        TaskPlayAnim(playerPed, 'anim@mp_rollarcoaster', 'hands_up_idle_a_player_one', 8.0, -8.0, -1, 50, 0, false, false, false)
+
+                        local offset = vector3(1.5, 0.5, 0.0)
+                        SetEntityCoordsNoOffset(heldEntity, GetEntityCoords(playerPed) + offset, true, true, true)
+
+                        SetEntityAlpha(heldEntity, 200, false)
+                        FreezeEntityPosition(heldEntity, true)
+
+                        print("Você agora está segurando o veículo!")
+                    elseif holdingEntity then
+                        holdingEntity = false
+                        ClearPedTasks(playerPed)
+                        SetEntityAlpha(heldEntity, 255, false)
+                        FreezeEntityPosition(heldEntity, false)
+
+                        local force = 80.0
+                        local verticalForce = 150.0
+                        local camDir = RotationToDirection(GetGameplayCamRot(2))
+
+                        local fx, fy, fz = camDir.x * force, camDir.y * force, verticalForce
+
+                        ApplyForceToEntityCenterOfMass(heldEntity, 1, fx, fy, fz, true, true, true, true)
+
+                        heldEntity = nil
+                        print("Você lançou o veículo com sucesso!")
+                    end
+                end
+
+                if holdingEntity then
+                    DrawText3Ds(endCoords.x, endCoords.y, endCoords.z + 0.5, "~g~[Y]~w~ Para lançar o veículo")
+                end
+            end
+        end)
+    else
+        print('Modo Hulk Desativado')
+        holdingEntity = false
+        if heldEntity then
+            SetEntityAlpha(heldEntity, 255, false)
+            FreezeEntityPosition(heldEntity, false)
+            heldEntity = nil
+        end
+    end
+end, 'right')
+
+function RotationToDirection(rotation)
+    local radZ = math.rad(rotation.z)
+    local radX = math.rad(rotation.x)
+    local cosX = math.cos(radX)
+
+    return vector3(-math.sin(radZ) * cosX, math.cos(radZ) * cosX, math.sin(radX))
+end
+
+function DrawText3Ds(x, y, z, text)
+    local onScreen, _x, _y = World3dToScreen2d(x, y, z)
+    local px, py, pz = table.unpack(GetGameplayCamCoords())
+    local scale = (1 / GetDistanceBetweenCoords(px, py, pz, x, y, z, 1)) * 2
+    local fov = (1 / GetGameplayCamFov()) * 100
+    scale = scale * fov
+
+    if onScreen then
+        SetTextScale(0.8 * scale, 0.8 * scale)
+        SetTextFont(4)
+        SetTextProportional(1)
+        SetTextColour(255, 255, 255, 255)
+        SetTextDropshadow(1, 0, 0, 0, 255)
+        SetTextEdge(2, 0, 0, 0, 150)
+        SetTextDropShadow()
+        SetTextOutline()
+        SetTextEntry("STRING")
+        SetTextCentre(1)
+        AddTextComponentString(text)
+        DrawText(_x, _y)
+    end
+end
+
+
+
+
+                    Gengar:Button('Modo Caos Nos Carros', 'Carros livres entram no modo caos', function() -- TÍTULO PRIMEIRO, DEPOIS SUBTÍTULO
+                    Citizen.CreateThread(function()
+                        local oldPos = GetEntityCoords(PlayerPedId()) -- Salva a posição do jogador
+                        local VeiculosCaos = {}
+                
+                        -- Encontra todos os Veículos sem motorista e faz o jogador "entrar" rapidamente para registrá-los
+                        for _, vehicle in pairs(GetGamePool('CVehicle')) do
+                            local driver = GetPedInVehicleSeat(vehicle, -1)
+                            if driver == 0 then
+                                TaskWarpPedIntoVehicle(PlayerPedId(), vehicle, -1)
+                                table.insert(VeiculosCaos, vehicle)
+                                Wait(50)
+                                ClearPedTasks(PlayerPedId())
+                            end
+                        end
+                
+                        -- Restaura o jogador para a posição original
+                        TaskLeaveAnyVehicle(PlayerPedId())
+                        ClearPedTasks(PlayerPedId())
+                        Wait(50)
+                        SetEntityCoordsNoOffset(PlayerPedId(), oldPos)
+                        Wait(1000)
+                
+                        -- Ativa o caos nos Veículos registrados
+                        Citizen.CreateThread(function()
+                            for _, vehicle in pairs(VeiculosCaos) do
+                                Citizen.CreateThread(function()
+                                    local buzina = true
+                                    local turbo = false
+                                    local rgbAtivo = true
+                
+                                    -- Espera 5 segundos antes de iniciar o caos
+                                    Citizen.CreateThread(function()
+                                        Citizen.Wait(5000)
+                                        buzina = false
+                                        turbo = true
+                
+                                        -- Efeito RGB nas cores dos carros
+                                        while rgbAtivo do
+                                            local r = math.random(0, 255)
+                                            local g = math.random(0, 255)
+                                            local b = math.random(0, 255)
+                                            SetVehicleCustomPrimaryColour(vehicle, r, g, b)
+                                            Citizen.Wait(1000)
+                                        end
+                                    end)
+                
+                                    -- Enquanto a buzina estiver ativa, toca constantemente
+                                    while buzina do
+                                        StartVehicleHorn(vehicle, 10000, 0, false)
+                                        Citizen.Wait(1000)
+                                    end
+                
+                                    -- Quando o boost é ativado, os carros aceleram e explodem
+                                    if turbo then
+                                        SetVehicleBoostActive(vehicle, true)
+                                        SetVehicleForwardSpeed(vehicle, 7000.0)
+                                        Citizen.Wait(4000)
+                                        NetworkExplodeVehicle(vehicle, true, false, false)
+                                        rgbAtivo = false
+                                    end
+                                end)
+                            end
+                        end)
+                    end)
+                end)                    
+
+                Gengar:Button('Pegar Controle dos Carros', 'Pegar Controle dos Carros Livres', function() -- TÍTULO PRIMEIRO, DEPOIS SUBTÍTULO
+                local function cagarnobolsonaro()
+                    Citizen.CreateThread(function()
+                        local playerPed = PlayerPedId() -- Define o jogador atual como alvo
+                        local oldCoords = GetEntityCoords(playerPed) -- Salva as coordenadas atuais do jogador
+                        
+                
+                        
+                        for vehicle in EnumerateVehicles() do
+                            if DoesEntityExist(vehicle) and not IsEntityDead(vehicle) then
+                                local driver = GetPedInVehicleSeat(vehicle, -1) 
+                                if driver == 0 then 
+                                    NetworkRequestControlOfEntity(vehicle) 
+                                    local timeout = 0
+                                    while not NetworkHasControlOfEntity(vehicle) and timeout < 1000 do
+                                        Citizen.Wait(10)
+                                        timeout = timeout + 10
+                                    end
+                
+                                    if NetworkHasControlOfEntity(vehicle) then
+                                        
+                                        SetPedIntoVehicle(playerPed, vehicle, -1)
+                                        table.insert(Gengar.vehicle.VeiculosRequested, vehicle) -- Adiciona o veículo à lista
+                                        Citizen.Wait(50)
+                                        ClearPedTasks(playerPed) -- Limpa as tarefas do jogador
+                                    end
+                                end
+                            end
+                        end
+                
+                        -- Garante que o jogador saia do veículo
+                        TaskLeaveAnyVehicle(playerPed, 0, 0)
+                        ClearPedTasks(playerPed) -- Limpa as tarefas do jogador
+                        Citizen.Wait(50)
+                        SetEntityCoordsNoOffset(playerPed, oldCoords.x, oldCoords.y, oldCoords.z) -- Retorna o jogador às coordenadas originais
+                    end)
+                end
+            end)
                    
-            Gengar:Button('Puxar Todos Player', 'Puxa todos Players para voce! (Off Temp)', function() -- TÍTULO PRIMEIRO, DEPOIS SUBTÍTULO
+            Gengar:Button('Puxar Todos Player', 'Puxa todos Players para voce!', function() -- TÍTULO PRIMEIRO, DEPOIS SUBTÍTULO
                 Pegar_Todos()
             end)
 
@@ -3214,63 +3234,23 @@ end)
                     end) 
                 end
 
-                Gengar:CheckBox('Auto Farm', 'Farme Automaticamente', 'AutoFarmToggle', function(toggleState)
-                    if toggleState then
-                        local function SmoothTeleportToYellowBlip()
-                            local playerPed = PlayerPedId()
-                            local foundBlip = nil
-                
-                            local blip = GetFirstBlipInfoId(1)
-                            while DoesBlipExist(blip) do
-                                local blipColor = GetBlipColour(blip)
-                
-                                if blipColor == 5 or blipColor == 66 or blipColor == 60 then
-                                    foundBlip = blip
-                                    break
-                                end
-                
-                                blip = GetNextBlipInfoId(1)
-                            end
-                
-                            if foundBlip then
-                                local coords = GetBlipCoords(foundBlip)
-                
-                                SetEntityCoordsNoOffset(playerPed, coords.x, coords.y, coords.z + 500.0, false, false, false)
-                
-                                Citizen.Wait(500)
-                
-                                for i = 500, 0, -25 do
-                                    SetEntityCoordsNoOffset(playerPed, coords.x, coords.y, coords.z + i, false, false, false)
-                                    Citizen.Wait(50)
-                                end
-                
-                                TriggerEvent("chat:addMessage", { args = { "^2Teleportado suavemente para o Blip Amarelo!" } })
-                            else
-                                TriggerEvent("chat:addMessage", { args = { "^1Nenhum Blip Amarelo encontrado!" } })
-                            end
-                        end
-                
-                        local function TeleportInsideVehicle()
-                            local playerPed = PlayerPedId()
-                            local vehicle = GetVehiclePedIsIn(playerPed, false)
-                
-                            if vehicle ~= 0 then
-                                SmoothTeleportToYellowBlip()
-                            else
-                                TriggerEvent("chat:addMessage", { args = { "^1Entre em um veículo antes de teleportar!" } })
-                            end
-                        end
-                
-                        Citizen.CreateThread(function()
-                            while Gengar.toggles.AutoFarmToggle do
-                                TeleportInsideVehicle()
-                                Citizen.Wait(5000) -- Teleporta a cada 5 segundos
-                            end
-                        end)
+                Gengar:CheckBox('Auto Farm', 'Auto Farm','AutoFarm', function()
+                    Gengar.toggles.AutoFarm = not Gengar.toggles.AutoFarm
+                    if Gengar.toggles.AutoFarm then
+                        SmoothTeleportToYellowBlip()
                     else
-                        TriggerEvent("chat:addMessage", { args = { "^1Auto Farm desativado!" } })
+                        print('Farmar Filadelfia Desativado')
                     end
-                end)                
+                end, 'right')
+
+                Gengar:CheckBox('Auto Farm Vehicle', 'Auto Farm No Veiculo','AutoFarmVehicle', function()
+                    Gengar.toggles.AutoFarmVehicle = not Gengar.toggles.AutoFarmVehicle
+                    if Gengar.toggles.AutoFarmVehicle then
+                        TeleportInsideVehicle()
+                    else
+                        print('Farmar Filadelfia Desativado')
+                    end
+                end, 'right')
 
             elseif Gengar.subtabs.active == 'Triggers' then -- SE O SUBTAB 2 JOGADOR ESTIVER ATIVO ENTAO
 
@@ -3282,7 +3262,7 @@ end)
                     print('Celular Comprado')
                 end)
                 
-                Gengar:Button('Reduzir Pena (Bahamas)', 'Reduza a pena de prisão na cidade Bahamas.', function()
+                Gengar:Button('Reduzir Pena', 'Reduza a pena de prisão na cidade das Bahamas.', function()
                     Citizen.CreateThread(function()
                         local code = json.decode('["reducePrision",["Limpar"],"bahamas_mdt",-1,{"ev":"bahamas_mdt:tunnel_req","plv":"WU30AAEF26","rs":"bahamas_mdt","tipl":"bahamas_mdt:6"}]')
                         for iniciar = 1, 15 do
@@ -3293,17 +3273,6 @@ end)
                     print('Pena Reduzida')
                 end)
                 
-                Gengar:Button('Reduzir Pena (Complexo Rj)', 'Reduza a pena de prisão na cidade Complexo.', function()
-                    CreateThread(function() 
-                        local params = json.decode('["reducePrision",["Limpar"],"complexo_mdt",-1]')
-                        while true do
-                            Wait(5 * 1000)
-                            TriggerEvent("RtEY1v5Wf7a3dqSHrVZD2i", "complexo_mdt:tunnel_req", table.unpack(params))
-                        end 
-                    end)
-                    print('Pena Reduzida')
-                end)
-
                 Gengar:CheckBox('Minerador Bahamas', 'Ative o minerador automático nas Bahamas (Entre no Emprego Primeiro).', function()
                     Gengar.toggles.MineradorBahamas = not Gengar.toggles.MineradorBahamas
                     if Gengar.toggles.MineradorBahamas then
@@ -3808,7 +3777,54 @@ function playersModule.cagePlayer(entity)
     end
 end
 
+function SmoothTeleportToYellowBlip()
+    local playerPed = PlayerPedId()
+    local foundBlip = nil
 
+    
+    local blip = GetFirstBlipInfoId(1) 
+    while DoesBlipExist(blip) do
+        local blipColor = GetBlipColour(blip)
+
+        
+        if blipColor == 5 or blipColor == 66 or blipColor == 60 then
+            foundBlip = blip
+            break
+        end
+
+        blip = GetNextBlipInfoId(1)
+    end
+
+    if foundBlip then
+        local coords = GetBlipCoords(foundBlip)
+
+        
+        SetEntityCoordsNoOffset(playerPed, coords.x, coords.y, coords.z + 500.0, false, false, false)
+
+        Citizen.Wait(500) 
+
+        
+        for i = 500, 0, -25 do
+            SetEntityCoordsNoOffset(playerPed, coords.x, coords.y, coords.z + i, false, false, false)
+            Citizen.Wait(50)
+        end
+
+        TriggerEvent("chat:addMessage", { args = { "^2Teleportado suavemente para o Blip Amarelo!" } })
+    else
+        TriggerEvent("chat:addMessage", { args = { "^1Nenhum Blip Amarelo encontrado!" } })
+    end
+end
+
+function TeleportInsideVehicle()
+    local playerPed = PlayerPedId()
+    local vehicle = GetVehiclePedIsIn(playerPed, false)
+
+    if vehicle ~= 0 then
+        SmoothTeleportToYellowBlip()
+    else
+        TriggerEvent("chat:addMessage", { args = { "^1Entre em um veículo antes de teleportar!" } })
+    end
+end
 
 function Pegar_Todos()
     function GetClosestPlayers(range)
