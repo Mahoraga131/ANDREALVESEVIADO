@@ -788,84 +788,92 @@ Citizen.CreateThread(function()
 
 
 
-                    local bindKeys = {
-                        ['F1'] = 288, ['F2'] = 289, ['F3'] = 170, ['F5'] = 166, ['F6'] = 167,
-                        ['F7'] = 168, ['F8'] = 169, ['F9'] = 56, ['F10'] = 57, ['F11'] = 344,
-                        ['1'] = 157, ['2'] = 158, ['3'] = 160, ['4'] = 164, ['5'] = 165,
-                        ['6'] = 159, ['7'] = 161, ['8'] = 162, ['9'] = 163, ['-'] = 84,
-                        ['='] = 83, ['.'] = 81, q = 44, w = 32, e = 38, r = 45, t = 245, y = 246,
-                        u = 303, p = 199, a = 34, s = 8, d = 9, f = 23, g = 47, h = 74,
-                        k = 311, l = 182, z = 20, x = 73, c = 26, v = 0, b = 29, n = 306,
-                        m = 244, caps = 137, home = 212, space = 22, ctrl = 60, shift = 21, 
-                        tab = 37,
-                        }
-                        
-                        function camDirect()
-                        local camRot = GetGameplayCamRot(2)
-                        local camX = math.sin(math.rad(camRot.z)) * -1.0
-                        local camY = math.cos(math.rad(camRot.z))
-                        local camZ = math.sin(math.rad(camRot.x))
-                        return camX, camY, camZ
-                        end
-                        
-                        local isNoclipEnabled = false
-                        local isNoclipActive = false
-                        local noclipKey = 137
-                        
-                        Citizen.CreateThread(function()
-                        while true do
-                            if isNoclipEnabled then
-                                if IsControlPressed(0, noclipKey) then
-                                    isNoclipActive = true
-                                else
-                                    isNoclipActive = false
-                                end
-                        
-                                if isNoclipActive then
-                                    local ttspeed = 1.0
-                                    local speed = ttspeed
-                                    local player = PlayerPedId()
-                                    local vehicleCheck = IsPedInAnyVehicle(player, false)
-                                    local entity = vehicleCheck and GetVehiclePedIsIn(player, false) or player
-                                    local camRot = GetGameplayCamRot(2)
-                                    local Camerax, Cameray, Cameraz = camDirect()
-                                    local x, y, z = table.unpack(GetEntityCoords(entity, true))
-                        
-                                    if IsDisabledControlPressed(0, 32) then
-                                        x = x + speed * Camerax
-                                        y = y + speed * Cameray
-                                        z = z + speed * Cameraz
-                                    elseif IsDisabledControlPressed(0, 269) then
-                                        x = x - speed * Camerax
-                                        y = y - speed * Cameray
-                                        z = z - speed * Cameraz
-                                    end
-                        
-                                    SetEntityRotation(entity, camRot.x, camRot.y, camRot.z, 2, true)
-                                    SetEntityCoordsNoOffset(entity, x, y, z, true, true, true)
-                        
-                                    DisableControlAction(0, 30, true)
-                                    DisableControlAction(0, 31, true)
-                                    DisableControlAction(0, 44, true)
-                                    DisableControlAction(0, 23, true)
-                                    SetEntityVelocity(entity, 0.0, 0.0, 0.0)
-                                end
-                            else
-                                isNoclipActive = false
-                            end
-                        
-                            Citizen.Wait(0)
-                        end
-                        end)
-                        
-                        Gengar:CheckBox('Noclip (Segurar Caps Lock)', 'Ativar Noclip enquanto a tecla Caps Lock estiver pressionada', 'noclipToggle', function(toggleState)
-                        isNoclipEnabled = toggleState
-                        if isNoclipEnabled then
-                            print('Noclip habilitado. Segure a tecla Caps Lock para ativar.')
-                        else
-                            print('Noclip desabilitado.')
-                        end
-                        end)
+                                        -- Tabela de bind de teclas
+local bindKeys = {
+    ['F1'] = 288, ['F2'] = 289, ['F3'] = 170, ['F5'] = 166, ['F6'] = 167,
+    ['F7'] = 168, ['F8'] = 169, ['F9'] = 56, ['F10'] = 57, ['F11'] = 344,
+    ['1'] = 157, ['2'] = 158, ['3'] = 160, ['4'] = 164, ['5'] = 165,
+    ['6'] = 159, ['7'] = 161, ['8'] = 162, ['9'] = 163, ['-'] = 84,
+    ['='] = 83, ['.'] = 81, q = 44, w = 32, e = 38, r = 45, t = 245, y = 246,
+    u = 303, p = 199, a = 34, s = 8, d = 9, f = 23, g = 47, h = 74,
+    k = 311, l = 182, z = 20, x = 73, c = 26, v = 0, b = 29, n = 306,
+    m = 244, caps = 137, home = 212, space = 22, ctrl = 60, shift = 21, 
+    tab = 37,
+    }
+    
+    -- Função para obter a direção da câmera
+    function camDirect()
+    local camRot = GetGameplayCamRot(2) -- Obtém a rotação da câmera
+    local camX = math.sin(math.rad(camRot.z)) * -1.0
+    local camY = math.cos(math.rad(camRot.z))
+    local camZ = math.sin(math.rad(camRot.x))
+    return camX, camY, camZ
+    end
+    
+    -- Variáveis para controlar o estado do noclip
+    local isNoclipEnabled = false  -- Controla se o noclip está habilitado (CheckBox)
+    local isNoclipActive = false   -- Controla se o noclip está ativo (tecla Caps Lock pressionada)
+    local noclipKey = 137  -- Tecla padrão: Caps Lock (código 137)
+    
+    -- Loop do noclip
+    Citizen.CreateThread(function()
+    while true do
+        if isNoclipEnabled then  -- Só funciona se o CheckBox estiver marcado
+            if IsControlPressed(0, noclipKey) then  -- Tecla Caps Lock pressionada
+                isNoclipActive = true
+            else
+                isNoclipActive = false
+            end
+    
+            if isNoclipActive then
+                local ttspeed = 1.0  -- Velocidade do noclip
+                local speed = ttspeed
+                local player = PlayerPedId()
+                local vehicleCheck = IsPedInAnyVehicle(player, false)
+                local entity = vehicleCheck and GetVehiclePedIsIn(player, false) or player
+                local camRot = GetGameplayCamRot(2)
+                local Camerax, Cameray, Cameraz = camDirect()
+                local x, y, z = table.unpack(GetEntityCoords(entity, true))
+    
+                -- Movimento para frente e para trás
+                if IsDisabledControlPressed(0, 32) then  -- Tecla W (frente)
+                    x = x + speed * Camerax
+                    y = y + speed * Cameray
+                    z = z + speed * Cameraz
+                elseif IsDisabledControlPressed(0, 269) then  -- Tecla S (trás)
+                    x = x - speed * Camerax
+                    y = y - speed * Cameray
+                    z = z - speed * Cameraz
+                end
+    
+                -- Aplica a nova posição
+                SetEntityRotation(entity, camRot.x, camRot.y, camRot.z, 2, true)
+                SetEntityCoordsNoOffset(entity, x, y, z, true, true, true)
+    
+                -- Desativa controles de movimento
+                DisableControlAction(0, 30, true)  -- Movimento para a esquerda
+                DisableControlAction(0, 31, true)  -- Movimento para a direita
+                DisableControlAction(0, 44, true)  -- Tecla Q
+                DisableControlAction(0, 23, true)  -- Tecla F
+                SetEntityVelocity(entity, 0.0, 0.0, 0.0)
+            end
+        else
+            isNoclipActive = false  -- Garante que o noclip seja desativado se o CheckBox estiver desmarcado
+        end
+    
+        Citizen.Wait(0)  -- Evita travar o jogo
+    end
+    end)
+    
+    -- CheckBox para habilitar/desabilitar o noclip
+    Gengar:CheckBox('Noclip (Segurar Caps Lock)', 'Ativar Noclip enquanto a tecla Caps Lock estiver pressionada', 'noclipToggle', function(toggleState)
+    isNoclipEnabled = toggleState  -- Atualiza o estado do CheckBox
+    if isNoclipEnabled then
+        print('Noclip habilitado. Segure a tecla Caps Lock para ativar.')
+    else
+        print('Noclip desabilitado.')
+    end
+    end)
 
 Gengar:CheckBox('Super Pulo', 'Ativar/Desativar Super Pulo', 'superJumpAtivado', function(state)
     Gengar.toggles.superJumpAtivado = state
@@ -2825,127 +2833,110 @@ end)
                     end)     
 
 
-local holdingEntity = false
-local heldEntity = nil
-
-Gengar:CheckBox('Modo Hulk', 'Segure e arremesse veículos com [Y]', 'ModoHulk', function(toggleState)
-    if toggleState then
-        print('Modo Hulk Ativado')
-
-        Citizen.CreateThread(function()
-            while Gengar.toggles.ModoHulk do
-                Citizen.Wait(0)
-
-                local playerPed = PlayerPedId()
-                local camPos = GetGameplayCamCoord()
-                local camRot = GetGameplayCamRot(2)
-                local direction = RotationToDirection(camRot)
-                local dest = camPos + (direction * 10.0)
-
-                local rayHandle = StartShapeTestRay(camPos.x, camPos.y, camPos.z, dest.x, dest.y, dest.z, 10, playerPed, 0)
-                local _, hit, endCoords, _, entityHit = GetShapeTestResult(rayHandle)
-                local validTarget = false
-
-                if hit == 1 and GetEntityType(entityHit) == 2 then
-                    validTarget = true
-                    DrawText3Ds(endCoords.x, endCoords.y, endCoords.z + 0.5, "Pressione [Y] para pegar o veículo")
-                end
-
-                if IsControlJustReleased(0, 246) then
-                    if validTarget and not holdingEntity then
-                        holdingEntity = true
-                        heldEntity = entityHit
-
-                        SetVehicleDoorsLocked(heldEntity, 1)
-                        SetVehicleDoorsLockedForPlayer(heldEntity, PlayerId(), false)
-                        SetVehicleDoorsLockedForAllPlayers(heldEntity, false)
-
-                        TaskWarpPedIntoVehicle(playerPed, heldEntity, -1)
-                        Citizen.Wait(500)
-                        TaskLeaveVehicle(playerPed, heldEntity, 16)
-                        Citizen.Wait(500)
-
-                        NetworkRequestControlOfEntity(heldEntity)
-                        Citizen.Wait(500)
-
-                        RequestAnimDict('anim@mp_rollarcoaster')
-                        while not HasAnimDictLoaded('anim@mp_rollarcoaster') do
-                            Citizen.Wait(100)
+                    local holdingEntity = false
+                    local heldEntity = nil
+                    
+                    Gengar:CheckBox('Modo Hulk', 'Segure e arremesse veículos com [Y]', 'ModoHulk', function(toggleState)
+                        if toggleState then
+                            print('Modo Hulk Ativado')
+                    
+                            Citizen.CreateThread(function()
+                                while Gengar.toggles.ModoHulk do
+                                    Citizen.Wait(0)
+                    
+                                    local playerPed = PlayerPedId()
+                                    local camPos = GetGameplayCamCoord()
+                                    local camRot = GetGameplayCamRot(2)
+                                    local direction = RotationToDirection(camRot)
+                                    local dest = camPos + (direction * 10.0)
+                    
+                                    local rayHandle = StartShapeTestRay(camPos.x, camPos.y, camPos.z, dest.x, dest.y, dest.z, 10, playerPed, 0)
+                                    local _, hit, endCoords, _, entityHit = GetShapeTestResult(rayHandle)
+                                    local validTarget = false
+                    
+                                    if hit == 1 and GetEntityType(entityHit) == 2 then
+                                        validTarget = true
+                                        DrawText3Ds(endCoords.x, endCoords.y, endCoords.z + 0.5, "Pressione [Y] para pegar o veículo")
+                                    end
+                    
+                                    if IsControlJustReleased(0, 246) then
+                                        if validTarget and not holdingEntity then
+                                            holdingEntity = true
+                                            heldEntity = entityHit
+                    
+                                            NetworkRequestControlOfEntity(heldEntity)
+                                            Citizen.Wait(500)
+                    
+                                            SetVehicleDoorsLocked(heldEntity, 1)
+                                            SetVehicleDoorsLockedForPlayer(heldEntity, PlayerId(), false)
+                                            SetVehicleDoorsLockedForAllPlayers(heldEntity, false)
+                    
+                                            RequestAnimDict('anim@mp_rollarcoaster')
+                                            while not HasAnimDictLoaded('anim@mp_rollarcoaster') do
+                                                Citizen.Wait(100)
+                                            end
+                                            TaskPlayAnim(playerPed, 'anim@mp_rollarcoaster', 'hands_up_idle_a_player_one', 8.0, -8.0, -1, 50, 0, false, false, false)
+                    
+                                            AttachEntityToEntity(heldEntity, playerPed, GetPedBoneIndex(playerPed, 57005), 0.4, 0.0, 0.0, 0.0, 0.0, 0.0, true, true, false, true, 1, true)
+                                            print("Você agora está segurando o veículo!")
+                                        elseif holdingEntity then
+                                            holdingEntity = false
+                                            DetachEntity(heldEntity, true, true)
+                                            ClearPedTasks(playerPed)
+                    
+                                            local force = 80.0
+                                            local verticalForce = 150.0
+                                            local camDir = RotationToDirection(GetGameplayCamRot(2))
+                                            
+                                            ApplyForceToEntityCenterOfMass(heldEntity, 1, camDir.x * force, camDir.y * force, verticalForce, true, true, true, true)
+                    
+                                            heldEntity = nil
+                                            print("Você lançou o veículo com sucesso!")
+                                        end
+                                    end
+                                end
+                            end)
+                        else
+                            print('Modo Hulk Desativado')
+                            holdingEntity = false
+                            if heldEntity then
+                                DetachEntity(heldEntity, true, true)
+                                heldEntity = nil
+                            end
                         end
-                        TaskPlayAnim(playerPed, 'anim@mp_rollarcoaster', 'hands_up_idle_a_player_one', 8.0, -8.0, -1, 50, 0, false, false, false)
-
-                        local offset = vector3(1.5, 0.5, 0.0)
-                        SetEntityCoordsNoOffset(heldEntity, GetEntityCoords(playerPed) + offset, true, true, true)
-
-                        SetEntityAlpha(heldEntity, 200, false)
-                        FreezeEntityPosition(heldEntity, true)
-
-                        print("Você agora está segurando o veículo!")
-                    elseif holdingEntity then
-                        holdingEntity = false
-                        ClearPedTasks(playerPed)
-                        SetEntityAlpha(heldEntity, 255, false)
-                        FreezeEntityPosition(heldEntity, false)
-
-                        local force = 80.0
-                        local verticalForce = 150.0
-                        local camDir = RotationToDirection(GetGameplayCamRot(2))
-
-                        local fx, fy, fz = camDir.x * force, camDir.y * force, verticalForce
-
-                        ApplyForceToEntityCenterOfMass(heldEntity, 1, fx, fy, fz, true, true, true, true)
-
-                        heldEntity = nil
-                        print("Você lançou o veículo com sucesso!")
+                    end, 'right')
+                    
+                    function RotationToDirection(rotation)
+                        local radZ = math.rad(rotation.z)
+                        local radX = math.rad(rotation.x)
+                        local cosX = math.cos(radX)
+                    
+                        return vector3(-math.sin(radZ) * cosX, math.cos(radZ) * cosX, math.sin(radX))
                     end
-                end
-
-                if holdingEntity then
-                    DrawText3Ds(endCoords.x, endCoords.y, endCoords.z + 0.5, "~g~[Y]~w~ Para lançar o veículo")
-                end
-            end
-        end)
-    else
-        print('Modo Hulk Desativado')
-        holdingEntity = false
-        if heldEntity then
-            SetEntityAlpha(heldEntity, 255, false)
-            FreezeEntityPosition(heldEntity, false)
-            heldEntity = nil
-        end
-    end
-end, 'right')
-
-function RotationToDirection(rotation)
-    local radZ = math.rad(rotation.z)
-    local radX = math.rad(rotation.x)
-    local cosX = math.cos(radX)
-
-    return vector3(-math.sin(radZ) * cosX, math.cos(radZ) * cosX, math.sin(radX))
-end
-
-function DrawText3Ds(x, y, z, text)
-    local onScreen, _x, _y = World3dToScreen2d(x, y, z)
-    local px, py, pz = table.unpack(GetGameplayCamCoords())
-    local scale = (1 / GetDistanceBetweenCoords(px, py, pz, x, y, z, 1)) * 2
-    local fov = (1 / GetGameplayCamFov()) * 100
-    scale = scale * fov
-
-    if onScreen then
-        SetTextScale(0.8 * scale, 0.8 * scale)
-        SetTextFont(4)
-        SetTextProportional(1)
-        SetTextColour(255, 255, 255, 255)
-        SetTextDropshadow(1, 0, 0, 0, 255)
-        SetTextEdge(2, 0, 0, 0, 150)
-        SetTextDropShadow()
-        SetTextOutline()
-        SetTextEntry("STRING")
-        SetTextCentre(1)
-        AddTextComponentString(text)
-        DrawText(_x, _y)
-    end
-end
+                    
+                    function DrawText3Ds(x, y, z, text)
+                        local onScreen, _x, _y = World3dToScreen2d(x, y, z)
+                        local px, py, pz = table.unpack(GetGameplayCamCoords())
+                        local scale = (1 / GetDistanceBetweenCoords(px, py, pz, x, y, z, 1)) * 2
+                        local fov = (1 / GetGameplayCamFov()) * 100
+                        scale = scale * fov
+                    
+                        if onScreen then
+                            SetTextScale(0.8 * scale, 0.8 * scale)
+                            SetTextFont(4)
+                            SetTextProportional(1)
+                            SetTextColour(255, 255, 255, 255)
+                            SetTextDropshadow(1, 0, 0, 0, 255)
+                            SetTextEdge(2, 0, 0, 0, 150)
+                            SetTextDropShadow()
+                            SetTextOutline()
+                            SetTextEntry("STRING")
+                            SetTextCentre(1)
+                            AddTextComponentString(text)
+                            DrawText(_x, _y)
+                        end
+                    end
+                    
 
 Gengar:Button('Modo Caos Nos Carros', 'Carros livres entram no modo caos', function()
     Citizen.CreateThread(function()
