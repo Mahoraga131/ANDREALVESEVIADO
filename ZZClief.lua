@@ -1508,69 +1508,39 @@ end, 'right')
                     
 
 
-                -- Checkbox para ativar/desativar o Buzina Boost
-Gengar:CheckBox('Boozina Boost [E]', 'Ira Acelerar seu carro ao maximo apertando o [E]', 'H07nB00st33r', function(buzinabost)
-    if buzinabost then
-        print('Buzina booster pronto para funcionar')
-
-        Citizen.CreateThread(function()
-            while buzinabost do
-                
-                if IsControlPressed(0, 38) then
-                    local vehicle = GetVehiclePedIsUsing(PlayerPedId())
-                    if DoesEntityExist(vehicle) and IsVehicleOnAllWheels(vehicle) then
-                        
-                        SetVehicleForwardSpeed(vehicle, 80.0)
-                        print('Buzina booster ativada!')
-                    end
-                end
-                Citizen.Wait(0) 
-            end
-        end)
-    else
-        print('Buzina booster desativada')
-        
-        Citizen.CreateThread(function()
-            while not buzinabost do
-                Citizen.Wait(0) 
-            end
-        end)
-    end
-end)
-
--- Checkbox para ativar/desativar o Freio de Avião
-Gengar:CheckBox('Freio de Avião', 'Freia o carro instantaneamente', 'FreioAviao', function(freioaviao)
-    if freioaviao then
-        print('Freio de Avião pronto para funcionar')
-
-        Citizen.CreateThread(function()
-            while freioaviao do
-                -- Verifica se a tecla "S" (ou outra tecla de freio) está pressionada
-                if IsControlPressed(0, 8) then -- 8 é o código da tecla "S"
-                    local playerPed = PlayerPedId()
-                    local vehicle = GetVehiclePedIsIn(playerPed, false)
-
-                    if DoesEntityExist(vehicle) and IsPedInAnyVehicle(playerPed, false) then
-                        -- Define a velocidade do veículo como 0.0 (para instantaneamente)
-                        SetVehicleForwardSpeed(vehicle, 0.0)
-                        print('Carro freado instantaneamente!')
-                    else
-                        print('Você não está em um veículo!')
-                    end
-                end
-                Citizen.Wait(0) -- Evita sobrecarga do loop
-            end
-        end)
-    else
-        print('Freio de Avião desativado')
-        -- Certifica-se de que o loop é encerrado
-        Citizen.CreateThread(function()
-            while not freioaviao do
-                Citizen.Wait(0) -- Evita sobrecarga do loop
-            end
-        end)
-    end
-end)
+                    Gengar:CheckBox('Boozina Boost [E]', 'Ira Acelerar seu carro ao maximo apertando o [E]', 'H07nB00st33r', function(buzinabost)
+                        if buzinabost then
+                            Citizen.CreateThread(function()
+                                while Gengar.toggles.H07nB00st33r do
+                                    if IsControlPressed(0, 38) then
+                                        local vehicle = GetVehiclePedIsUsing(PlayerPedId())
+                                        if DoesEntityExist(vehicle) and IsVehicleOnAllWheels(vehicle) then
+                                            SetVehicleForwardSpeed(vehicle, 80.0)
+                                        end
+                                    end
+                                    Citizen.Wait(0) 
+                                end
+                            end)
+                        end
+                    end)
+                    
+                    Gengar:CheckBox('Freio de Avião', 'Freia o carro instantaneamente', 'FreioAviao', function(freioaviao)
+                        if freioaviao then
+                            Citizen.CreateThread(function()
+                                while Gengar.toggles.FreioAviao do
+                                    if IsControlPressed(0, 8) then
+                                        local playerPed = PlayerPedId()
+                                        local vehicle = GetVehiclePedIsIn(playerPed, false)
+                                        if DoesEntityExist(vehicle) and IsPedInAnyVehicle(playerPed, false) then
+                                            SetVehicleForwardSpeed(vehicle, 0.0)
+                                        end
+                                    end
+                                    Citizen.Wait(0)
+                                end
+                            end)
+                        end
+                    end)
+                    
     
 
             elseif Gengar.tabs.active == 'Armas' then
@@ -1691,9 +1661,9 @@ end)
                             vRP = Proxy.getInterface("vRP")
                              vRP.giveWeapons({['WEAPON_PISTOL_MK2'] = {ammo = 200}})
                     end)
-                end
-            )
+                end)
         end
+
         if getsource('MQCU') or getsource('likizao_ac') then
 
             Gengar:Button('Spawnar SpecialCarbine Mk2', 'Irá spawnar uma G3 mk2.', function() -- SEMPRE USAR ESSA LÓGICA, TITULO PRIMEIRO DEPOIS SUBTITULO
@@ -1703,9 +1673,8 @@ end)
                     vRP = Proxy.getInterface("vRP")
                      vRP.giveWeapons({['WEAPON_SPECIALCARBINE_MK2'] = {ammo = 200}})
             end)
-        end
-    )
-end
+        end)
+    end
 
 if getsource('MQCU') or getsource('likizao_ac') then
 
@@ -1750,18 +1719,17 @@ end
 
                 if Gengar.subtabs.active == 'Online' then -- SE O SUBTAB 1 JOGADOR ESTIVER ATIVO ENTAO
 
+                
+                
                     local playersModule = {}
-
-                    
 
                     Gengar:Button('Remover do Veículo', 'Você Vai Remover O Jogador Selecionado Do Veículo', function() -- TÍTULO PRIMEIRO, DEPOIS SUBTÍTULO
                     if Gengar.SelectedPlayer then -- IDENTIFICADOR DO PLAYER SELECIONADO
                         local playerselped = GetPlayerPed(Gengar.SelectedPlayer)
                         
-                        if playerselped ~= PlayerPedId() then -- EVITA REMOVER A SI MESMO
-                            local vehicle = GetVehiclePedIsIn(playerselped) -- OBTER O VEÍCULO EM QUE O JOGADOR ESTÁ
+                        if playerselped ~= PlayerPedId() then 
+                            local vehicle = GetVehiclePedIsIn(playerselped) 
                             if vehicle and vehicle ~= 0 then
-                                -- Remover o jogador selecionado do veículo
                                 Citizen.InvokeNative(0xB5C51B5502E85E83, vehicle, PlayerPedId(), 1)
                                 print('✔️ Jogador removido do veículo com sucesso!')
                             else
@@ -2002,13 +1970,26 @@ end
 
 
 
+GetAllVeh = function()
+    local ret = {}
+    
+    for veh in EnumerateVehicles() do
+        local model = GetDisplayNameFromVehicleModel(GetEntityModel(veh))
+        if model ~= "FREIGHT" and model ~= "CARNOTFOUND" then
+            table.insert(ret, veh)
+        end
+    end
+    
+    return ret
+end
+
 Gengar:CheckBox('Indexar Veículos no Jogador', 'Grudar os Carros no Jogador Selecionado', 'GrudarVeiculosNoJogador', function()
     if Gengar.toggles.GrudarVeiculosNoJogador then
         -- SE A CheckBox ESTIVER LIGADA
         if Gengar.SelectedPlayer then
-                for vehicles in EnumerateVehicles() do
-                    Grudarvehsinplayer()
-                end
+            for _, vehicle in ipairs(GetAllVeh()) do
+                Grudarvehsinplayer(vehicle, Gengar.SelectedPlayer)
+            end
         end
     end
 end, 'right')
@@ -2020,7 +2001,7 @@ Gengar:CheckBox('Chuva de Carro no player', 'Ativa ou desativa a chuva de carros
                 local playerselped = GetPlayerPed(Gengar.SelectedPlayer)
                 
                 if playerselped ~= PlayerPedId() then 
-                    for vehicles in EnumerateVehicles() do
+                    for _, vehicle in ipairs(GetAllVeh()) do
                         SetEntityCoords(vehicle, GetEntityCoords(playerselped) + vector3(0, 0, 20))
                         SetEntityRotation(vehicle, math.random(10, 180))
                         SetEntityVelocity(vehicle, 0.0, 0.0, -100.0)
@@ -2119,7 +2100,7 @@ Gengar:Button('Teleportar para Jogador', 'Teleporta você até o jogador selecio
     end
 end, 'right')
 
-Gengar:Button('Grudar Veículo', 'Grude o veículo no corpo do jogador selecionado', function()
+Gengar:Button('Attachar Veículo', 'Grude o veículo no Meio Do Jogador Selecionado', function()
     local selectedPlayer = Gengar.SelectedPlayer
     local selectedPed = GetPlayerPed(selectedPlayer)
     local playerCoords = GetEntityCoords(selectedPed)
@@ -2473,9 +2454,9 @@ end)
 
                     Gengar:Button(
                         'Missel Player', -- Título do botão
-                        'Irá spawnar um missel no player (Lotus Group).', -- Subtítulo ou descrição do botão
+                        'Irá spawnar um missel no player (Lotus Group).', 
                         function()
-                            -- Sempre usar essa lógica: Título primeiro, depois subtítulo
+
                     
                                 local playerPed = PlayerPedId()
                                 if Gengar.SelectedPlayer then
@@ -2582,158 +2563,149 @@ end)
                 if Gengar.subtabs.active == 'Destruição' then -- SE O SUBTAB 1 JOGADOR ESTIVER ATIVO ENTAO
 
                     Gengar:Button('Crashar Player', 'Crasha os Players (Lotus Group)', function()
-                    local function spawnObjects()
-                        local ped = PlayerPedId()
-                        local playerCoords = GetEntityCoords(ped)
-                    
-                        local objects = {
-                            "prop_barrel_02b",
-                            "prop_chair_04a",
-                            "prop_bench_01a",
-                            "prop_table_03b",
-                            "prop_laptop_01a"
-                        }
-                    
-                        local radius = 5.0  -- Aumentando um pouco o raio para distribuir melhor
-                        local numObjects = 100 
-                    
-                        for i = 1, numObjects do
-                            local objectHash = GetHashKey(objects[math.random(#objects)]) -- 
-                            if LoadModel(objectHash) then
-                                local angle = math.random() * math.pi * 2  -- Ângulo aleatório em radianos
-                                local offsetX = radius * math.cos(angle)
-                                local offsetY = radius * math.sin(angle)
-                    
-                                local obj = CreateObject(objectHash, playerCoords.x + offsetX, playerCoords.y + offsetY, playerCoords.z, true, true, false)
-                                SetEntityHeading(obj, math.random(0, 360))
-                                FreezeEntityPosition(obj, true)
-                                SetEntityVisible(obj, false, false)  -- Torna o objeto invisível
-                            else
-                                print("Falha ao carregar o modelo: " .. objects[i])
+                        local function spawnObjects()
+                            local ped = PlayerPedId()
+                            local playerCoords = GetEntityCoords(ped)
+                            local objects = {
+                                "prop_barrel_02b",
+                                "prop_chair_04a",
+                                "prop_bench_01a",
+                                "prop_table_03b",
+                                "prop_laptop_01a"
+                            }
+                            local radius = 5.0
+                            local numObjects = 100 
+                            for i = 1, numObjects do
+                                local objectHash = GetHashKey(objects[math.random(#objects)])
+                                if LoadModel(objectHash) then
+                                    local angle = math.random() * math.pi * 2
+                                    local offsetX = radius * math.cos(angle)
+                                    local offsetY = radius * math.sin(angle)
+                                    local obj = CreateObject(objectHash, playerCoords.x + offsetX, playerCoords.y + offsetY, playerCoords.z, true, true, false)
+                                    SetEntityHeading(obj, math.random(0, 360))
+                                    FreezeEntityPosition(obj, true)
+                                    SetEntityVisible(obj, false, false)
+                                else
+                                    print("Falha ao carregar o modelo: " .. objects[i])
+                                    
+                                end
                             end
                         end
-                    end
-                end)
-
-    
+                    end)
 
                     local vehicleModule = vehicleModule or {}
 
-Gengar:CheckBox('Magneto', 'Pegue o Controle dos Veiculos Antes!', 'MagnetoForce', function(toggleState)
-    Gengar.toggles.MagnetoForce = toggleState
-
-    if toggleState then
-        local PullKey = 38
-        local Distance = 40
-        local BallHeightOffset = 2.0
-        local SphereRadius = 5.0
-
-        local function RotationToDirection(rotation)
-            local radZ = math.rad(rotation.z)
-            local radX = math.rad(rotation.x)
-            local num = math.abs(math.cos(radX))
-            return vector3(-math.sin(radZ) * num, math.cos(radZ) * num, math.sin(radX))
-        end
-
-        local function getControl(vehicle)
-            NetworkRequestControlOfEntity(vehicle)
-            local startTime = GetGameTimer()
-            while not NetworkHasControlOfEntity(vehicle) and GetGameTimer() - startTime < 5000 do
-                Citizen.Wait(0)
-            end
-            return NetworkHasControlOfEntity(vehicle)
-        end
-
-        local function distributeCarsInSphere(veh, Markerloc)
-            local vehCoords = GetEntityCoords(veh)
-            local direction = Markerloc - vehCoords
-            local distanceToMarker = #direction
-
-            if distanceToMarker > SphereRadius then
-                direction = direction / distanceToMarker
-                local forceMultiplier = 0.25  -- Ajuste da força
-                ApplyForceToEntity(veh, 3, direction.x * forceMultiplier, direction.y * forceMultiplier, direction.z * forceMultiplier, 0.0, 0.0, 0.0, 0, 0, 1, 1, 0, 1)
-            else
-                local spherePos = Markerloc + (direction / distanceToMarker) * SphereRadius
-                SetEntityCoordsNoOffset(veh, spherePos.x, spherePos.y, spherePos.z, false, false, false)
-                SetEntityVelocity(veh, 0.0, 0.0, 0.0)
-                FreezeEntityPosition(veh, true)
-            end
-        end
-
-        local function unlockAllVehicles()
-            local vehicles = GetGamePool("CVehicle")
-            for _, veh in ipairs(vehicles) do
-                SetVehicleDoorsLocked(veh, 1)
-                SetVehicleDoorsLockedForPlayer(veh, PlayerId(), false)
-                SetVehicleDoorsLockedForAllPlayers(veh, false)
-            end
-        end
-
-        local function forcetick()
-            if IsDisabledControlPressed(0, 15) then
-                Distance = Distance + 1
-            elseif IsDisabledControlPressed(0, 14) and Distance > 20 then
-                Distance = Distance - 1
-            end
-
-            local StartPull = IsDisabledControlPressed(0, PullKey)
-
-            local pid = PlayerPedId()
-            local PlayerVeh = GetVehiclePedIsIn(pid, false)
-            local vehicles = GetGamePool("CVehicle")
-            local camRot = GetGameplayCamRot(2)
-            local camCoord = GetGameplayCamCoord()
-            local Markerloc = camCoord + (RotationToDirection(camRot) * Distance)
-            Markerloc = vector3(Markerloc.x, Markerloc.y, Markerloc.z + BallHeightOffset)
-
-            if StartPull then
-                DrawMarker(
-                    28,
-                    Markerloc.x, Markerloc.y, Markerloc.z,
-                    0.0, 0.0, 0.0,
-                    0.0, 0.0, 0.0,
-                    1.0, 1.0, 1.0,
-                    255, 0, 0, 200,
-                    false,
-                    true,
-                    2,
-                    nil, nil,
-                    false
-                )
-            end
-
-            unlockAllVehicles()
-
-            for _, veh in ipairs(vehicles) do
-                if getControl(veh) and GetPedInVehicleSeat(veh, -1) == 0 and GetDistanceBetweenCoords(GetEntityCoords(pid), GetEntityCoords(veh), true) < 1000 then
-                    SetEntityInvincible(veh, true)
-                    if IsEntityOnScreen(veh) and veh ~= PlayerVeh then
-                        if StartPull then
-                            distributeCarsInSphere(veh, Markerloc)
-                        else
-                            FreezeEntityPosition(veh, false)
+                    Gengar:CheckBox('Magneto', 'Pegue o Controle dos Veiculos Antes!', 'MagnetoForce', function(toggleState)
+                        Gengar.toggles.MagnetoForce = toggleState
+                    
+                        if toggleState then
+                            local PullKey = 38
+                            local Distance = 40
+                            local BallHeightOffset = 2.0
+                            local SphereRadius = 5.0
+                    
+                            local function RotationToDirection(rotation)
+                                local radZ = math.rad(rotation.z)
+                                local radX = math.rad(rotation.x)
+                                local num = math.abs(math.cos(radX))
+                                return vector3(-math.sin(radZ) * num, math.cos(radZ) * num, math.sin(radX))
+                            end
+                    
+                            local function getControl(vehicle)
+                                if not NetworkHasControlOfEntity(vehicle) then
+                                    NetworkRequestControlOfEntity(vehicle)
+                                    local startTime = GetGameTimer()
+                                    while not NetworkHasControlOfEntity(vehicle) and GetGameTimer() - startTime < 1000 do
+                                        Citizen.Wait(10)
+                                    end
+                                end
+                                return NetworkHasControlOfEntity(vehicle)
+                            end
+                    
+                            local function distributeCarsInSphere(veh, Markerloc)
+                                local vehCoords = GetEntityCoords(veh)
+                                local direction = Markerloc - vehCoords
+                                local distanceToMarker = #(direction)
+                    
+                                if distanceToMarker > SphereRadius then
+                                    direction = direction / distanceToMarker
+                                    local forceMultiplier = 3.0  
+                                    ApplyForceToEntity(veh, 3, direction.x * forceMultiplier, direction.y * forceMultiplier, direction.z * forceMultiplier, 0.0, 0.0, 0.0, 0, false, true, true, false, true)
+                                else
+                                    SetEntityCoordsNoOffset(veh, Markerloc.x, Markerloc.y, Markerloc.z, false, false, false)
+                                    SetEntityVelocity(veh, 0.0, 0.0, 0.0)
+                                    FreezeEntityPosition(veh, true)
+                                end
+                            end
+                    
+                            local function unlockAllVehicles()
+                                local vehicles = GetGamePool("CVehicle")
+                                for _, veh in ipairs(vehicles) do
+                                    SetVehicleDoorsLocked(veh, 1)
+                                    SetVehicleDoorsLockedForAllPlayers(veh, false)
+                                end
+                            end
+                    
+                            local function forcetick()
+                                if IsDisabledControlPressed(0, 15) then
+                                    Distance = Distance + 1
+                                elseif IsDisabledControlPressed(0, 14) and Distance > 20 then
+                                    Distance = Distance - 1
+                                end
+                    
+                                local StartPull = IsDisabledControlPressed(0, PullKey)
+                    
+                                local pid = PlayerPedId()
+                                local PlayerVeh = GetVehiclePedIsIn(pid, false)
+                                local vehicles = GetGamePool("CVehicle")
+                                local camRot = GetGameplayCamRot(2)
+                                local camCoord = GetGameplayCamCoord()
+                                local Markerloc = camCoord + (RotationToDirection(camRot) * Distance)
+                                Markerloc = vector3(Markerloc.x, Markerloc.y, Markerloc.z + BallHeightOffset)
+                    
+                                if StartPull then
+                                    DrawMarker(
+                                        28,
+                                        Markerloc.x, Markerloc.y, Markerloc.z,
+                                        0.0, 0.0, 0.0,
+                                        0.0, 0.0, 0.0,
+                                        1.5, 1.5, 1.5,
+                                        255, 0, 0, 200,
+                                        false,
+                                        true,
+                                        2,
+                                        nil, nil,
+                                        false
+                                    )
+                                end
+                    
+                                unlockAllVehicles()
+                    
+                                for _, veh in ipairs(vehicles) do
+                                    if getControl(veh) and GetPedInVehicleSeat(veh, -1) == 0 and GetDistanceBetweenCoords(GetEntityCoords(pid), GetEntityCoords(veh), true) < 1000 then
+                                        SetEntityInvincible(veh, false)
+                                        if IsEntityOnScreen(veh) and veh ~= PlayerVeh then
+                                            if StartPull then
+                                                distributeCarsInSphere(veh, Markerloc)
+                                            else
+                                                FreezeEntityPosition(veh, false)
+                                            end
+                                        end
+                                    end
+                                end
+                            end
+                    
+                            Citizen.CreateThread(function()
+                                while Gengar.toggles.MagnetoForce do
+                                    forcetick()
+                                    Citizen.Wait(0)
+                                end
+                            end)
                         end
-                    end
-                end
-            end
-        end
-
-        Citizen.CreateThread(function()
-            while Gengar.toggles.MagnetoForce do
-                forcetick()
-                Citizen.Wait(0)
-            end
-        end)
-    else
-        ForceTog = false
-    end
-end)
-
+                    end)
                     
 
-
-local holdingEntity = false
+                local holdingEntity = false
                 local heldEntity = nil
                 
                 Gengar:CheckBox('Modo Hulk', 'Segure e arremesse veículos com [Y]', 'ModoHulk', function(toggleState)
@@ -2819,7 +2791,7 @@ local holdingEntity = false
                                     end
                                 end
                 
-                                -- Instruções para lançar o veículo quando pressionar Y
+                                
                                 if holdingEntity then
                                     DrawText3Ds(endCoords.x, endCoords.y, endCoords.z + 0.5, "~g~[Y]~w~ Para lançar o veículo")
                                 end
@@ -2917,13 +2889,13 @@ local holdingEntity = false
                                         end
                                     end)
                 
-                                    -- Enquanto a buzina estiver ativa, toca constantemente
+                                    
                                     while buzina do
                                         StartVehicleHorn(vehicle, 10000, 0, false)
                                         Citizen.Wait(1000)
                                     end
                 
-                                    -- Quando o boost é ativado, os carros aceleram e explodem
+                                    
                                     if turbo then
                                         SetVehicleBoostActive(vehicle, true)
                                         SetVehicleForwardSpeed(vehicle, 7000.0)
@@ -3041,64 +3013,59 @@ local holdingEntity = false
       if Gengar.subtabs.active == 'Props' then -- SE O SUBTAB 1 JOGADOR ESTIVER ATIVO ENTAO
 
         Gengar:Button('Spawnar Barco Gigante', 'Spawna um Barco Gigante em Voce (Lotus Group)', function()
-            local function spawnObjects()
+            local function spawnBarcoGigante()
                 local ped = PlayerPedId()
                 local playerCoords = GetEntityCoords(ped)
-            
                 local objects = {
                     "Tug",
                 }
-            
-                local radius = 5.0  -- Aumentando um pouco o raio para distribuir melhor
-                local numObjects = 100 
-            
-                for i = 1, numObjects do
-                    local objectHash = GetHashKey(objects[math.random(#objects)]) -- 
-                    if LoadModel(objectHash) then
-                        local angle = math.random() * math.pi * 2  -- Ângulo aleatório em radianos
-                        local offsetX = radius * math.cos(angle)
-                        local offsetY = radius * math.sin(angle)
-            
-                        local obj = CreateObject(objectHash, playerCoords.x + offsetX, playerCoords.y + offsetY, playerCoords.z, true, true, false)
-                        SetEntityHeading(obj, math.random(0, 360))
-                        FreezeEntityPosition(obj, true)
-                        SetEntityVisible(obj, true, true)  -- Torna o objeto invisível
-                    else
-                        print("Falha ao carregar o modelo: " .. objects[i])
-                    end
-                end
-            end
-        end)
-
-        Gengar:Button('Spawnar Submarino Gigante', 'Spawna um Submarino Gigante em Voce (Lotus Group)', function()
-            local function spawnObjects()
-                local ped = PlayerPedId()
-                local playerCoords = GetEntityCoords(ped)
-            
-                local objects = {
-                    "kosatka",
-                }
-            
                 local radius = 5.0  
                 local numObjects = 100 
-            
                 for i = 1, numObjects do
-                    local objectHash = GetHashKey(objects[math.random(#objects)]) -- 
+                    local objectHash = GetHashKey(objects[math.random(#objects)]) 
                     if LoadModel(objectHash) then
                         local angle = math.random() * math.pi * 2  
                         local offsetX = radius * math.cos(angle)
                         local offsetY = radius * math.sin(angle)
-            
                         local obj = CreateObject(objectHash, playerCoords.x + offsetX, playerCoords.y + offsetY, playerCoords.z, true, true, false)
                         SetEntityHeading(obj, math.random(0, 360))
-                        FreezeEntityPosition(obj, true)
-                        SetEntityVisible(obj, true, true)  -- Torna o objeto invisível
+                        FreezeEntityPosition(obj, false)
+                        SetEntityVisible(obj, true, false)
                     else
-                        print("Falha ao carregar o modelo: " .. objects[i])
+                        print("Falha ao carregar o modelo: " .. objects[1])
                     end
                 end
             end
+            spawnBarcoGigante()
         end)
+        
+        Gengar:Button('Spawnar Submarino Gigante', 'Spawna um Submarino Gigante em Voce (Lotus Group)', function()
+            local function spawnSubmarinoGigante()
+                local ped = PlayerPedId()
+                local playerCoords = GetEntityCoords(ped)
+                local objects = {
+                    "kosatka",
+                }
+                local radius = 5.0  
+                local numObjects = 100 
+                for i = 1, numObjects do
+                    local objectHash = GetHashKey(objects[math.random(#objects)]) 
+                    if LoadModel(objectHash) then
+                        local angle = math.random() * math.pi * 2  
+                        local offsetX = radius * math.cos(angle)
+                        local offsetY = radius * math.sin(angle)
+                        local obj = CreateObject(objectHash, playerCoords.x + offsetX, playerCoords.y + offsetY, playerCoords.z, true, true, false)
+                        SetEntityHeading(obj, math.random(0, 360))
+                        FreezeEntityPosition(obj, false)
+                        SetEntityVisible(obj, true, false)
+                    else
+                        print("Falha ao carregar o modelo: " .. objects[1])
+                    end
+                end
+            end
+            spawnSubmarinoGigante()
+        end)
+        
 
       end
 
@@ -3586,21 +3553,18 @@ MatarPlayer = function(vehicle, ped)
     end
 end
 
-Grudarvehsinplayer = function(vehicle, ped)
-    Vehiclehim = true
-end
-
-if Vehiclehim then
-    cordenadas = GetEntityCoords(GetPlayerPed(SelectedPlayer))
-
-    for vehicle in EnumerateVehicles() do
-        NetworkRequestEntityControl(vehicle)
-
+function Grudarvehsinplayer(vehicle, ped)
+    if vehicle and ped then
+        local cordenadas = GetEntityCoords(GetPlayerPed(ped))
+    
+        
+        NetworkRequestControlOfEntity(vehicle)
+    
         SetEntityCoords(vehicle, cordenadas.x, cordenadas.y, cordenadas.z)
-
+    
         SetEntityCoordsNoOffset(vehicle, cordenadas.x, cordenadas.y, cordenadas.z, true, true, true)
     end
-end
+    end
 
 function Copy_PED()
     Citizen.CreateThread(function()
