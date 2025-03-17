@@ -1685,8 +1685,8 @@ if getsource('MQCU') or getsource('likizao_ac') then
             vRP = Proxy.getInterface("vRP")
              vRP.giveWeapons({['WEAPON_ASSAULTRIFLE_MK2'] = {ammo = 200}})
     end)
-end
-)
+end)
+
 end
 
 if getsource('MQCU') or getsource('likizao_ac') then
@@ -1702,6 +1702,17 @@ Gengar:Button("Spawnar Pistol Mk2", function()
 end)
 end)
 end
+
+
+
+Gengar:CheckBox('Bugar Arma na Mão', 'Buga a Arma na sua Mão', 'Togglearmitanamaozita', function(toggleState)
+    if toggleState then 
+        armitanamaozita()
+            print('GodMode ativado.')
+    else
+        print('GodMode desativado.')
+    end
+end)
 
 if getsource('PL_PROTECT') or getsource('ThnAC')  then
 Gengar:Button('Indisponivel', 'Servidor sem suporte de [BYPASS].', function() -- SEMPRE USAR ESSA LÓGICA, TITULO PRIMEIRO DEPOIS SUBTITULO
@@ -2726,64 +2737,64 @@ end)
                                 local _, hit, endCoords, _, entityHit = GetShapeTestResult(rayHandle)
                                 local validTarget = false
                 
-                                -- Verifica se o raio bateu em um veículo
+                                
                                 if hit == 1 and GetEntityType(entityHit) == 2 then
                                     validTarget = true
                                     DrawText3Ds(endCoords.x, endCoords.y, endCoords.z + 0.5, "Pressione [Y] para pegar o veículo")
                                 end
                 
-                                -- Quando o jogador apertar a tecla Y
+                                
                                 if IsControlJustReleased(0, 246) then
                                     if validTarget and not holdingEntity then
-                                        -- Pega o veículo
+                                        
                                         holdingEntity = true
                                         heldEntity = entityHit
                 
-                                        -- Destranca o veículo
+                                        
                                         SetVehicleDoorsLocked(heldEntity, 1)
                                         SetVehicleDoorsLockedForPlayer(heldEntity, PlayerId(), false)
                                         SetVehicleDoorsLockedForAllPlayers(heldEntity, false)
                 
-                                        -- Força o jogador a entrar no veículo
+                                        
                                         TaskWarpPedIntoVehicle(playerPed, heldEntity, -1)
                                         Citizen.Wait(500)
                                         TaskLeaveVehicle(playerPed, heldEntity, 16)
                                         Citizen.Wait(500)
                 
-                                        -- Solicita controle do veículo
+                                        
                                         NetworkRequestControlOfEntity(heldEntity)
                                         Citizen.Wait(500)
                 
-                                        -- Toca animação de segurar algo
+                                       
                                         RequestAnimDict('anim@mp_rollarcoaster')
                                         while not HasAnimDictLoaded('anim@mp_rollarcoaster') do
                                             Citizen.Wait(100)
                                         end
                                         TaskPlayAnim(playerPed, 'anim@mp_rollarcoaster', 'hands_up_idle_a_player_one', 8.0, -8.0, -1, 50, 0, false, false, false)
                 
-                                        -- Anexa o veículo ao jogador
+                                        
                                         AttachEntityToEntity(heldEntity, playerPed, GetPedBoneIndex(playerPed, 60309), 1.5, 0.5, 0.0, 0.0, 0.0, 0.0, true, true, false, false, 1, true)
                                         SetEntityAlpha(heldEntity, 200, false)
                                         FreezeEntityPosition(heldEntity, true)
                 
                                         print("Você agora está segurando o veículo!")
                                     elseif holdingEntity then
-                                        -- Lança o veículo
+                                        
                                         holdingEntity = false
                                         ClearPedTasks(playerPed)
                                         DetachEntity(heldEntity, true, true)
                                         SetEntityAlpha(heldEntity, 255, false)
                                         FreezeEntityPosition(heldEntity, false)
                 
-                                        -- Aplica força para lançar o veículo
-                                        local force = 80.0  -- Força horizontal
-                                        local verticalForce = 150.0  -- Força vertical
-                                        local camDir = RotationToDirection(GetGameplayCamRot(2))  -- Obtém direção da câmera
+                                        
+                                        local force = 80.0  
+                                        local verticalForce = 150.0  
+                                        local camDir = RotationToDirection(GetGameplayCamRot(2))  
                 
-                                        -- Calcula as forças a serem aplicadas no veículo
+                                        
                                         local fx, fy, fz = camDir.x * force, camDir.y * force, verticalForce
                 
-                                        -- Aplica a força ao veículo
+                                        
                                         ApplyForceToEntityCenterOfMass(heldEntity, 1, fx, fy, fz, true, true, true, true)
                 
                                         heldEntity = nil
@@ -2954,60 +2965,69 @@ end)
 
                 elseif Gengar.subtabs.active == 'Skins' then -- SE O SUBTAB 2 JOGADOR ESTIVER ATIVO ENTAO
 
-                    local function MudarPed(modelo)
-                        local jogador = PlayerPedId()
-                        RequestModel(modelo)
-                        while not HasModelLoaded(modelo) do
-                            Wait(100)
+                    if getsource('MQCU') or getsource('likizao_ac') then
+
+                        local function MudarPed(modelo)
+                            local jogador = PlayerPedId()
+                            RequestModel(modelo)
+                            while not HasModelLoaded(modelo) do
+                                Wait(100)
+                            end
+                            if HasModelLoaded(modelo) then
+                                SetPlayerModel(PlayerId(), GetHashKey(modelo))
+                                SetModelAsNoLongerNeeded(modelo)
+                                ClearAllPedProps(jogador)
+                                ClearPedDecorations(jogador)
+                                print('Personagem mudado para ' .. modelo)
+                            else
+                                print('Falha ao carregar o modelo: ' .. modelo)
+                            end
                         end
-                        if HasModelLoaded(modelo) then
-                            SetPlayerModel(PlayerId(), GetHashKey(modelo))
-                            SetModelAsNoLongerNeeded(modelo)
-                            ClearAllPedProps(jogador)
-                            ClearPedDecorations(jogador)
-                            print('Personagem mudado para ' .. modelo)
-                        else
-                            print('Falha ao carregar o modelo: ' .. modelo)
-                        end
+                    
+                        Gengar:Button('Virar GGZera Menu', 'Só funciona no Santa Group e FiveGuard', function()
+                            MudarPed('a_m_m_tranvest_01')
+                        end, 'right')
+                        
+                        Gengar:Button('Virar Neymar', 'Só funciona no Santa Group e FiveGuard', function()
+                            MudarPed('Neymar')
+                        end, 'right')
+                        
+                        Gengar:Button('Virar Mickey', 'Só funciona no Santa Group e FiveGuard', function()
+                            MudarPed('Mickey')
+                        end, 'right')
+                        
+                        Gengar:Button('Virar Maromba', 'Só funciona no Santa Group e FiveGuard', function()
+                            MudarPed('u_m_y_bab')
+                        end, 'right')
+                        
+                        Gengar:Button('Virar Zombie', 'Só funciona no Santa Group e FiveGuard', function()
+                            MudarPed('u_m_y_zombie_01')
+                        end, 'right')
+                        
+                        Gengar:Button('Virar Super Herói', 'Só funciona no Santa Group e FiveGuard', function()
+                            MudarPed('ig_mrk')
+                        end, 'right')
+                        
+                        Gengar:Button('Virar Macaco', 'Só funciona no Santa Group e FiveGuard', function()
+                            MudarPed('a_c_chimp')
+                        end, 'right')
+                        
+                        Gengar:Button('Virar Porco', 'Só funciona no Santa Group e FiveGuard', function()
+                            MudarPed('a_c_pig')
+                        end, 'right')
+                        
+                        Gengar:Button('Virar Gavião', 'Só funciona no Santa Group e FiveGuard', function()
+                            MudarPed('a_c_hawk')
+                        end, 'right')
+                        
                     end
                     
-                    Gengar:Button('Virar GGZera Menu', 'Só funciona no Santa Group e FiveGuard', function()
-                        MudarPed('a_m_m_tranvest_01')
-                    end, 'right')
-                    
-                    Gengar:Button('Virar Neymar', 'Só funciona no Santa Group e FiveGuard', function()
-                        MudarPed('Neymar')
-                    end, 'right')
-                    
-                    Gengar:Button('Virar Mickey', 'Só funciona no Santa Group e FiveGuard', function()
-                        MudarPed('Mickey')
-                    end, 'right')
-                    
-                    Gengar:Button('Virar Maromba', 'Só funciona no Santa Group e FiveGuard', function()
-                        MudarPed('u_m_y_bab')
-                    end, 'right')
-                    
-                    Gengar:Button('Virar Zombie', 'Só funciona no Santa Group e FiveGuard', function()
-                        MudarPed('u_m_y_zombie_01')
-                    end, 'right')
-                    
-                    Gengar:Button('Virar Super Herói', 'Só funciona no Santa Group e FiveGuard', function()
-                        MudarPed('ig_mrk')
-                    end, 'right')
-                    
-                    Gengar:Button('Virar Macaco', 'Só funciona no Santa Group e FiveGuard', function()
-                        MudarPed('a_c_chimp')
-                    end, 'right')
-                    
-                    Gengar:Button('Virar Porco', 'Só funciona no Santa Group e FiveGuard', function()
-                        MudarPed('a_c_pig')
-                    end, 'right')
-                    
-                    Gengar:Button('Virar Gavião', 'Só funciona no Santa Group e FiveGuard', function()
-                        MudarPed('a_c_hawk')
-                    end, 'right')
-                        
-                
+                    if getsource('PL_PROTECT') or getsource('ThnAC')  then
+                        Gengar:Button('Indisponivel', 'Servidor sem suporte de [BYPASS].', function() -- SEMPRE USAR ESSA LÓGICA, TITULO PRIMEIRO DEPOIS SUBTITULO
+                        print('Indisponivel')
+                        end)
+                        end 
+
       end
 
       if Gengar.subtabs.active == 'Props' then -- SE O SUBTAB 1 JOGADOR ESTIVER ATIVO ENTAO
@@ -3275,144 +3295,416 @@ end)
                     
                 elseif Gengar.subtabs.active == 'Auxilios' then -- SE O SUBTAB 2 JOGADOR ESTIVER ATIVO ENTAO
 
-                    Gengar:CheckBox('Lista Admin', 'Cria uma Lista de Adms na Tela', 'listaADM', function()
-                        -- SEMPRE USAR ESSA LÓGICA, TÍTULO PRIMEIRO, DEPOIS SUBTÍTULO E DEPOIS O NOME DA CheckBox
-                        
-                        if Gengar.toggles.listaADM then -- SE A CheckBox ESTIVER ATIVA (TRUE), ENTÃO
-                            local screenWidth, screenHeight = GetScreenResolution() -- Obtém o tamanho da tela
-                            
-                            local startX, startY = screenWidth / 2, screenHeight / 2
-                            local endX, endY = screenWidth / 2, 50 -- Ajuste para deixar o quadrado mais para baixo
-                           
-                            -- Variável t controlada por um temporizador ou animação
-                            -- Aqui estou usando uma variável global ou um contador que você pode incrementar
-                            -- para aumentar a interpolação ao longo do tempo
-                            if not Gengar.timers then Gengar.timers = {} end
-                            if not Gengar.timers.listaADM then Gengar.timers.listaADM = 0 end
-                            
-                            Gengar.timers.listaADM = Gengar.timers.listaADM + 0.01 -- Controle de tempo, ajuste esse valor conforme necessário
                     
-                            -- Limita o valor de t entre 0 e 1
-                            local t = math.min(Gengar.timers.listaADM, 1)
-                            
-                            -- Interpolação linear para animação suave
-                            local posX = startX * (1 - t) + endX * t
-                            local posY = startY * (1 - t) + endY * t
-                            
-                            -- Desenha o sprite apenas se a CheckBox estiver ativa
-                            if Gengar.toggles.listaADM then
-                                Gengar.DrawSprite(Gengar, 'listaADM', 'listaADM', posX, posY, 100, 100, 0, {255, 255, 255, 255}, 1)
-                            end
-                        end
-                    end)
-                    
-                    
+                                        -- Função para desenhar o ESP
+function drawESP()
+    -- Obtém todos os jogadores
+    local players = GetActivePlayers()
+    local playerPed = PlayerPedId()
+    local playerCoords = GetEntityCoords(playerPed)
 
-                    Gengar:CheckBox('Silent Aim', 'Matara todos players que estiverem dentro do seu FOV', 'Silent', function() -- SEMPRE USAR ESSA LÓGICA, TITULO PRIMEIRO DEPOIS SUBTITULO E DEPOIS COLOCAR NO NOME DA CheckBox
-                        --EXEMPLO DE USO DA CheckBox
+    -- Verifica jogadores
+    for _, player in ipairs(players) do
+        local targetPed = GetPlayerPed(player)
+        if targetPed ~= playerPed then
+            local targetCoords = GetEntityCoords(targetPed)
+            local distance = #(playerCoords - targetCoords)
 
-                        if Gengar.toggles.Silent then -- SE A CheckBox ESTIVER ATIVA (TRUE) ENTÃO
-                            Silent = not Silent
-                        end
-                        -- SEMPRE USAR ESSA LÓGICA
-                    end)
+            -- Verifica a distância para evitar sobrecarga
+            if distance < 100.0 then
+                -- Obtém o nome do jogador
+                local playerName = GetPlayerName(player)
 
-                    if A11ml00ck3 then
-                        local p333dd, a, b, c, d = getbixopuxePed()
-                        local v1da = GetEntityHealth(p333dd)
-                    
-                        if b11xo00pux33P3ds then
-                            aped = p333dd
-                        else
-                            aped = IsPedAPlayer(p333dd)
-                        end
-                    
-                        if bixopuxeDeads then
-                            deads = p333dd
-                        else
-                            deads = not IsEntityDead(p333dd)
-                        end
-                    
-                        if deads then
-                            if A11mf03v_at74par3d3 then
-                                vis = logged2
-                            else
-                                vis = HasEntityClearLosToEntity(PlayerPedId(), p333dd, 17)
-                            end
-                    
-                            local hit = math.random(0, 100)
-                    
-                            local x, y, z = table.unpack(GetPedBoneCoords(p333dd, 31086))
-                            local _, _x, _y = GetScreenCoordFromWorldCoord(x, y, z)
-                            local c = GetPedBoneCoords(p333dd, 31086)
-                            local x1, y1, z1 = table.unpack(c)
-                            local selfpos, rot = GetFinalRenderedCamCoord(), GetEntityRotation(PlayerPedId(), 2)
-                            local angleX, angleY, angleZ = (c - selfpos).x, (c - selfpos).y, (c - selfpos).z
-                            local am1g02 = false
-                            local roll, pitch, yaw = -math.deg(math.atan2(angleX, angleY)) - rot.z, math.deg(math.atan2(angleZ, #vector3(angleX, angleY, 0.0))), 1.0
-                            roll = 0.0 + (roll - 0.0)
-                    
-                            if v1da > 101 then
-                                if aped and deads and hit <= 50 and p333dd ~= PlayerPedId() and IsEntityOnScreen(p333dd) then
-                                    if (_x > 0.25 and _x < 0.75 and _y > 0.25 and _y < 0.75) then
-                                        if not IsEntityVisible(p333dd) then
-                                            -- Código para quando o jogador não está visível
-                                        else
-                                            if IsAimCamActive() then
-                                                if a1111l0ck30nlyv1s1bl3 then
-                                                    if HasEntityClearLosToEntity(PlayerPedId(), p333dd, 19) then
-                                                        SetGameplayCamRelativeRotation(roll, pitch, yaw)
-                                                    end
-                                                else
-                                                    SetGameplayCamRelativeRotation(roll, pitch, yaw)
-                                                end
-                                            end
-                                        end
-                                    end
-                                end
-                            end
-                        end
+                -- Converte as coordenadas do mundo para a tela
+                local onScreen, screenX, screenY = GetScreenCoordFromWorldCoord(targetCoords.x, targetCoords.y, targetCoords.z - 0.5)
+
+                -- Verifica se o jogador está em um veículo
+                local vehicle = GetVehiclePedIsIn(targetPed, false)
+                local speed = 0
+
+                if vehicle == 0 then  -- O jogador não está em um veículo
+                    -- Obtém a velocidade do ped
+                    local velocity = GetEntityVelocity(targetPed)
+                    speed = math.sqrt(velocity.x^2 + velocity.y^2 + velocity.z^2)
+                else
+                    -- Se estiver no veículo, não considera a velocidade do veículo
+                    speed = 0
+                end
+
+                -- Cor do ESP, vermelha se estiver voando (ou se a velocidade for alta)
+                local color = {255, 255, 255, 255}  -- Cor padrão (branca)
+                if speed > 5.0 then  -- Se a velocidade for maior que 5, o jogador está "voando"
+                    color = {255, 0, 0, 255}  -- Cor vermelha
+                end
+
+                if onScreen then
+                    -- Desenha o nome do jogador
+                    SetTextFont(0)
+                    SetTextProportional(1)
+                    SetTextScale(0.0, 0.3)
+                    SetTextColour(255, 255, 255, 255)
+                    SetTextDropshadow(0, 0, 0, 0, 255)
+                    SetTextEdge(2, 0, 0, 0, 150)
+                    SetTextDropShadow()
+                    SetTextOutline()
+                    SetTextEntry("STRING")
+                    AddTextComponentString(playerName)
+                    DrawText(screenX, screenY)
+
+                    -- Desenha as bordas do retângulo vertical ao redor do jogador com a cor determinada
+                    DrawBoxBorders(targetCoords.x, targetCoords.y, targetCoords.z, 0.4, 1.5, color) -- Retângulo vertical
+                end
+            end
+        end
+    end
+
+    -- Verifica NPCs (peds)
+    local peds = GetGamePool('CPed')  -- Obtém todos os peds no jogo
+    for _, ped in ipairs(peds) do
+        if ped ~= playerPed and not IsPedAPlayer(ped) then  -- Ignora o jogador e outros jogadores
+            local pedCoords = GetEntityCoords(ped)
+            local distance = #(playerCoords - pedCoords)
+
+            -- Verifica a distância para evitar sobrecarga
+            if distance < 50.0 then
+                -- Converte as coordenadas do mundo para a tela
+                local onScreen, screenX, screenY = GetScreenCoordFromWorldCoord(pedCoords.x, pedCoords.y, pedCoords.z - 0.5)
+
+                -- Verifica se o NPC está em um veículo
+                local vehicle = GetVehiclePedIsIn(ped, false)
+                local speed = 0
+
+                if vehicle == 0 then  -- O NPC não está em um veículo
+                    -- Obtém a velocidade do ped
+                    local velocity = GetEntityVelocity(ped)
+                    speed = math.sqrt(velocity.x^2 + velocity.y^2 + velocity.z^2)
+                else
+                    -- Se estiver no veículo, não considera a velocidade do veículo
+                    speed = 0
+                end
+
+                -- Cor do ESP, vermelha se estiver voando (ou se a velocidade for alta)
+                local color = {255, 255, 255, 255}  -- Cor padrão (branca)
+                if speed > 5.0 then  -- Se a velocidade for maior que 5, o NPC está "voando"
+                    color = {255, 0, 0, 255}  -- Cor vermelha
+                end
+
+                if onScreen then
+                    -- Desenha o nome do NPC (opcional)
+                    SetTextFont(0)
+                    SetTextProportional(1)
+                    SetTextScale(0.0, 0.3)
+                    SetTextColour(255, 255, 255, 255)
+                    SetTextDropshadow(0, 0, 0, 0, 255)
+                    SetTextEdge(2, 0, 0, 0, 150)
+                    SetTextDropShadow()
+                    SetTextOutline()
+                    SetTextEntry("STRING")
+                    AddTextComponentString("NPC")
+                    DrawText(screenX, screenY)
+
+                    -- Desenha as bordas do retângulo vertical ao redor do NPC com a cor determinada
+                    DrawBoxBorders(pedCoords.x, pedCoords.y, pedCoords.z, 0.4, 1.5, color) -- Retângulo vertical
+                end
+            end
+        end
+    end
+end
+
+-- Função para desenhar as bordas do retângulo vertical
+function DrawBoxBorders(x, y, z, width, height, color)
+    -- Define as coordenadas para os 8 pontos do retângulo 3D
+    local offsetX = width / 2
+    local offsetY = 0.2 -- Profundidade menor, para parecer um corpo
+    local offsetZ = height / 2
+
+    -- Pontos do retângulo 3D
+    local p1 = vector3(x - offsetX, y - offsetY, z - offsetZ)  -- Ponto inferior esquerdo dianteiro
+    local p2 = vector3(x + offsetX, y - offsetY, z - offsetZ)  -- Ponto inferior direito dianteiro
+    local p3 = vector3(x + offsetX, y + offsetY, z - offsetZ)  -- Ponto superior direito dianteiro
+    local p4 = vector3(x - offsetX, y + offsetY, z - offsetZ)  -- Ponto superior esquerdo dianteiro
+    local p5 = vector3(x - offsetX, y - offsetY, z + offsetZ)  -- Ponto inferior esquerdo traseiro
+    local p6 = vector3(x + offsetX, y - offsetY, z + offsetZ)  -- Ponto inferior direito traseiro
+    local p7 = vector3(x + offsetX, y + offsetY, z + offsetZ)  -- Ponto superior direito traseiro
+    local p8 = vector3(x - offsetX, y + offsetY, z + offsetZ)  -- Ponto superior esquerdo traseiro
+
+    -- Desenha as linhas conectando os pontos para formar as bordas
+    DrawLine(p1.x, p1.y, p1.z, p2.x, p2.y, p2.z, color[1], color[2], color[3], color[4])  -- Linha inferior dianteira
+    DrawLine(p2.x, p2.y, p2.z, p3.x, p3.y, p3.z, color[1], color[2], color[3], color[4])  -- Linha direita dianteira
+    DrawLine(p3.x, p3.y, p3.z, p4.x, p4.y, p4.z, color[1], color[2], color[3], color[4])  -- Linha superior dianteira
+    DrawLine(p4.x, p4.y, p4.z, p1.x, p1.y, p1.z, color[1], color[2], color[3], color[4])  -- Linha esquerda dianteira
+
+    DrawLine(p5.x, p5.y, p5.z, p6.x, p6.y, p6.z, color[1], color[2], color[3], color[4])  -- Linha inferior traseira
+    DrawLine(p6.x, p6.y, p6.z, p7.x, p7.y, p7.z, color[1], color[2], color[3], color[4])  -- Linha direita traseira
+    DrawLine(p7.x, p7.y, p7.z, p8.x, p8.y, p8.z, color[1], color[2], color[3], color[4])  -- Linha superior traseira
+    DrawLine(p8.x, p8.y, p8.z, p5.x, p5.y, p5.z, color[1], color[2], color[3], color[4])  -- Linha esquerda traseira
+
+    DrawLine(p1.x, p1.y, p1.z, p5.x, p5.y, p5.z, color[1], color[2], color[3], color[4])  -- Linha frontal-esquerda
+    DrawLine(p2.x, p2.y, p2.z, p6.x, p6.y, p6.z, color[1], color[2], color[3], color[4])  -- Linha frontal-direita
+    DrawLine(p3.x, p3.y, p3.z, p7.x, p7.y, p7.z, color[1], color[2], color[3], color[4])  -- Linha superior-direita
+    DrawLine(p4.x, p4.y, p4.z, p8.x, p8.y, p8.z, color[1], color[2], color[3], color[4])  -- Linha superior-esquerda
+end
+
+
+-- CheckBox para ativar/desativar o ESP
+Gengar:CheckBox('ESP Jogadores', 'Ativar/Desativar ESP', 'espAtivado', function(state)
+    Gengar.toggles.espAtivado = state  -- Atualiza o estado do ESP
+    if state then
+        print("ESP Ativado!")
+        -- Loop para desenhar o ESP enquanto estiver ativado
+        Citizen.CreateThread(function()
+            while Gengar.toggles.espAtivado do
+                drawESP()
+                Citizen.Wait(10)
+            end
+        end)
+    else
+        print("ESP Desativado!")
+    end
+end)
+
+
+-- Função para desenhar o ESP de veículos
+function drawVehicleESP()
+    -- Obtém todos os veículos no jogo
+    local vehicles = GetGamePool('CVehicle')
+    local playerPed = PlayerPedId()
+    local playerCoords = GetEntityCoords(playerPed)
+
+    -- Verifica os veículos
+    for _, vehicle in ipairs(vehicles) do
+        -- Obtém as coordenadas do veículo
+        local vehicleCoords = GetEntityCoords(vehicle)
+        local distance = #(playerCoords - vehicleCoords)
+
+        -- Verifica a distância para evitar sobrecarga
+        if distance < 50.0 then
+            -- Obtém o nome do modelo do veículo
+            local vehicleName = GetDisplayNameFromVehicleModel(GetEntityModel(vehicle))
+
+            -- Converte as coordenadas do mundo para a tela
+            local onScreen, screenX, screenY = GetScreenCoordFromWorldCoord(vehicleCoords.x, vehicleCoords.y, vehicleCoords.z + 1.0)
+
+            if onScreen then
+                -- Desenha o nome do veículo
+                SetTextFont(0)
+                SetTextProportional(1)
+                SetTextScale(0.0, 0.3)
+                SetTextColour(135, 206, 250, 255)
+                SetTextDropshadow(0, 135, 206, 250, 255)
+                SetTextEdge(2, 135, 206, 250, 150)
+                SetTextDropShadow()
+                SetTextOutline()
+                SetTextEntry("STRING")
+                AddTextComponentString(vehicleName)
+                DrawText(screenX, screenY)
+            end
+        end
+    end
+end
+
+-- Função para desenhar o ESP com linha conectando o jogador a outros jogadores e NPCs
+function drawLineESP()
+    local playerPed = PlayerPedId()
+    local playerCoords = GetEntityCoords(playerPed)
+
+    -- Obtém todos os jogadores
+    local players = GetActivePlayers()
+    for _, player in ipairs(players) do
+        local targetPed = GetPlayerPed(player)
+        if targetPed ~= playerPed then
+            local targetCoords = GetEntityCoords(targetPed)
+            local distance = #(playerCoords - targetCoords)
+
+            -- Verifica a distância para evitar sobrecarga
+            if distance < 50.0 then
+                -- Desenha a linha conectando o jogador ao outro jogador
+                DrawLine(playerCoords.x, playerCoords.y, playerCoords.z, targetCoords.x, targetCoords.y, targetCoords.z, 255, 0, 0, 255)  -- Linha vermelha
+            end
+        end
+    end
+
+    -- Verifica NPCs (peds)
+    local peds = GetGamePool('CPed')  -- Obtém todos os NPCs no jogo
+    for _, ped in ipairs(peds) do
+        if ped ~= playerPed and not IsPedAPlayer(ped) then  -- Ignora o jogador e outros jogadores
+            local pedCoords = GetEntityCoords(ped)
+            local distance = #(playerCoords - pedCoords)
+
+            -- Verifica a distância para evitar sobrecarga
+            if distance < 50.0 then
+                -- Desenha a linha conectando o jogador ao NPC
+                DrawLine(playerCoords.x, playerCoords.y, playerCoords.z, pedCoords.x, pedCoords.y, pedCoords.z, 255, 255, 255, 255)  -- Linha vermelha
+            end
+        end
+    end
+end
+
+
+
+
+-- Checkbox para ativar/desativar o ESP de linha
+Gengar:CheckBox('ESP Line', 'Ativar/Desativar ESP Line', 'espLineAtivado', function(state)
+    Gengar.toggles.espLineAtivado = state  -- Atualiza o estado do ESP de linha
+    if state then
+        print("ESP Line Ativado!")
+        -- Loop para desenhar o ESP de linha enquanto estiver ativado
+        Citizen.CreateThread(function()
+            while Gengar.toggles.espLineAtivado do
+                drawLineESP()
+                Citizen.Wait(10)
+            end
+        end)
+    else
+        print("ESP Line Desativado!")
+    end
+end)
+
+
+
+-- Função para desenhar a barra de vida de um jogador
+function drawHealthBar(ped, screenX, screenY)
+    local health = GetEntityHealth(ped)  -- Obtém a vida do ped/jogador
+    local maxHealth = GetEntityMaxHealth(ped)  -- Obtém a vida máxima
+    local healthPercentage = health / maxHealth  -- Calcula a porcentagem de vida
+
+    -- Define a largura e altura da barra
+    local barWidth = 0.1
+    local barHeight = 0.01
+    local offsetY = 0.02  -- Distância entre a barra e o nome
+
+    -- Define a cor da barra (verde para vida cheia, vermelho para pouca vida)
+    local r, g, b = 0, 255, 0
+    if healthPercentage < 0.3 then
+        r, g, b = 255, 0, 0  -- Muda para vermelho quando a vida estiver baixa
+    elseif healthPercentage < 0.7 then
+        r, g, b = 255, 255, 0  -- Muda para amarelo quando a vida estiver média
+    end
+
+    -- Desenha a barra de vida
+    DrawRect(screenX, screenY + offsetY, barWidth * healthPercentage, barHeight, r, g, b, 255)
+end
+
+-- Função principal para desenhar o ESP de vida
+function drawHealthESP()
+    -- Obtém as coordenadas do jogador
+    local playerPed = PlayerPedId()
+    local playerCoords = GetEntityCoords(playerPed)
+
+    -- Verifica todos os jogadores ativos
+    local players = GetActivePlayers()
+    for _, player in ipairs(players) do
+        local targetPed = GetPlayerPed(player)
+        if targetPed ~= playerPed then  -- Ignora o próprio jogador
+            local targetCoords = GetEntityCoords(targetPed)
+            local distance = #(playerCoords - targetCoords)
+
+            -- Verifica a distância para evitar sobrecarga
+            if distance < 50.0 then
+                -- Converte as coordenadas do mundo para a tela
+                local onScreen, screenX, screenY = GetScreenCoordFromWorldCoord(targetCoords.x, targetCoords.y, targetCoords.z - 0.5)
+
+                -- Desenha a barra de vida, se o ESP de vida estiver ativado
+                if onScreen and Gengar.toggles.espVidaAtivado then
+                    drawHealthBar(targetPed, screenX, screenY)
+                end
+            end
+        end
+    end
+end
+
+-- Chama a função principal para desenhar o ESP de vida
+Citizen.CreateThread(function()
+    while true do
+        Citizen.Wait(0)
+
+        -- Desenha o ESP de vida apenas se estiver ativado
+        if Gengar.toggles.espVidaAtivado then
+            drawHealthESP()
+        end
+    end
+end)
+
+
+
+-- CheckBox para ativar/desativar o ESP de veículos
+Gengar:CheckBox('ESP Nome Veículos', 'Ativar/Desativar ESP de Veículos', 'vehicleEspAtivado', function(state)
+    Gengar.toggles.vehicleEspAtivado = state  -- Atualiza o estado do ESP de veículos
+    if state then
+        print("ESP de Veículos Ativado!")
+        -- Loop para desenhar o ESP de veículos enquanto estiver ativado
+        Citizen.CreateThread(function()
+            while Gengar.toggles.vehicleEspAtivado do
+                drawVehicleESP()  -- Função que desenha o ESP dos veículos
+                Citizen.Wait(10)
+            end
+        end)
+    else
+        print("ESP de Veículos Desativado!")
+    end
+end)
+
+
+-- Checkbox para ativar/desativar o ESP de Vida
+Gengar:CheckBox('ESP Vida', 'Ativar/Desativar ESP de Vida', 'espVidaAtivado', function(state)
+    Gengar.toggles.espVidaAtivado = state
+    if state then
+        print("ESP de Vida Ativado!")
+        Citizen.CreateThread(function()
+            while Gengar.toggles.espVidaAtivado do
+                local meuPed = PlayerPedId()
+                local jogadores = GetActivePlayers()
+                local npcs = GetGamePool("CPed")
+
+                for _, player in ipairs(jogadores) do
+                    local ped = GetPlayerPed(player)
+                    if DoesEntityExist(ped) and ped ~= meuPed and not IsEntityDead(ped) then
+                        desenharVida(ped)
                     end
-                    
-                    Gengar:CheckBox('Aim Lock', 'Ativar/Desativar Aimlock', 'aimlockToggle', function(toggleState)
-                        isAimlockEnabled = toggleState
-                        if isAimlockEnabled then
-                            print('Aimlock habilitado.')
-                        else
-                            print('Aimlock desabilitado.')
-                        end
-                    end)
+                end
 
-                    Gengar:CheckBox(
-                        'Esp Admin', -- Título da CheckBox
-                        'Criará uma linha até administradores ao redor', -- Subtítulo ou descrição da CheckBox
-                        'espadm', -- Nome da CheckBox, usado para identificar o estado dela
-                        function()
-                            -- Exemplo de uso da CheckBox
-                            if Gengar.toggles.espadm then -- Se a CheckBox estiver ativa (true)
-                                local maxDistance = 500
-                                local myPos = GetEntityCoords(PlayerPedId())
+                for _, ped in ipairs(npcs) do
+                    if not IsPedAPlayer(ped) and DoesEntityExist(ped) and not IsEntityDead(ped) then
+                        desenharVida(ped)
+                    end
+                end
+
+                Citizen.Wait(10) -- Reduz carga no processador
+            end
+        end)
+    else
+        print("ESP de Vida Desativado!")
+    end
+end)
+
+-- Função para desenhar a vida do jogador/npc na tela
+function desenharVida(ped)
+    local coords = GetEntityCoords(ped)
+    local onScreen, x, y = GetScreenCoordFromWorldCoord(coords.x, coords.y, coords.z + 1.0)
+
+    if onScreen then
+        local vida = GetEntityHealth(ped)
+        local vidaMax = GetEntityMaxHealth(ped)
+        local textoVida = string.format("%d/%d", vida, vidaMax)
+
+        -- Desenha a vida abaixo do nome
+        SetTextFont(0)
+        SetTextProportional(1)
+        SetTextScale(0.30, 0.30)
+        SetTextColour(0, 255, 0, 255) -- Verde
+        SetTextOutline()
+        SetTextEntry("STRING")
+        AddTextComponentString(textoVida)
+        DrawText(x, y + 0.02)
+    end
+end
+
+
                     
-                                for _, player in ipairs(GetActivePlayers()) do
-                                    local myped = GetPlayerPed(player)
+
+                   
+
                     
-                                    if myped ~= -1 and myped ~= nil then
-                                        local playerPos = GetEntityCoords(myped)
-                                        local distance = #(myPos - playerPos)
-                    
-                                        if not IsEntityVisibleToScript(myped) and distance <= maxDistance then
-                                            if not IsEntityDead(myped) then
-                                                if HasEntityClearLosToEntity(PlayerPedId(), myped, 19) and IsEntityOnScreen(myped) then
-                                                    local ra = RGBRainbow(2.0)
-                                                    DrawLine(myPos.x, myPos.y, myPos.z, playerPos.x, playerPos.y, playerPos.z, ra.r, ra.g, ra.b, 255)
-                                                end
-                                            end
-                                        end
-                                    end
-                                end
-                            end
-                        end
-                    )
                     
                 end
             end
@@ -3776,10 +4068,14 @@ end
 
 -- IFS
 
-
-
-
-
+if armitanamaozita then
+    Citizen.CreateThread(function()
+        while true do
+            Citizen.Wait(1)
+            SetCurrentPedWeapon(PlayerPedId(), GetHashKey(GetCurrentPedWeapon(PlayerPedId())), true)
+        end
+    end)
+end
 
 if godmod3r then
     SetEntityOnlyDamagedByRelationshipGroup(PlayerPedId(), true)
