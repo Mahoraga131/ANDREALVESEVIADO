@@ -1,12 +1,6 @@
 
 
 
-local n0c1ip = {["Label"] = "CAPS",["Value"] = 137}
-
-
-
-
-
 g3tzz = function(valu333)
 
     return GetResourceState(tostring(valu333), Citizen.ReturnResultAnyway(), Citizen.ResultAsString())
@@ -34,8 +28,8 @@ end
 local ScreenX, ScreenY = GetActiveScreenResolution()
 local menuWidth = 800
 local menuHeight = 600
-local Gengar = {
-    UserName = 'Gengar',
+local ZZClief = {
+    UserName = 'ZZClief',
     x = ScreenX / 2 - menuWidth / 2,
     y = ScreenY / 2 - menuHeight / 2,
     width = menuWidth,
@@ -55,6 +49,8 @@ local Gengar = {
         key = 157,
         Text = '1'
     },
+
+    
 
     bindKeys = {
         ['F1'] = 288, ['F2'] = 289, ['F3'] = 170, ['F5'] = 166, ['F6'] = 167,
@@ -134,7 +130,7 @@ Citizen.CreateThread(function()
         ['Destruicao'] = {'https://cosmic-dango-9dfdf1.netlify.app/bomba.svg', 50, 50},
         ['Exploits'] = {'https://cosmic-dango-9dfdf1.netlify.app/code.svg', 50, 50},
         ['Config'] = {'https://cosmic-dango-9dfdf1.netlify.app/config.svg', 50, 50},
-        ['listaADM'] = {'https://github.com/arthur9727/Gengar/blob/main/BOT%C3%83O.png?raw=true', 55, 55},
+        ['listaADM'] = {'https://github.com/arthur9727/ZZClief/blob/main/BOT%C3%83O.png?raw=true', 55, 55},
         ['check'] = {'https://cosmic-dango-9dfdf1.netlify.app/check.html', 55, 55},
     }
 
@@ -142,21 +138,21 @@ Citizen.CreateThread(function()
     local dict = GlobalState['Dict-Sprite']
     if not dict then
         for sp, create in pairs(sprites) do
-            sprite[sp] = Gengar:CreateSprite(sp, create[1], {create[2], create[3]})
+            sprite[sp] = ZZClief:CreateSprite(sp, create[1], {create[2], create[3]})
         end
-        GlobalState['Dict-Sprite'] = Gengar.DictSprite
+        GlobalState['Dict-Sprite'] = ZZClief.DictSprite
     else
-        Gengar.DictSprite = dict
+        ZZClief.DictSprite = dict
     end
     
     print('')
     print('')
     print('')
-    print('^1[Gengar MENU]: ^2MENU AUTENTICADO COM SUCESSO')
-    print('^1[Gengar Menu]: ^2Aperte: ' ..Gengar.MenuKey.Text.. ' Para abrir o menu')
+    print('^1[ZZClief MENU]: ^2MENU AUTENTICADO COM SUCESSO')
+    print('^1[ZZClief Menu]: ^2Aperte: ' ..ZZClief.MenuKey.Text.. ' Para abrir o menu')
             
     local value = 0
-    while not Gengar.menuLoaded do
+    while not ZZClief.menuLoaded do
         local rendered = true
         for _, duis in pairs(sprite) do
             if not IsDuiAvailable(duis) then
@@ -165,49 +161,51 @@ Citizen.CreateThread(function()
         end
         if rendered then
             Wait(350)
-            Gengar.menuLoaded = rendered
+            ZZClief.menuLoaded = rendered
         else
             value = value + 1
         end
         Wait(10)
     end
     
-    if Gengar.menuLoaded then
-        print('^1[Gengar Menu]: ^2Menu Carregado Com Sucesso, Aproveite A Experiência!')
+    if ZZClief.menuLoaded then
+        print('^1[ZZClief Menu]: ^2Menu Carregado Com Sucesso, Aproveite A Experiência!')
+
+        
     
         local detected = false
     
         if getsource('MQCU') then
-            print('^1[Gengar Menu]: ^2MQCU DETECTADO')
+            print('^1[ZZClief Menu]: ^2MQCU DETECTADO')
             detected = true
         end
     
         if getsource('likizao_ac') then
-            print('^1[Gengar Menu]: ^2LIKIZAO DETECTADO')
+            print('^1[ZZClief Menu]: ^2LIKIZAO DETECTADO')
             detected = true
         end
     
         if getsource('PL_PROTECT') then
-            print('^1[Gengar Menu]: ^2PL_PROTECT DETECTADO')
+            print('^1[ZZClief Menu]: ^2PL_PROTECT DETECTADO')
             detected = true
         end
     
         if getsource('ThnAC') then
-            print('^1[Gengar Menu]: ^2THUNDER_AC DETECTADO')
+            print('^1[ZZClief Menu]: ^2THUNDER_AC DETECTADO')
             detected = true
         end
     
         if not detected then
-            print('^1[Gengar Menu]: ^1NENHUM ANTICHEAT DETECTADO')
+            print('^1[ZZClief Menu]: ^1NENHUM AntiCheat DETECTADO')
         end
     else
-        print('^1[Gengar Menu]: ^1Menu não carregado.')
+        print('^1[ZZClief Menu]: ^1Menu não carregado.')
     end
 end)       
 
 
 
-function Gengar.Hovered(Gengar, posX, posY, width, height)
+function ZZClief.Hovered(ZZClief, posX, posY, width, height)
     local cursorX, cursorY = GetNuiCursorPosition()
     if posX <= cursorX and cursorX <= posX + width and posY <= cursorY and cursorY <= posY + height then
         return true
@@ -216,9 +214,9 @@ function Gengar.Hovered(Gengar, posX, posY, width, height)
 end
 
 local textWidthCache = {}
-function Gengar.GetTextWidthSize(Gengar, text, size, font)
-    local screenWidth = Gengar.screenW
-    local screenHeight = Gengar.screenH
+function ZZClief.GetTextWidthSize(ZZClief, text, size, font)
+    local screenWidth = ZZClief.screenW
+    local screenHeight = ZZClief.screenH
     local cacheKey = text .. size .. font .. screenWidth .. screenHeight
     local cachedWidth = textWidthCache[cacheKey]
     if cachedWidth then
@@ -260,9 +258,9 @@ function RegisterEntityForNetWork(entity)
     end
 end
 
-function Gengar.DrawText(Gengar, name, posX, posY, width, height, isoutline, color, order)
-    local scaleX = 1 / Gengar.screenW
-    local scaleY = 1 / Gengar.screenH
+function ZZClief.DrawText(ZZClief, name, posX, posY, width, height, isoutline, color, order)
+    local scaleX = 1 / ZZClief.screenW
+    local scaleY = 1 / ZZClief.screenH
     local screenPosX = scaleX * posX
     local screenPosY = scaleY * posY
     local screenScaleX = scaleX * width
@@ -282,10 +280,10 @@ end
 
 
 
-function Gengar.DrawText2(Gengar, name, posX, posY, width, height, isoutline, color, justify, order)
+function ZZClief.DrawText2(ZZClief, name, posX, posY, width, height, isoutline, color, justify, order)
     SetScriptGfxDrawOrder(order or 10)
-    local scaleX = 1 / Gengar.screenW
-    local scaleY = 1 / Gengar.screenH
+    local scaleX = 1 / ZZClief.screenW
+    local scaleY = 1 / ZZClief.screenH
     local screenPosX = scaleX * posX
     local screenPosY = scaleY * posY
     local screenScaleX = scaleX * width
@@ -304,22 +302,22 @@ function Gengar.DrawText2(Gengar, name, posX, posY, width, height, isoutline, co
     DrawText(screenPosX, screenPosY)
 end
 
-function Gengar.CreateSprite(Gengar, spriteName, textureWidth, duiProperties)
-    local dictString = tostring(Gengar.DictSprite)
+function ZZClief.CreateSprite(ZZClief, spriteName, textureWidth, duiProperties)
+    local dictString = tostring(ZZClief.DictSprite)
     local posX, posY = table.unpack(duiProperties)
     local duiHandle = CreateDui(textureWidth, posX, posY)
     CreateRuntimeTextureFromDuiHandle(CreateRuntimeTxd(dictString .. spriteName), dictString .. spriteName .. '_rtn', GetDuiHandle(duiHandle))
     return duiHandle
 end
 
-function Gengar.GetSprite(Gengar, spriteName)
-    local dictString = tostring(Gengar.DictSprite)
+function ZZClief.GetSprite(ZZClief, spriteName)
+    local dictString = tostring(ZZClief.DictSprite)
     return dictString .. spriteName, dictString .. spriteName .. '_rtn'
 end
 
-function Gengar.DrawSprite(Gengar, textureDict, textureName, posX, posY, width, height, heading, color, drawOrder)
-    local scaleX = 1 / Gengar.screenW
-    local scaleY = 1 / Gengar.screenH
+function ZZClief.DrawSprite(ZZClief, textureDict, textureName, posX, posY, width, height, heading, color, drawOrder)
+    local scaleX = 1 / ZZClief.screenW
+    local scaleY = 1 / ZZClief.screenH
     local screenPosX = scaleX * posX
     local screenPosY = scaleY * posY
     local screenScaleX = scaleX * width
@@ -328,96 +326,96 @@ function Gengar.DrawSprite(Gengar, textureDict, textureName, posX, posY, width, 
     DrawSprite(textureDict, textureName, screenPosX + screenScaleX / 2, screenPosY + screenScaleY / 2, screenScaleX, screenScaleY, heading, color[1], color[2], color[3], color[4] or 255)
 end
 
-function Gengar.DrawRect(Gengar, posX, posY, width, height, color, drawOrder)
-    local screenPosX = posX / Gengar.screenW + width / Gengar.screenW / 2
-    local screenPosY = posY / Gengar.screenH + height / Gengar.screenH / 2
+function ZZClief.DrawRect(ZZClief, posX, posY, width, height, color, drawOrder)
+    local screenPosX = posX / ZZClief.screenW + width / ZZClief.screenW / 2
+    local screenPosY = posY / ZZClief.screenH + height / ZZClief.screenH / 2
     SetScriptGfxDrawOrder(drawOrder or 3)
-    DrawRect(screenPosX, screenPosY, width / Gengar.screenW, height / Gengar.screenH, color[1], color[2], color[3], color[4] or 255)
+    DrawRect(screenPosX, screenPosY, width / ZZClief.screenW, height / ZZClief.screenH, color[1], color[2], color[3], color[4] or 255)
 end
 
-function Gengar.DrawRoundedRect(Gengar, x, y, width, height, radius, r, g, b, a, order)
+function ZZClief.DrawRoundedRect(ZZClief, x, y, width, height, radius, r, g, b, a, order)
     if radius > height then
         radius = height
     end
-    local dict, name = Gengar:GetSprite('circle')
-    Gengar:DrawRect(x + radius / 2, y, width - radius, height, r, g, b, a, order)
-    Gengar:DrawRect(x, y + radius / 2, width, height - radius, r, g, b, a, order)
-    Gengar:DrawSprite(dict, name, x, y, radius, radius, 0, r, g, b, a, order)
-    Gengar:DrawSprite(dict, name, x + width - radius, y, radius, radius, 0, r, g, b, a, order)
-    Gengar:DrawSprite(dict, name, x, y + height - radius, radius, radius, 0, r, g, b, a, order)
-    Gengar:DrawSprite(dict, name, x + width - radius, y + height - radius, radius, radius, 0, r, g, b, a, order)
+    local dict, name = ZZClief:GetSprite('circle')
+    ZZClief:DrawRect(x + radius / 2, y, width - radius, height, r, g, b, a, order)
+    ZZClief:DrawRect(x, y + radius / 2, width, height - radius, r, g, b, a, order)
+    ZZClief:DrawSprite(dict, name, x, y, radius, radius, 0, r, g, b, a, order)
+    ZZClief:DrawSprite(dict, name, x + width - radius, y, radius, radius, 0, r, g, b, a, order)
+    ZZClief:DrawSprite(dict, name, x, y + height - radius, radius, radius, 0, r, g, b, a, order)
+    ZZClief:DrawSprite(dict, name, x + width - radius, y + height - radius, radius, radius, 0, r, g, b, a, order)
 end
 
-function Gengar.Tab(Gengar, tabName, callback)
-    local currentY = Gengar.tabs.y
-    local isActive = Gengar.tabs.active == tabName
-    local hovered = Gengar:Hovered(Gengar.x + 5, Gengar.y + 80 + currentY, 170, 46)
+function ZZClief.Tab(ZZClief, tabName, callback)
+    local currentY = ZZClief.tabs.y
+    local isActive = ZZClief.tabs.active == tabName
+    local hovered = ZZClief:Hovered(ZZClief.x + 5, ZZClief.y + 80 + currentY, 170, 46)
     if isActive then
-        if not Gengar.tabs.addY then
-            Gengar.tabs.addY = currentY
+        if not ZZClief.tabs.addY then
+            ZZClief.tabs.addY = currentY
         end
-        Gengar.tabs.addY = Gengar.functions.lerp(0.15, Gengar.tabs.addY, currentY)
+        ZZClief.tabs.addY = ZZClief.functions.lerp(0.15, ZZClief.tabs.addY, currentY)
     end
 
     if currentY == 0 then
-        Gengar:DrawRoundedRect(Gengar.x + 17, Gengar.y + 87 + math.ceil(Gengar.tabs.addY), 170, 46, 17, {25, 25, 25, 255}, 4)
-        Gengar:DrawRoundedRect(Gengar.x + 170, Gengar.y + 95 + math.ceil(Gengar.tabs.addY), 5, 30, 5, Gengar.colors.theme, 4)
+        ZZClief:DrawRoundedRect(ZZClief.x + 17, ZZClief.y + 87 + math.ceil(ZZClief.tabs.addY), 170, 46, 17, {25, 25, 25, 255}, 4)
+        ZZClief:DrawRoundedRect(ZZClief.x + 170, ZZClief.y + 95 + math.ceil(ZZClief.tabs.addY), 5, 30, 5, ZZClief.colors.theme, 4)
     end
 
-    if tabName == Gengar.tabs.active then
-        Gengar.colors.ColorTab = {255, 255, 255, 255}
+    if tabName == ZZClief.tabs.active then
+        ZZClief.colors.ColorTab = {255, 255, 255, 255}
     else
-        Gengar.colors.ColorTab = {55, 55, 55, 255}
+        ZZClief.colors.ColorTab = {55, 55, 55, 255}
     end
 
-    if Gengar.tabs.active == tabName then
-        Gengar.colors.icontab.colors[tabName] = Gengar.colors.theme
-    elseif Gengar.tabs.active ~= tabName then
-        Gengar.colors.icontab.colors[tabName] = {35, 35, 35, 255}
+    if ZZClief.tabs.active == tabName then
+        ZZClief.colors.icontab.colors[tabName] = ZZClief.colors.theme
+    elseif ZZClief.tabs.active ~= tabName then
+        ZZClief.colors.icontab.colors[tabName] = {35, 35, 35, 255}
     end
 
-    Gengar:DrawText(tabName or '', Gengar.x +  70, Gengar.y + 99 + currentY, 250, 250, false, Gengar.colors.ColorTab)
+    ZZClief:DrawText(tabName or '', ZZClief.x +  70, ZZClief.y + 99 + currentY, 250, 250, false, ZZClief.colors.ColorTab)
 
     if hovered and IsDisabledControlJustPressed(0, 24) then
-        Gengar.tabs.active = tabName
+        ZZClief.tabs.active = tabName
         if callback then
             callback()
         end
     end
-    Gengar.tabs.y = currentY + 50
+    ZZClief.tabs.y = currentY + 50
 end
 
-function Gengar.SubTab(Gengar, subtabName)
-    local subtabY = Gengar.subtabs.y
-    local isActive = Gengar.subtabs.active == subtabName
-    local textWidth = Gengar:GetTextWidthSize(subtabName, 3, 8)
-    local hovered = Gengar:Hovered(Gengar.x + 220 + subtabY, Gengar.y + 10, textWidth, 30)
+function ZZClief.SubTab(ZZClief, subtabName)
+    local subtabY = ZZClief.subtabs.y
+    local isActive = ZZClief.subtabs.active == subtabName
+    local textWidth = ZZClief:GetTextWidthSize(subtabName, 3, 8)
+    local hovered = ZZClief:Hovered(ZZClief.x + 220 + subtabY, ZZClief.y + 10, textWidth, 30)
 
     if isActive then
-        if not Gengar.subtabs.addY then
-            Gengar.subtabs.addY = subtabY
+        if not ZZClief.subtabs.addY then
+            ZZClief.subtabs.addY = subtabY
         end
-        if not Gengar.subtabs.addW then
-            Gengar.subtabs.addW = textWidth
+        if not ZZClief.subtabs.addW then
+            ZZClief.subtabs.addW = textWidth
         end
-        Gengar.subtabs.addY = Gengar.functions.lerp(0.15, Gengar.subtabs.addY, subtabY)
-        Gengar.subtabs.addW = Gengar.functions.lerp(0.15, Gengar.subtabs.addW, textWidth)
+        ZZClief.subtabs.addY = ZZClief.functions.lerp(0.15, ZZClief.subtabs.addY, subtabY)
+        ZZClief.subtabs.addW = ZZClief.functions.lerp(0.15, ZZClief.subtabs.addW, textWidth)
     end
 
     if subtabY == 0 then
-        Gengar:DrawRoundedRect(Gengar.x + 237 + math.ceil(Gengar.subtabs.addY), Gengar.y + 40, math.ceil(Gengar.subtabs.addW) - 3, 3, 15, Gengar.colors.theme, 11)
+        ZZClief:DrawRoundedRect(ZZClief.x + 237 + math.ceil(ZZClief.subtabs.addY), ZZClief.y + 40, math.ceil(ZZClief.subtabs.addW) - 3, 3, 15, ZZClief.colors.theme, 11)
     end
     
-    Gengar:DrawText(subtabName, Gengar.x + 240 + subtabY, Gengar.y + 15, 260, 260, false, {255, 255, 255, 255}, 11)
+    ZZClief:DrawText(subtabName, ZZClief.x + 240 + subtabY, ZZClief.y + 15, 260, 260, false, {255, 255, 255, 255}, 11)
     
     if hovered and IsDisabledControlJustPressed(0, 24) then
-        Gengar.subtabs.active = subtabName
+        ZZClief.subtabs.active = subtabName
     end
-    Gengar.subtabs.y = subtabY + textWidth + 15
+    ZZClief.subtabs.y = subtabY + textWidth + 15
 end
 
-function Gengar.DrawCursor(Gengar)
-    local dict, name = Gengar:GetSprite('cursor')
+function ZZClief.DrawCursor(ZZClief)
+    local dict, name = ZZClief:GetSprite('cursor')
     local cursorX, cursorY = GetNuiCursorPosition()
     DisableControlAction(0, 1, true)
     DisableControlAction(0, 2, true)
@@ -425,74 +423,76 @@ function Gengar.DrawCursor(Gengar)
     DisableControlAction(0, 17, true)
     DisableControlAction(0, 157, true)
     DisablePlayerFiring(PlayerPedId(), true)
-    Gengar:DrawSprite(dict, name, cursorX, cursorY - 1, 45, 45, 10, {255, 255, 255, 255}, 8)
-    Gengar.tabs.y = 0
-    Gengar.subtabs.y = 0
+    ZZClief:DrawSprite(dict, name, cursorX, cursorY - 1, 45, 45, 10, {255, 255, 255, 255}, 8)
+    ZZClief.tabs.y = 0
+    ZZClief.subtabs.y = 0
 end
 
-function Gengar.Window(Gengar)
-    Gengar.buttons = {
+
+
+function ZZClief.Window(ZZClief)
+    ZZClief.buttons = {
         x = 0,
         y = 0,
     }
-    local x, y, width, height, colors = Gengar.x, Gengar.y, Gengar.width, Gengar.height, Gengar.colors
-    Gengar:DrawRoundedRect(x, y, width, height, 17, {12, 12, 12, 255}, 10) -- BackGround
-    Gengar:DrawRoundedRect(x, y, 200, height, 17, {15, 15, 15, 255}, 10) -- BackGround Esquerda
-    Gengar:DrawText('Gengar', x + 20, y + 15, width - 200, height - 200, false, {255, 255, 255, 255})
-        Gengar:DrawText('MENU', x + 120, y + 15, width - 200, height - 200, false, {255, 0, 0, 255})
-    Gengar:DrawRoundedRect(x + 32, y + 46, 135, 3, 15, Gengar.colors.theme, 10)
-    Gengar:DrawRoundedRect(x + 210, y + 10, width - 220, height - 20, 15, {15, 15, 15, 255}, 10) -- TRAS DOS BOTOES
-    Gengar:DrawRoundedRect(x + 210, y + 10, width - 220, 35, 15, {25, 25, 25, 255}, 10) -- PARTE CIMA SUBTAB
-    Gengar:DrawRoundedRect(x + 210, y + 30, width - 220, 20, 0, {25, 25, 25, 255}, 10) -- PARTE BAIXO SUBTAB
+    local x, y, width, height, colors = ZZClief.x, ZZClief.y, ZZClief.width, ZZClief.height, ZZClief.colors
+    ZZClief:DrawRoundedRect(x, y, width, height, 17, {12, 12, 12, 255}, 10) -- BackGround
+    ZZClief:DrawRoundedRect(x, y, 200, height, 17, {15, 15, 15, 255}, 10) -- BackGround Esquerda
+    ZZClief:DrawText('ZZClief', x + 20, y + 15, width - 200, height - 200, false, {255, 255, 255, 255})
+    ZZClief:DrawText('MENU', x + 120, y + 15, width - 200, height - 200, false, {255, 0, 0, 255})
+    ZZClief:DrawRoundedRect(x + 32, y + 46, 135, 3, 15, ZZClief.colors.theme, 10)
+    ZZClief:DrawRoundedRect(x + 210, y + 10, width - 220, height - 20, 15, {15, 15, 15, 255}, 10) -- TRAS DOS BOTOES
+    ZZClief:DrawRoundedRect(x + 210, y + 10, width - 220, 35, 15, {25, 25, 25, 255}, 10) -- PARTE CIMA SUBTAB
+    ZZClief:DrawRoundedRect(x + 210, y + 30, width - 220, 20, 0, {25, 25, 25, 255}, 10) -- PARTE BAIXO SUBTAB
 
-    local dict, name = Gengar:GetSprite('Jogador')
-    Gengar:DrawSprite(dict, name, x + 29, y + 92.5, 45, 45, 0, Gengar.colors.icontab.colors['Jogador'], 5)
-    dict, name = Gengar:GetSprite('Veiculos')
-    Gengar:DrawSprite(dict, name, x + 32.5, y + 150, 23, 23, 0, Gengar.colors.icontab.colors['Veiculos'], 5)
-    dict, name = Gengar:GetSprite('Armas')
-    Gengar:DrawSprite(dict, name, x + 32.5, y + 200, 23, 23, 0, Gengar.colors.icontab.colors['Armas'], 5)
-    dict, name = Gengar:GetSprite('Online')
-    Gengar:DrawSprite(dict, name, x + 25, y + 243, 45, 45, 0, Gengar.colors.icontab.colors['Online'], 5)
-    dict, name = Gengar:GetSprite('Destruicao')
-    Gengar:DrawSprite(dict, name, x + 32, y + 298, 23, 23, 0, Gengar.colors.icontab.colors['Destruição'], 5)
-    dict, name = Gengar:GetSprite('Exploits')
-    Gengar:DrawSprite(dict, name, x + 30.5, y + 349, 23, 23, 0, Gengar.colors.icontab.colors['Exploits'], 5)
-    dict, name = Gengar:GetSprite('Config')
-    Gengar:DrawSprite(dict, name, x + 30, y + 398, 23, 23, 0, Gengar.colors.icontab.colors['Config'], 5)
-    Gengar:DrawCursor()
+    local dict, name = ZZClief:GetSprite('Jogador')
+    ZZClief:DrawSprite(dict, name, x + 29, y + 92.5, 45, 45, 0, ZZClief.colors.icontab.colors['Jogador'], 5)
+    dict, name = ZZClief:GetSprite('Veiculos')
+    ZZClief:DrawSprite(dict, name, x + 32.5, y + 150, 23, 23, 0, ZZClief.colors.icontab.colors['Veiculos'], 5)
+    dict, name = ZZClief:GetSprite('Armas')
+    ZZClief:DrawSprite(dict, name, x + 32.5, y + 200, 23, 23, 0, ZZClief.colors.icontab.colors['Armas'], 5)
+    dict, name = ZZClief:GetSprite('Online')
+    ZZClief:DrawSprite(dict, name, x + 25, y + 243, 45, 45, 0, ZZClief.colors.icontab.colors['Online'], 5)
+    dict, name = ZZClief:GetSprite('Destruicao')
+    ZZClief:DrawSprite(dict, name, x + 32, y + 298, 23, 23, 0, ZZClief.colors.icontab.colors['Destruição'], 5)
+    dict, name = ZZClief:GetSprite('Exploits')
+    ZZClief:DrawSprite(dict, name, x + 30.5, y + 349, 23, 23, 0, ZZClief.colors.icontab.colors['Exploits'], 5)
+    dict, name = ZZClief:GetSprite('Config')
+    ZZClief:DrawSprite(dict, name, x + 30, y + 398, 23, 23, 0, ZZClief.colors.icontab.colors['Config'], 5)
+    ZZClief:DrawCursor()
 end
 
-function Gengar.Button(Gengar, buttonId, buttonText, buttonCallback)
-    local buttonX = Gengar.buttons.x + 205
-    local buttonY = Gengar.buttons.y
-    local scrolledY = buttonY + (Gengar.scroll[Gengar.tabs.active .. (Gengar.subtabs.active or '')] or 0)
+function ZZClief.Button(ZZClief, buttonId, buttonText, buttonCallback)
+    local buttonX = ZZClief.buttons.x + 205
+    local buttonY = ZZClief.buttons.y
+    local scrolledY = buttonY + (ZZClief.scroll[ZZClief.tabs.active .. (ZZClief.subtabs.active or '')] or 0)
 
     if 0 <= scrolledY and scrolledY <= 420 then
-        local hovered = Gengar:Hovered(Gengar.x + 3 + buttonX, Gengar.y + 70 + scrolledY, 560, 55)
+        local hovered = ZZClief:Hovered(ZZClief.x + 3 + buttonX, ZZClief.y + 70 + scrolledY, 560, 55)
         
         if hovered then
-            Gengar:DrawRoundedRect(Gengar.x + 15 + buttonX, Gengar.y + 75 + scrolledY, 560, 55, 12, {25, 25, 25, 255}, 11)
+            ZZClief:DrawRoundedRect(ZZClief.x + 15 + buttonX, ZZClief.y + 75 + scrolledY, 560, 55, 12, {25, 25, 25, 255}, 11)
         else
-            Gengar:DrawRoundedRect(Gengar.x + 15 + buttonX, Gengar.y + 75 + scrolledY, 560, 55, 12, {21, 21, 21, 255}, 11)
+            ZZClief:DrawRoundedRect(ZZClief.x + 15 + buttonX, ZZClief.y + 75 + scrolledY, 560, 55, 12, {21, 21, 21, 255}, 11)
         end
 
-        Gengar:DrawText(buttonId, Gengar.x + 45 + buttonX, Gengar.y + 80 + scrolledY, 265, 265, false, {255, 255, 255, 255}, 11)
-        Gengar:DrawText(buttonText, Gengar.x + 45 + buttonX, Gengar.y + 102 + scrolledY, 265, 265, false, {120, 120, 120, 255}, 11)
+        ZZClief:DrawText(buttonId, ZZClief.x + 45 + buttonX, ZZClief.y + 80 + scrolledY, 265, 265, false, {255, 255, 255, 255}, 11)
+        ZZClief:DrawText(buttonText, ZZClief.x + 45 + buttonX, ZZClief.y + 102 + scrolledY, 265, 265, false, {120, 120, 120, 255}, 11)
 
         if hovered and type(buttonCallback) == 'function' and IsDisabledControlJustPressed(0, 24) then
             Citizen.CreateThread(buttonCallback)
         end
     end 
-    Gengar.buttons.y = buttonY + 60
+    ZZClief.buttons.y = buttonY + 60
 end
 
 
 function camDirect()
     local heading = GetGameplayCamRelativeHeading() + GetEntityHeading(PlayerPedId())
-    local Gengarch = GetGameplayCamRelativeGengarch()
+    local ZZCliefch = GetGameplayCamRelativeZZCliefch()
     local x = -math.sin(heading * math.pi / 180.0)
     local y = math.cos(heading * math.pi / 180.0)
-    local z = math.sin(Gengarch * math.pi / 180.0)
+    local z = math.sin(ZZCliefch * math.pi / 180.0)
     local len = math.sqrt(x * x + y * y + z * z)
     if len ~= 0 then
         x = x / len
@@ -502,92 +502,92 @@ function camDirect()
     return x, y, z
 end
 
-function Gengar.CheckBox(Gengar, Title, SubTitle, toggleName, callback)
-    local buttonX = Gengar.buttons.x + 205
-    local buttonY = Gengar.buttons.y
-    local scrollOffset = buttonY + (Gengar.scroll[Gengar.tabs.active .. (Gengar.subtabs.active or '')] or 0)
-    local toggleState = Gengar.toggles[toggleName]
+function ZZClief.CheckBox(ZZClief, Title, SubTitle, toggleName, callback)
+    local buttonX = ZZClief.buttons.x + 205
+    local buttonY = ZZClief.buttons.y
+    local scrollOffset = buttonY + (ZZClief.scroll[ZZClief.tabs.active .. (ZZClief.subtabs.active or '')] or 0)
+    local toggleState = ZZClief.toggles[toggleName]
 
-    if not Gengar.animColors[toggleName] then
-        Gengar.animColors[toggleName] = { r = 21, g = 21, b = 21, x = 0 }
+    if not ZZClief.animColors[toggleName] then
+        ZZClief.animColors[toggleName] = { r = 21, g = 21, b = 21, x = 0 }
     end
     if 0 <= scrollOffset and scrollOffset <= 420 then
-        local isHovered = Gengar:Hovered(Gengar.x + 3 + buttonX, Gengar.y + 70 + scrollOffset, 560, 55)
-        local themeColors = toggleState and Gengar.colors.theme or {21, 21, 21, 255}
+        local isHovered = ZZClief:Hovered(ZZClief.x + 3 + buttonX, ZZClief.y + 70 + scrollOffset, 560, 55)
+        local themeColors = toggleState and ZZClief.colors.theme or {21, 21, 21, 255}
 
-        Gengar.animColors[toggleName].r = Gengar.functions.lerp(0.15, Gengar.animColors[toggleName].r, themeColors[1])
-        Gengar.animColors[toggleName].g = Gengar.functions.lerp(0.15, Gengar.animColors[toggleName].g, themeColors[2])
-        Gengar.animColors[toggleName].b = Gengar.functions.lerp(0.15, Gengar.animColors[toggleName].b, themeColors[3])
-        Gengar.animColors[toggleName].x = Gengar.functions.lerp(0.15, Gengar.animColors[toggleName].x, toggleState and 27 or 0)
+        ZZClief.animColors[toggleName].r = ZZClief.functions.lerp(0.15, ZZClief.animColors[toggleName].r, themeColors[1])
+        ZZClief.animColors[toggleName].g = ZZClief.functions.lerp(0.15, ZZClief.animColors[toggleName].g, themeColors[2])
+        ZZClief.animColors[toggleName].b = ZZClief.functions.lerp(0.15, ZZClief.animColors[toggleName].b, themeColors[3])
+        ZZClief.animColors[toggleName].x = ZZClief.functions.lerp(0.15, ZZClief.animColors[toggleName].x, toggleState and 27 or 0)
 
         if isHovered then
-            Gengar:DrawRoundedRect(Gengar.x + 15 + buttonX, Gengar.y + 75 + scrollOffset, 560, 55, 12, {25, 25, 25, 255}, 11)
+            ZZClief:DrawRoundedRect(ZZClief.x + 15 + buttonX, ZZClief.y + 75 + scrollOffset, 560, 55, 12, {25, 25, 25, 255}, 11)
         else
-            Gengar:DrawRoundedRect(Gengar.x + 15 + buttonX, Gengar.y + 75 + scrollOffset, 560, 55, 12, {21, 21, 21, 255}, 11)
+            ZZClief:DrawRoundedRect(ZZClief.x + 15 + buttonX, ZZClief.y + 75 + scrollOffset, 560, 55, 12, {21, 21, 21, 255}, 11)
         end
 
-        Gengar:DrawRoundedRect(Gengar.x + 505 + buttonX, Gengar.y + 87 + scrollOffset, 30, 30, 15, {17, 17, 17, 255}, 11)
+        ZZClief:DrawRoundedRect(ZZClief.x + 505 + buttonX, ZZClief.y + 87 + scrollOffset, 30, 30, 15, {17, 17, 17, 255}, 11)
 
         if toggleState then
-            local dict, name = Gengar:GetSprite('check')
-            local colors = Gengar.animColors[toggleName]
+            local dict, name = ZZClief:GetSprite('check')
+            local colors = ZZClief.animColors[toggleName]
             local r = math.ceil(colors.r)
             local g = math.ceil(colors.g)
             local b = math.ceil(colors.b)
-            Gengar:DrawSprite(dict, name, Gengar.x + 505 + buttonX, Gengar.y + 87 + scrollOffset, 35, 35, 0, {r, g, b, 255}, 11)
+            ZZClief:DrawSprite(dict, name, ZZClief.x + 505 + buttonX, ZZClief.y + 87 + scrollOffset, 35, 35, 0, {r, g, b, 255}, 11)
         end
         
         
 
-        Gengar:DrawText(Title,  Gengar.x + 45 + buttonX, Gengar.y + 80 + scrollOffset, 265, 265, false, {220, 220, 220, 255}, 11)
-        Gengar:DrawText(SubTitle, Gengar.x + 45 + buttonX, Gengar.y + 102 + scrollOffset, 265, 265, false, {120, 120, 120, 255}, 11)
+        ZZClief:DrawText(Title,  ZZClief.x + 45 + buttonX, ZZClief.y + 80 + scrollOffset, 265, 265, false, {220, 220, 220, 255}, 11)
+        ZZClief:DrawText(SubTitle, ZZClief.x + 45 + buttonX, ZZClief.y + 102 + scrollOffset, 265, 265, false, {120, 120, 120, 255}, 11)
 
         if isHovered and IsDisabledControlJustPressed(0, 24)then
-            Gengar.toggles[toggleName] = not toggleState
+            ZZClief.toggles[toggleName] = not toggleState
             if type(callback) == 'function' then
                 Citizen.CreateThread(function()
-                    callback(Gengar.toggles[toggleName])
+                    callback(ZZClief.toggles[toggleName])
                 end)
             end
         end
     end
-    Gengar.buttons.y = buttonY + 60
+    ZZClief.buttons.y = buttonY + 60
 end
 
-function Gengar.Slider(Gengar, sliderTitle, sliderSubtitle, sliderID, slider, sliderCallback)
-    if not Gengar.sliders[sliderID] then
+function ZZClief.Slider(ZZClief, sliderTitle, sliderSubtitle, sliderID, slider, sliderCallback)
+    if not ZZClief.sliders[sliderID] then
         slider.x = math.floor(155 * (slider.value - slider.min) / (slider.max - slider.min))
-        Gengar.sliders[sliderID] = slider.value
+        ZZClief.sliders[sliderID] = slider.value
     end
-    local buttonPosX = Gengar.buttons.x + 205
-    local buttonPosY = Gengar.buttons.y
-    local scrollOffsetY = buttonPosY + (Gengar.scroll[Gengar.tabs.active .. (Gengar.subtabs.active or '')] or 0)
+    local buttonPosX = ZZClief.buttons.x + 205
+    local buttonPosY = ZZClief.buttons.y
+    local scrollOffsetY = buttonPosY + (ZZClief.scroll[ZZClief.tabs.active .. (ZZClief.subtabs.active or '')] or 0)
 
     if 0 <= scrollOffsetY and scrollOffsetY <= 420 then
-        local circleSprite1, circleSprite2 = Gengar:GetSprite('circle')
-        local sliderValue = Gengar.sliders[sliderID]
+        local circleSprite1, circleSprite2 = ZZClief:GetSprite('circle')
+        local sliderValue = ZZClief.sliders[sliderID]
         local sliderWidth = 135
         local sliderPosition = math.floor(sliderWidth * (sliderValue - slider.min) / (slider.max - slider.min))
         
-        local hovered1 = Gengar:Hovered(Gengar.x + 3 + buttonPosX, Gengar.y + 70 + scrollOffsetY, 310, 55)
-        local hovered2 = Gengar:Hovered(Gengar.x + 340 + buttonPosX, Gengar.y + 70 + scrollOffsetY, 235, 55)
+        local hovered1 = ZZClief:Hovered(ZZClief.x + 3 + buttonPosX, ZZClief.y + 70 + scrollOffsetY, 310, 55)
+        local hovered2 = ZZClief:Hovered(ZZClief.x + 340 + buttonPosX, ZZClief.y + 70 + scrollOffsetY, 235, 55)
 
         if hovered1 then
-            Gengar:DrawRoundedRect(Gengar.x + 15 + buttonPosX, Gengar.y + 75 + scrollOffsetY, 560, 55, 12, {30, 30, 30, 255}, 11)
+            ZZClief:DrawRoundedRect(ZZClief.x + 15 + buttonPosX, ZZClief.y + 75 + scrollOffsetY, 560, 55, 12, {30, 30, 30, 255}, 11)
         else
-            Gengar:DrawRoundedRect(Gengar.x + 15 + buttonPosX, Gengar.y + 75 + scrollOffsetY, 560, 55, 12, {21, 21, 21, 255}, 11)
+            ZZClief:DrawRoundedRect(ZZClief.x + 15 + buttonPosX, ZZClief.y + 75 + scrollOffsetY, 560, 55, 12, {21, 21, 21, 255}, 11)
         end
 
-        Gengar:DrawText(sliderTitle, Gengar.x + 45 + buttonPosX, Gengar.y + 80 + scrollOffsetY, 250, 250, false, {255, 255, 255, 255}, 11)
-        Gengar:DrawText(sliderSubtitle, Gengar.x + 45 + buttonPosX, Gengar.y + 102 + scrollOffsetY, 250, 250, false, {120, 120, 120, 255}, 11)
+        ZZClief:DrawText(sliderTitle, ZZClief.x + 45 + buttonPosX, ZZClief.y + 80 + scrollOffsetY, 250, 250, false, {255, 255, 255, 255}, 11)
+        ZZClief:DrawText(sliderSubtitle, ZZClief.x + 45 + buttonPosX, ZZClief.y + 102 + scrollOffsetY, 250, 250, false, {120, 120, 120, 255}, 11)
         
-        Gengar:DrawRoundedRect(Gengar.x + 350 + buttonPosX, Gengar.y + 102 + scrollOffsetY, sliderWidth, 4, 6, {40, 40, 42, 255}, 11)
-        Gengar:DrawRoundedRect(Gengar.x + 345 + buttonPosX, Gengar.y + 102 + scrollOffsetY, 10, 4, 6, Gengar.colors.theme, 11)
-        Gengar:DrawRoundedRect(Gengar.x + 350 + buttonPosX, Gengar.y + 102 + scrollOffsetY, sliderPosition, 4, 6, Gengar.colors.theme, 11)
+        ZZClief:DrawRoundedRect(ZZClief.x + 350 + buttonPosX, ZZClief.y + 102 + scrollOffsetY, sliderWidth, 4, 6, {40, 40, 42, 255}, 11)
+        ZZClief:DrawRoundedRect(ZZClief.x + 345 + buttonPosX, ZZClief.y + 102 + scrollOffsetY, 10, 4, 6, ZZClief.colors.theme, 11)
+        ZZClief:DrawRoundedRect(ZZClief.x + 350 + buttonPosX, ZZClief.y + 102 + scrollOffsetY, sliderPosition, 4, 6, ZZClief.colors.theme, 11)
 
-        Gengar:DrawSprite(circleSprite1, circleSprite2, Gengar.x + 348 + buttonPosX + sliderPosition, Gengar.y + 98 + scrollOffsetY, 12, 12, 0, Gengar.colors.theme, 11)
-        Gengar:DrawRoundedRect(Gengar.x + 348 + buttonPosX + sliderPosition, Gengar.y + 98 + scrollOffsetY, 12, 12, 18, Gengar.colors.theme, 11)
-        Gengar:DrawText(tostring('('..sliderValue..')'), Gengar.x + 505 + buttonPosX, Gengar.y + 93 + scrollOffsetY, 220, 220, false, {255, 255, 255, 255}, 11)
+        ZZClief:DrawSprite(circleSprite1, circleSprite2, ZZClief.x + 348 + buttonPosX + sliderPosition, ZZClief.y + 98 + scrollOffsetY, 12, 12, 0, ZZClief.colors.theme, 11)
+        ZZClief:DrawRoundedRect(ZZClief.x + 348 + buttonPosX + sliderPosition, ZZClief.y + 98 + scrollOffsetY, 12, 12, 18, ZZClief.colors.theme, 11)
+        ZZClief:DrawText(tostring('('..sliderValue..')'), ZZClief.x + 505 + buttonPosX, ZZClief.y + 93 + scrollOffsetY, 220, 220, false, {255, 255, 255, 255}, 11)
 
         if hovered1 and type(sliderCallback) == 'function' and IsDisabledControlJustPressed(0, 24) then
             Citizen.CreateThread(sliderCallback)
@@ -595,53 +595,53 @@ function Gengar.Slider(Gengar, sliderTitle, sliderSubtitle, sliderID, slider, sl
 
         if hovered2 and IsDisabledControlPressed(0, 24) then
             local cursorX, cursorY = GetNuiCursorPosition()
-            local newSliderValue = math.floor(slider.min + (slider.max - slider.min) * math.min(math.max((cursorX - (Gengar.x + 340 + buttonPosX)), 0), sliderWidth) / sliderWidth)
-            Gengar.sliders[sliderID] = math.floor(newSliderValue)
+            local newSliderValue = math.floor(slider.min + (slider.max - slider.min) * math.min(math.max((cursorX - (ZZClief.x + 340 + buttonPosX)), 0), sliderWidth) / sliderWidth)
+            ZZClief.sliders[sliderID] = math.floor(newSliderValue)
         end
     end
 
-    if slider.max < Gengar.sliders[sliderID] then
-        Gengar.sliders[sliderID] = slider.max
-    elseif Gengar.sliders[sliderID] < slider.min then
-        Gengar.sliders[sliderID] = slider.min
+    if slider.max < ZZClief.sliders[sliderID] then
+        ZZClief.sliders[sliderID] = slider.max
+    elseif ZZClief.sliders[sliderID] < slider.min then
+        ZZClief.sliders[sliderID] = slider.min
     end
-    Gengar.buttons.y = buttonPosY + 60
+    ZZClief.buttons.y = buttonPosY + 60
 end
 
 CreateThread(function()
-    while Gengar.RenderMenu do
+    while ZZClief.RenderMenu do
         if IsDisabledControlJustPressed(0, 24) then
-            local isHovered = Gengar:Hovered(Gengar.x, Gengar.y, Gengar.width, 40)
+            local isHovered = ZZClief:Hovered(ZZClief.x, ZZClief.y, ZZClief.width, 40)
             if isHovered then
                 local cursorX, cursorY = GetNuiCursorPosition()
-                Gengar.drag.isDragging = true
-                Gengar.drag.offsetX = cursorX - Gengar.x
-                Gengar.drag.offsetY = cursorY - Gengar.y
+                ZZClief.drag.isDragging = true
+                ZZClief.drag.offsetX = cursorX - ZZClief.x
+                ZZClief.drag.offsetY = cursorY - ZZClief.y
             end
         elseif IsDisabledControlJustReleased(0, 24) then
-            Gengar.drag.isDragging = false
-        elseif Gengar.drag.isDragging then
+            ZZClief.drag.isDragging = false
+        elseif ZZClief.drag.isDragging then
             local cursorX, cursorY = GetNuiCursorPosition()
-            Gengar.x = cursorX - Gengar.drag.offsetX
-            Gengar.y = cursorY - Gengar.drag.offsetY
+            ZZClief.x = cursorX - ZZClief.drag.offsetX
+            ZZClief.y = cursorY - ZZClief.drag.offsetY
         end
 
-        local hovered = Gengar:Hovered(Gengar.x, Gengar.y, Gengar.width, Gengar.height)
+        local hovered = ZZClief:Hovered(ZZClief.x, ZZClief.y, ZZClief.width, ZZClief.height)
         if hovered then
-            local activeTab = Gengar.tabs.active..(Gengar.subtabs.active or '')
-            local scrollPos = Gengar.scroll[activeTab] or 0
+            local activeTab = ZZClief.tabs.active..(ZZClief.subtabs.active or '')
+            local scrollPos = ZZClief.scroll[activeTab] or 0
             local scrollStep = 60
-            local maxScroll = Gengar.buttons.y / scrollStep - 8
+            local maxScroll = ZZClief.buttons.y / scrollStep - 8
             local scrollDelta = -scrollStep * maxScroll
             
             if IsDisabledControlPressed(0, 15) and scrollPos < 0 then
-                Gengar.scroll[activeTab] = scrollPos + scrollStep
+                ZZClief.scroll[activeTab] = scrollPos + scrollStep
             elseif IsDisabledControlPressed(0, 14) and scrollDelta < scrollPos then
-                Gengar.scroll[activeTab] = scrollPos - scrollStep
+                ZZClief.scroll[activeTab] = scrollPos - scrollStep
             end
             
-            if Gengar.buttons.y < scrollStep * 8 and Gengar.scroll[activeTab] ~= 0 then
-                Gengar.scroll[activeTab] = 0
+            if ZZClief.buttons.y < scrollStep * 8 and ZZClief.scroll[activeTab] ~= 0 then
+                ZZClief.scroll[activeTab] = 0
             end
         end
         Wait(0)
@@ -649,56 +649,56 @@ CreateThread(function()
 end)
 
 Citizen.CreateThread(function()
-    while Gengar.RenderMenu do
-        if Gengar.menuLoaded and IsDisabledControlJustPressed(0, Gengar.MenuKey.key) then
-            Gengar.showMenu = not Gengar.showMenu
+    while ZZClief.RenderMenu do
+        if ZZClief.menuLoaded and IsDisabledControlJustPressed(0, ZZClief.MenuKey.key) then
+            ZZClief.showMenu = not ZZClief.showMenu
         end
 
-        if Gengar.menuLoaded and not IsPauseMenuActive() and Gengar.showMenu then
-            Gengar:Window()
-            Gengar:Tab('Jogador', function()
-                if Gengar.tabs.active == 'Jogador' then
-                    Gengar.subtabs.active = 'Jogador'
+        if ZZClief.menuLoaded and not IsPauseMenuActive() and ZZClief.showMenu then
+            ZZClief:Window()
+            ZZClief:Tab('Jogador', function()
+                if ZZClief.tabs.active == 'Jogador' then
+                    ZZClief.subtabs.active = 'Jogador'
                 end
             end)
-            Gengar:Tab('Veiculos', function()
-                if Gengar.tabs.active == 'Veiculos' then
-                    Gengar.subtabs.active = 'Veiculos'
+            ZZClief:Tab('Veiculos', function()
+                if ZZClief.tabs.active == 'Veiculos' then
+                    ZZClief.subtabs.active = 'Veiculos'
                 end
             end)
-            Gengar:Tab('Armas', function()
-                if Gengar.tabs.active == 'Armas' then
-                    Gengar.subtabs.active = 'Armas'
+            ZZClief:Tab('Armas', function()
+                if ZZClief.tabs.active == 'Armas' then
+                    ZZClief.subtabs.active = 'Armas'
                 end
             end)
-            Gengar:Tab('Online', function()
-                if Gengar.tabs.active == 'Online' then
-                    Gengar.subtabs.active = 'Online'
+            ZZClief:Tab('Online', function()
+                if ZZClief.tabs.active == 'Online' then
+                    ZZClief.subtabs.active = 'Online'
                 end
             end)
-            Gengar:Tab('Destruição', function()
-                if Gengar.tabs.active == 'Destruição' then
-                    Gengar.subtabs.active = 'Destruição'
+            ZZClief:Tab('Destruição', function()
+                if ZZClief.tabs.active == 'Destruição' then
+                    ZZClief.subtabs.active = 'Destruição'
                 end
             end)
-            Gengar:Tab('Exploits', function()
-                if Gengar.tabs.active == 'Exploits' then
-                    Gengar.subtabs.active = 'Exploits'
+            ZZClief:Tab('Exploits', function()
+                if ZZClief.tabs.active == 'Exploits' then
+                    ZZClief.subtabs.active = 'Exploits'
                 end
             end)
-            Gengar:Tab('Config', function()
-                if Gengar.tabs.active == 'Config' then
-                    Gengar.subtabs.active = 'Config'
+            ZZClief:Tab('Config', function()
+                if ZZClief.tabs.active == 'Config' then
+                    ZZClief.subtabs.active = 'Config'
                 end
             end)
 
-            if Gengar.tabs.active == 'Jogador' then -- SE O TAB JOGADOR ESTIVER ATIVO ENTAO
-                Gengar:SubTab('Jogador') --SUBTAB 1
-                Gengar:SubTab('Poderes') --SUBTAB 2
+            if ZZClief.tabs.active == 'Jogador' then -- SE O TAB JOGADOR ESTIVER ATIVO ENTAO
+                ZZClief:SubTab('Jogador') --SUBTAB 1
+                ZZClief:SubTab('Poderes') --SUBTAB 2
 
-                if Gengar.subtabs.active == 'Jogador' then -- SE O SUBTAB 1 JOGADOR ESTIVER ATIVO ENTAO
+                if ZZClief.subtabs.active == 'Jogador' then -- SE O SUBTAB 1 JOGADOR ESTIVER ATIVO ENTAO
                 
-                    Gengar:Button('Teleport WayPoint', 'Você ira Teleportar para o local marcado', function() -- SEMPRE USAR ESSA LÓGICA, TITULO PRIMEIRO DEPOIS SUBTITULO
+                    ZZClief:Button('Teleport WayPoint', 'Você ira Teleportar para o local marcado', function() -- SEMPRE USAR ESSA LÓGICA, TITULO PRIMEIRO DEPOIS SUBTITULO
                         cdsmodule.tpway()
 
                     end)
@@ -707,7 +707,7 @@ Citizen.CreateThread(function()
 
 
                     if getsource('MQCU') or getsource('likizao_ac') or getsource('PL_PROTECT') or getsource('ThnAC') then
-                        Gengar:Button('Reviver', 'Você irá Reviver seu PED', function() -- TÍTULO PRIMEIRO, DEPOIS SUBTÍTULO
+                        ZZClief:Button('Reviver', 'Você irá Reviver seu PED', function() -- TÍTULO PRIMEIRO, DEPOIS SUBTÍTULO
                             CreateThread(function()
                                 tvRP.killGod()
                                 tvRP.setHealth(199)
@@ -715,7 +715,7 @@ Citizen.CreateThread(function()
                             end)
                         end)
                     else
-                        Gengar:Button('Reviver', 'Você irá Reviver seu PED', function() -- TÍTULO PRIMEIRO, DEPOIS SUBTÍTULO
+                        ZZClief:Button('Reviver', 'Você irá Reviver seu PED', function() -- TÍTULO PRIMEIRO, DEPOIS SUBTÍTULO
                             local x, y, z = table.unpack(GetEntityCoords(PlayerPedId()))
                             NetworkResurrectLocalPlayer(x, y, z, GetEntityHeading(PlayerPedId()), true, false)
                             ClearPedBloodDamage(PlayerPedId())
@@ -725,7 +725,7 @@ Citizen.CreateThread(function()
 
 
                     if getsource('MQCU') or getsource('likizao_ac') or getsource('PL_PROTECT') or getsource('ThnAC') then
-                        Gengar:Button('Curar', 'Você irá curar seu PED', function() -- TÍTULO PRIMEIRO, DEPOIS SUBTÍTULO
+                        ZZClief:Button('Curar', 'Você irá curar seu PED', function() -- TÍTULO PRIMEIRO, DEPOIS SUBTÍTULO
                             CreateThread(function()
                                 local playerPed = GetPlayerPed(-1)
                                 local health = GetEntityHealth(playerPed)
@@ -741,18 +741,18 @@ Citizen.CreateThread(function()
                             end)
                         end)
                     else
-                        Gengar:Button('Curar', 'Você irá curar seu PED', function() -- TÍTULO PRIMEIRO, DEPOIS SUBTÍTULO
+                        ZZClief:Button('Curar', 'Você irá curar seu PED', function() -- TÍTULO PRIMEIRO, DEPOIS SUBTÍTULO
                             SetEntityHealth(PlayerPedId(), 400)
                         end)
                     end
                     
 
-                    Gengar:Button('Suicidio', 'Você ira morrer', function() -- SEMPRE USAR ESSA LÓGICA, TITULO PRIMEIRO DEPOIS SUBTITULO
+                    ZZClief:Button('Suicidio', 'Você ira morrer', function() -- SEMPRE USAR ESSA LÓGICA, TITULO PRIMEIRO DEPOIS SUBTITULO
                         SetEntityHealth(PlayerPedId(), 0)    
 
                     end)
 
-                    Gengar:Button('Limpar Ferimentos', 'Você ira limpar suas feridas', function() -- SEMPRE USAR ESSA LÓGICA, TITULO PRIMEIRO DEPOIS SUBTITULO
+                    ZZClief:Button('Limpar Ferimentos', 'Você ira limpar suas feridas', function() -- SEMPRE USAR ESSA LÓGICA, TITULO PRIMEIRO DEPOIS SUBTITULO
                         ClearPedBloodDamage(PlayerPedId())
     
 
@@ -760,7 +760,7 @@ Citizen.CreateThread(function()
 
                     if getsource('MQCU') or getsource('likizao_ac') or getsource('PL_PROTECT') or getsource('ThnAC') or getsource('Menu') then
 
-                    Gengar:Button('Desalgemar', 'Você ira se desalgemar.', function() -- SEMPRE USAR ESSA LÓGICA, TITULO PRIMEIRO DEPOIS SUBTITULO
+                    ZZClief:Button('Desalgemar', 'Você ira se desalgemar.', function() -- SEMPRE USAR ESSA LÓGICA, TITULO PRIMEIRO DEPOIS SUBTITULO
                         Citizen.CreateThread(function()
                             vRP.toggleHandcuff()
     
@@ -768,10 +768,10 @@ Citizen.CreateThread(function()
                     end)
                 end)
 
-            end -- FECHA O (GETSOURCE)
+            end 
 
 
-                    Gengar:Button('Soltar H', 'Você ira se soltar caso tenha alguem te carregando', function() -- SEMPRE USAR ESSA LÓGICA, TITULO PRIMEIRO DEPOIS SUBTITULO
+                    ZZClief:Button('Soltar H', 'Você ira se soltar caso tenha alguem te carregando', function() -- SEMPRE USAR ESSA LÓGICA, TITULO PRIMEIRO DEPOIS SUBTITULO
                         if not IsPedInAnyVehicle(PlayerPedId()) then
 
                             if IsEntityAttached(PlayerPedId()) then
@@ -788,7 +788,6 @@ Citizen.CreateThread(function()
 
 
 
-                    -- Tabela de bind de teclas
 local bindKeys = {
 ['F1'] = 288, ['F2'] = 289, ['F3'] = 170, ['F5'] = 166, ['F6'] = 167,
 ['F7'] = 168, ['F8'] = 169, ['F9'] = 56, ['F10'] = 57, ['F11'] = 344,
@@ -801,73 +800,73 @@ m = 244, caps = 137, home = 212, space = 22, ctrl = 60, shift = 21,
 tab = 37,
 }
 
--- Função para obter a direção da câmera
+
 function camDirect()
-local camRot = GetGameplayCamRot(2) -- Obtém a rotação da câmera
+local camRot = GetGameplayCamRot(2) 
 local camX = math.sin(math.rad(camRot.z)) * -1.0
 local camY = math.cos(math.rad(camRot.z))
 local camZ = math.sin(math.rad(camRot.x))
 return camX, camY, camZ
 end
 
--- Variáveis para controlar o estado do noclip
-local isNoclipEnabled = false  -- Controla se o noclip está habilitado (CheckBox)
-local isNoclipActive = false   -- Controla se o noclip está ativo (tecla Caps Lock pressionada)
-local noclipKey = 137  -- Tecla padrão: Caps Lock (código 137)
 
--- Loop do noclip
+local isNoclipEnabled = false 
+local isNoclipActive = false   
+local noclipKey = 137  
+
+
 Citizen.CreateThread(function()
 while true do
-    if isNoclipEnabled then  -- Só funciona se o CheckBox estiver marcado
-        if IsControlPressed(0, noclipKey) then  -- Tecla Caps Lock pressionada
+    if isNoclipEnabled then  
+        if IsControlPressed(0, noclipKey) then  
             isNoclipActive = true
         else
             isNoclipActive = false
         end
 
         if isNoclipActive then
-            local ttspeed = 1.0  -- Velocidade do noclip
+            local ttspeed = 1.0  
             local speed = ttspeed
             local player = PlayerPedId()
             local vehicleCheck = IsPedInAnyVehicle(player, false)
-            local entity = vehicleCheck and GetVehiclePedIsIn(player, false) or player
             local camRot = GetGameplayCamRot(2)
+            local entity = vehicleCheck and GetVehiclePedIsIn(player, false) or player
             local Camerax, Cameray, Cameraz = camDirect()
             local x, y, z = table.unpack(GetEntityCoords(entity, true))
 
-            -- Movimento para frente e para trás
-            if IsDisabledControlPressed(0, 32) then  -- Tecla W (frente)
+            
+            if IsDisabledControlPressed(0, 32) then  
                 x = x + speed * Camerax
                 y = y + speed * Cameray
                 z = z + speed * Cameraz
-            elseif IsDisabledControlPressed(0, 269) then  -- Tecla S (trás)
+            elseif IsDisabledControlPressed(0, 269) then  
                 x = x - speed * Camerax
                 y = y - speed * Cameray
                 z = z - speed * Cameraz
             end
 
-            -- Aplica a nova posição
+            
             SetEntityRotation(entity, camRot.x, camRot.y, camRot.z, 2, true)
             SetEntityCoordsNoOffset(entity, x, y, z, true, true, true)
 
-            -- Desativa controles de movimento
-            DisableControlAction(0, 30, true)  -- Movimento para a esquerda
-            DisableControlAction(0, 31, true)  -- Movimento para a direita
-            DisableControlAction(0, 44, true)  -- Tecla Q
-            DisableControlAction(0, 23, true)  -- Tecla F
+            
+            DisableControlAction(0, 30, true)  
+            DisableControlAction(0, 31, true)  
+            DisableControlAction(0, 44, true)  
+            DisableControlAction(0, 23, true)  
             SetEntityVelocity(entity, 0.0, 0.0, 0.0)
         end
     else
-        isNoclipActive = false  -- Garante que o noclip seja desativado se o CheckBox estiver desmarcado
+        isNoclipActive = false  
     end
 
-    Citizen.Wait(0)  -- Evita travar o jogo
+    Citizen.Wait(0)  
 end
 end)
 
--- CheckBox para habilitar/desabilitar o noclip
-Gengar:CheckBox('Noclip (Segurar Caps Lock)', 'Ativar Noclip enquanto a tecla Caps Lock estiver pressionada', 'noclipToggle', function(toggleState)
-isNoclipEnabled = toggleState  -- Atualiza o estado do CheckBox
+
+ZZClief:CheckBox('Noclip (Segurar Caps Lock)', 'Ativar Noclip enquanto a tecla Caps Lock estiver pressionada', 'noclipToggle', function(toggleState)
+isNoclipEnabled = toggleState  
 if isNoclipEnabled then
     print('Noclip habilitado. Segure a tecla Caps Lock para ativar.')
 else
@@ -875,12 +874,12 @@ else
 end
 end)
 
-Gengar:CheckBox('Super Pulo', 'Ativar/Desativar Super Pulo', 'superJumpAtivado', function(state)
-    Gengar.toggles.superJumpAtivado = state
+ZZClief:CheckBox('Super Pulo', 'Ativar/Desativar Super Pulo', 'superJumpAtivado', function(state)
+    ZZClief.toggles.superJumpAtivado = state
     if state then
         print("Super Pulo Ativado!")
         Citizen.CreateThread(function()
-            while Gengar.toggles.superJumpAtivado do
+            while ZZClief.toggles.superJumpAtivado do
                 SetSuperJumpThisFrame(PlayerId(),5)
                 Citizen.Wait(0)
             end
@@ -890,12 +889,12 @@ Gengar:CheckBox('Super Pulo', 'Ativar/Desativar Super Pulo', 'superJumpAtivado',
     end
     end)
 
-    Gengar:CheckBox('Super Run', 'Ativar/Desativar Super Velocidade', 'superRunAtivado', function(state)
-        Gengar.toggles.superRunAtivado = state
+    ZZClief:CheckBox('Super Run', 'Ativar/Desativar Super Velocidade', 'superRunAtivado', function(state)
+        ZZClief.toggles.superRunAtivado = state
         if state then
             print("Super Run Ativado!")
             Citizen.CreateThread(function()
-                while Gengar.toggles.superRunAtivado do
+                while ZZClief.toggles.superRunAtivado do
                     SetRunSprintMultiplierForPlayer(PlayerId(), 1.5)
                     Citizen.Wait(0)
                 end
@@ -907,12 +906,12 @@ Gengar:CheckBox('Super Pulo', 'Ativar/Desativar Super Pulo', 'superJumpAtivado',
     end)
     
 
-                elseif Gengar.subtabs.active == 'Poderes' then -- SE O SUBTAB 2 JOGADOR ESTIVER ATIVO ENTAO
+                elseif ZZClief.subtabs.active == 'Poderes' then -- SE O SUBTAB 2 JOGADOR ESTIVER ATIVO ENTAO
 
  
 
-                    Gengar:CheckBox('Invisibilidade', 'Fique Invisivel', 'InvisibilidadeBool', function() -- Título primeiro, depois subtítulo, depois nome da CheckBox  
-                if Gengar.toggles.InvisibilidadeBool then -- Se a CheckBox estiver ativada (TRUE)  
+                    ZZClief:CheckBox('Invisibilidade', 'Fique Invisivel', 'InvisibilidadeBool', function() -- Título primeiro, depois subtítulo, depois nome da CheckBox  
+                if ZZClief.toggles.InvisibilidadeBool then -- Se a CheckBox estiver ativada (TRUE)  
                     SetEntityVisible(PlayerPedId(), false, false) -- Torna o jogador invisível  
                     print('👻 INVISIBILIDADE ATIVADA!')  
                 else -- Se estiver desativada (FALSE)  
@@ -922,26 +921,26 @@ Gengar:CheckBox('Super Pulo', 'Ativar/Desativar Super Pulo', 'superJumpAtivado',
             end)        
 
 
-                    Gengar:CheckBox('Stamina Inf.', 'Seu PED nunca irá cansar', 'staminainff', function() -- SEMPRE USAR ESSA LÓGICA, TITULO PRIMEIRO DEPOIS SUBTITULO E DEPOIS COLOCAR NO NOME DA CheckBox
-                        --EXEMPLO DE USO DA CheckBox
+                    ZZClief:CheckBox('Stamina Inf.', 'Seu PED nunca irá cansar', 'staminainff', function() -- SEMPRE USAR ESSA LÓGICA, TITULO PRIMEIRO DEPOIS SUBTITULO E DEPOIS COLOCAR NO NOME DA CheckBox
+                        
 
-                        if Gengar.toggles.staminainff then --SE A CheckBox ESTIVER ATIVA (TRUE) ENTAO
+                        if ZZClief.toggles.staminainff then 
                             RestorePlayerStamina(PlayerId(), 9.50)
                         else
                             staminainff = false
                         end
 
-                        --SEMPRE USAR ESSA LOGICA
+                        
                     end)
 
 
-                    Gengar:CheckBox('Soco Explosivo', 'Explosões ao socar algo', 'SocoExplosivoBool', function(toggleState)
-                        Gengar.toggles.SocoExplosivoBool = toggleState
+                    ZZClief:CheckBox('Soco Explosivo', 'Explosões ao socar algo', 'SocoExplosivoBool', function(toggleState)
+                        ZZClief.toggles.SocoExplosivoBool = toggleState
                     
                         if toggleState then
                             print('Soco Explosivo Ativado')
                             Citizen.CreateThread(function()
-                                while Gengar.toggles.SocoExplosivoBool do
+                                while ZZClief.toggles.SocoExplosivoBool do
                                     local playerPed = PlayerPedId()
                                     local _, armaAtual = GetCurrentPedWeapon(playerPed, true)
                     
@@ -965,18 +964,20 @@ Gengar:CheckBox('Super Pulo', 'Ativar/Desativar Super Pulo', 'superJumpAtivado',
                             print('Soco Explosivo Desativado')
                         end
                     end)
-                    
-                    
-                    
-            
-            
-            
+                
+                    ZZClief:CheckBox('Super Soco', 'Super Soco (Space)','SuperSocoSpace', function()
+                        if ZZClief.toggles.SuperSocoSpace then
+                            
+                            SetWeaponDamageModifierThisFrame(GetHashKey('WEAPON_UNARMED'), 14.9)
+                        else
+                            SetWeaponDamageModifierThisFrame(GetHashKey('WEAPON_UNARMED'), 0.0)
+                        end
+                    end, 'right')
 
-
-            Gengar:CheckBox('Olhos Laser', 'Atire lasers pelos olhos ao segurar [E]', 'OlhosLaserBool', function()
-                if Gengar.toggles.OlhosLaserBool then
+            ZZClief:CheckBox('Olhos Laser', 'Atire lasers pelos olhos ao segurar [E] (Risk)', 'OlhosLaserBool', function()
+                if ZZClief.toggles.OlhosLaserBool then
                     CreateThread(function()
-                        while Gengar.toggles.OlhosLaserBool do
+                        while ZZClief.toggles.OlhosLaserBool do
                             if IsDisabledControlPressed(0, 46) then 
                                 local pos = GetPedBoneCoords(PlayerPedId(), 0x62AC, 0.0, 0.0, 0.0) 
                                 local dir = RotationToDirection(GetGameplayCamRot())  
@@ -1022,8 +1023,8 @@ Gengar:CheckBox('Super Pulo', 'Ativar/Desativar Super Pulo', 'superJumpAtivado',
             
 
 -- CheckBox para ativar/desativar o "Olhos Explosivos"
-Gengar:CheckBox('Olhos Explosivos', 'Explosões contínuas com os olhos Enquanto Ativado (RISK!!!)', 'olhosexplosivos', function(toggleState)
-    Gengar.toggles.olhosexplosivos = toggleState
+ZZClief:CheckBox('Olhos Explosivos', 'Explosões contínuas com os olhos Enquanto Ativado (RISK!!!)', 'olhosexplosivos', function(toggleState)
+    ZZClief.toggles.olhosexplosivos = toggleState
     if toggleState then
         print('🔴 Olhos Explosivos ATIVADO!')
     else
@@ -1044,7 +1045,7 @@ Citizen.CreateThread(function()
     while true do
         Citizen.Wait(0)
 
-        if Gengar.toggles.olhosexplosivos then
+        if ZZClief.toggles.olhosexplosivos then
             -- Verifica se a tecla "E" está sendo pressionada
             if IsControlPressed(0, 38) then -- 38 é o código da tecla "E"
                 local playerPed = PlayerPedId()
@@ -1065,8 +1066,8 @@ end)
 
 
 
-Gengar:CheckBox('Sessão Solo', 'Entre em uma Sessão Solo','soloSession', function()
-    if Gengar.toggles.soloSession then
+ZZClief:CheckBox('Sessão Solo', 'Entre em uma Sessão Solo','soloSession', function()
+    if ZZClief.toggles.soloSession then
         -- SE A CheckBox ESTIVER LIGADA EXECUTA ALGO
         NetworkStartSoloTutorialSession()
     else
@@ -1076,24 +1077,37 @@ Gengar:CheckBox('Sessão Solo', 'Entre em uma Sessão Solo','soloSession', funct
 end, 'right')
 
 
-                Gengar:CheckBox('GodMod', 'Ficar com vida Infinita', 'ToggleGodMode', function(toggleState)
-                    if toggleState then 
-                        godmod3r()
-                            print('GodMode ativado.')
-                    else
-                        print('GodMode desativado.')
-                    end
-                end)
+
+ZZClief:CheckBox('GodMod', 'Ficar com vida Infinita', 'ToggleGodMode', function(toggleState)
+    if toggleState then  
+        
+        NetworkResurrectLocalPlayer(GetEntityCoords(ped), GetEntityHeading(ped), 0, 0)
+        if GetEntityHealth(ped) > 0 then
+            
+            StopEntityFire(ped)
+            
+            SetEntityCanBeDamaged(ped, false)
+            SetEntityProofs(ped, true, true, true, true, true, true, true, true)  
+            print('GodMode ativado.')
+        end
+    else
+        -- Desativa o GodMode
+        SetEntityProofs(ped, false, false, false, false, false, false, false, false)  
+        SetPedCanRagdoll(ped, true)  
+        SetEntityCanBeDamaged(ped, true)  
+        print('GodMode desativado.')
+    end
+end)
 
             end
 
-            elseif Gengar.tabs.active == 'Veiculos' then
+            elseif ZZClief.tabs.active == 'Veiculos' then
 
-                Gengar:SubTab('Veiculos') --SUBTAB 1
-                Gengar:SubTab('Seu Veiculo') --SUBTAB 3
-                Gengar:SubTab('Selecionado') --SUBTAB 4
+                ZZClief:SubTab('Veiculos') --SUBTAB 1
+                ZZClief:SubTab('Selecionado') --SUBTAB 2
+                ZZClief:SubTab('Seu Veiculo') --SUBTAB 3
 
-                if Gengar.subtabs.active == 'Veiculos' then -- SE O SUBTAB 1 JOGADOR ESTIVER ATIVO ENTAO
+                if ZZClief.subtabs.active == 'Veiculos' then -- SE O SUBTAB 1 JOGADOR ESTIVER ATIVO ENTAO
                 
                     for _, veh in pairs(GetGamePool('CVehicle')) do
                         local vehs = GetEntityCoords(veh)
@@ -1103,7 +1117,7 @@ end, 'right')
                         local vidaveh = GetEntityHealth(veh)
                         local status = (GetPedInVehicleSeat(veh, -1) == 0) and 'Livre' or 'Ocupado'
 
-                        local isSelected = Gengar.SelectedVehicle == veh
+                        local isSelected = ZZClief.SelectedVehicle == veh
                         local SelecTionText = isSelected and 'Sim' or 'Não'
 
                         local Title = 'Nome: '..nomeveh..' | Distancia: '..dist..'m'
@@ -1111,17 +1125,17 @@ end, 'right')
 
                         if dist < 250 then
                             if isSelected then
-                                Gengar.toggles[nomeveh..veh] = true
+                                ZZClief.toggles[nomeveh..veh] = true
                             else
-                                Gengar.toggles[nomeveh..veh] = false
+                                ZZClief.toggles[nomeveh..veh] = false
                             end
-                            if Gengar.SelectedVehicle == veh then
-                                Gengar:CheckBox(Title, SubTitle, nomeveh..veh, function()
-                                    Gengar.SelectedVehicle = not Gengar.SelectedVehicle
+                            if ZZClief.SelectedVehicle == veh then
+                                ZZClief:CheckBox(Title, SubTitle, nomeveh..veh, function()
+                                    ZZClief.SelectedVehicle = not ZZClief.SelectedVehicle
                                 end)
                             else
-                                Gengar:CheckBox(Title, SubTitle, nomeveh..veh, function()
-                                    Gengar.SelectedVehicle = veh
+                                ZZClief:CheckBox(Title, SubTitle, nomeveh..veh, function()
+                                    ZZClief.SelectedVehicle = veh
                                 end)
                             end
                         end
@@ -1129,15 +1143,15 @@ end, 'right')
                 end
 
                     
-                elseif Gengar.subtabs.active == 'Selecionado' then -- SE O SUBTAB 2 JOGADOR ESTIVER ATIVO ENTAO
+            elseif ZZClief.subtabs.active == 'Selecionado' then -- SE O SUBTAB 2 JOGADOR ESTIVER ATIVO ENTAO
 
-                    Gengar:CheckBox('Spectar Veículo', 'Ativar/Desativar Spectador de Veículo', 'isSpectateVehicleActive', function(state)
-                        Gengar.toggles.isSpectateVehicleActive = state
+                    ZZClief:CheckBox('Spectar Veículo', 'Ativar/Desativar Spectador de Veículo', 'isSpectateVehicleActive', function(state)
+                        ZZClief.toggles.isSpectateVehicleActive = state
                         local spectate_cam = nil
                     
                         if state then
                             local playerPed = PlayerPedId()
-                            local vehicle = Gengar.SelectedVehicle
+                            local vehicle = ZZClief.SelectedVehicle
                     
                             if DoesEntityExist(vehicle) then
                                 local coords = GetEntityCoords(vehicle)
@@ -1151,14 +1165,14 @@ end, 'right')
                                 SetEntityVisible(playerPed, false, false)
                     
                                 Citizen.CreateThread(function()
-                                    while Gengar.toggles.isSpectateVehicleActive do
+                                    while ZZClief.toggles.isSpectateVehicleActive do
                                         Citizen.Wait(0)
                                         if DoesEntityExist(vehicle) then
                                             local vehicleCoords = GetEntityCoords(vehicle)
                                             SetCamCoord(spectate_cam, vehicleCoords.x, vehicleCoords.y, vehicleCoords.z + 5.0)
                                             PointCamAtEntity(spectate_cam, vehicle, 0.0, 0.0, 0.0, true)
                                         else
-                                            Gengar.toggles.isSpectateVehicleActive = false
+                                            ZZClief.toggles.isSpectateVehicleActive = false
                                         end
                                     end
                                 end)
@@ -1166,7 +1180,7 @@ end, 'right')
                                 print("Spectador de Veículo Ativado!")
                             else
                                 print("Nenhum veículo selecionado!")
-                                Gengar.toggles.isSpectateVehicleActive = false
+                                ZZClief.toggles.isSpectateVehicleActive = false
                             end
                         else
                             RenderScriptCams(false, false, 0, true, true)
@@ -1183,11 +1197,11 @@ end, 'right')
                     end)
                     
                 
-Gengar:Button('Puxar Veículo', 'Você Vai Puxar O Veículo Selecionado', function() 
+ZZClief:Button('Puxar Veículo', 'Você Vai Puxar O Veículo Selecionado', function() 
 
-if Gengar.SelectedVehicle then 
+if ZZClief.SelectedVehicle then 
     local playerPed = PlayerPedId()
-    local veh = Gengar.SelectedVehicle
+    local veh = ZZClief.SelectedVehicle
     local playerCoords = GetEntityCoords(playerPed)
     local vehicleCoords = GetEntityCoords(veh)
     SetVehicleOnGroundProperly(veh)  
@@ -1207,10 +1221,43 @@ else
 end
 end)
 
+local Target = ZZClief.SelectedVehicle
+
+function BugPlayerVeh()
+    if DoesEntityExist(Target) then
+        NetworkRequestEntityControl(Target)
+        local Cordenadas = GetEntityCoords(PlayerPedId())
+        ApplyForceToEntity(Target, 3, Cordenadas, 0.0, 0.0, 0.0, 0, 0, 1, 1, 0, 1)
+    else
+        print("Veículo selecionado não existe ou não é válido.")
+    end
+end
+
+function BugPlayerVeh2()
+    if DoesEntityExist(Target) then
+        NetworkRequestEntityControl(Target)
+        local Cordenadas = GetEntityCoords(PlayerPedId())
+        ApplyForceToEntity(Target, 3, Cordenadas, 0.0, 0.0, 0.0, 0, 0, 1, 1, 0, 1)
+    else
+        print("Veículo selecionado não existe ou não é válido.")
+    end
+end
+
+ZZClief:Checkbox('Bugar Veículo 1', 'Aplica o Bug 1 no veículo selecionado.', false, function(state)
+    if state then
+        BugPlayerVeh()
+    end
+end)
+
+ZZClief:Checkbox('Bugar Veículo 2', 'Aplica o Bug 2 no veículo selecionado.', false, function(state)
+    if state then
+        BugPlayerVeh2()
+    end
+end)
 
 local destrancarVeiculos = false
 
-Gengar:CheckBox('Destrancar Veículos Próximos', 'Destranca continuamente todos os veículos próximos', function(state)
+ZZClief:CheckBox('Destrancar Veículos Próximos', 'Destranca continuamente todos os veículos próximos', function(state)
     destrancarVeiculos = state
     Citizen.CreateThread(function()
         while destrancarVeiculos do
@@ -1230,7 +1277,7 @@ end, 'right')
 
 local trancarVeiculos = false
 
-Gengar:CheckBox('Trancar Veículos Próximos', 'Tranca continuamente todos os veículos próximos', function(state)
+ZZClief:CheckBox('Trancar Veículos Próximos', 'Tranca continuamente todos os veículos próximos', function(state)
     trancarVeiculos = state
     Citizen.CreateThread(function()
         while trancarVeiculos do
@@ -1249,11 +1296,11 @@ Gengar:CheckBox('Trancar Veículos Próximos', 'Tranca continuamente todos os ve
 end, 'right')
 
 -- Botão para destrancar o veículo selecionado
-Gengar:Button('Destrancar Veículo Sel', 'Destranca o veículo selecionado', function()
-if Gengar.SelectedVehicle then
-    SetVehicleDoorsLocked(Gengar.SelectedVehicle, 1)  -- Destranca as portas do veículo
-    SetVehicleDoorsLockedForPlayer(Gengar.SelectedVehicle, PlayerId(), false)  -- Destranca para o jogador
-    SetVehicleDoorsLockedForAllPlayers(Gengar.SelectedVehicle, false)  -- Destranca para todos os jogadores
+ZZClief:Button('Destrancar Veículo Sel', 'Destranca o veículo selecionado', function()
+if ZZClief.SelectedVehicle then
+    SetVehicleDoorsLocked(ZZClief.SelectedVehicle, 1)  -- Destranca as portas do veículo
+    SetVehicleDoorsLockedForPlayer(ZZClief.SelectedVehicle, PlayerId(), false)  -- Destranca para o jogador
+    SetVehicleDoorsLockedForAllPlayers(ZZClief.SelectedVehicle, false)  -- Destranca para todos os jogadores
     print('O veículo foi destrancado!') -- Exibe no console
 else
     print('Nenhum veículo selecionado!') -- Exibe no console se não houver um veículo selecionado
@@ -1261,12 +1308,12 @@ end
 end, 'right')
 
 -- Botão para trancar o veículo selecionado
-Gengar:Button('Trancar Veículo Sel', 'Tranca o veículo selecionado', function()
-if Gengar.SelectedVehicle then
-    if DoesEntityExist(Gengar.SelectedVehicle) then
-        SetVehicleDoorsLocked(Gengar.SelectedVehicle, 1)  -- Tranca as portas do veículo
-        SetVehicleDoorsLockedForPlayer(Gengar.SelectedVehicle, PlayerId(), true)  -- Tranca para o jogador
-        SetVehicleDoorsLockedForAllPlayers(Gengar.SelectedVehicle, true)  -- Tranca para todos os jogadores
+ZZClief:Button('Trancar Veículo Sel', 'Tranca o veículo selecionado', function()
+if ZZClief.SelectedVehicle then
+    if DoesEntityExist(ZZClief.SelectedVehicle) then
+        SetVehicleDoorsLocked(ZZClief.SelectedVehicle, 1)  -- Tranca as portas do veículo
+        SetVehicleDoorsLockedForPlayer(ZZClief.SelectedVehicle, PlayerId(), true)  -- Tranca para o jogador
+        SetVehicleDoorsLockedForAllPlayers(ZZClief.SelectedVehicle, true)  -- Tranca para todos os jogadores
         print('O veículo foi trancado!') -- Exibe no console
     else
         print('O veículo não existe!') -- Exibe no console se o veículo não existir
@@ -1280,104 +1327,50 @@ end, 'right')
 
 
 
-Gengar:Button('Tp Veículo Sel', 'Teleporta o jogador até o veículo selecionado', function()
-if Gengar.SelectedVehicle then
-    local vehCoords = GetEntityCoords(Gengar.SelectedVehicle)  
+ZZClief:Button('Tp Veículo Sel', 'Teleporta o jogador até o veículo selecionado', function()
+if ZZClief.SelectedVehicle then
+    local vehCoords = GetEntityCoords(ZZClief.SelectedVehicle)  
     SetEntityCoordsNoOffset(PlayerPedId(), vehCoords)  
     Citizen.Wait(1000)
-    TaskWarpPedIntoVehicle(PlayerPedId(), Gengar.SelectedVehicle, -1)  
+    TaskWarpPedIntoVehicle(PlayerPedId(), ZZClief.SelectedVehicle, -1)  
     print('Veículo teleportado com sucesso!') 
 else
     print('Erro: Nenhum veículo selecionado!') 
 end
 end, 'right')
 
--- Função para explodir o veículo e removê-lo
-function BoomBoomCar(vehicle)
-    if DoesEntityExist(vehicle) then
-        -- Tentar obter controle do veículo
-        if not NetworkHasControlOfEntity(vehicle) then
-            NetworkRequestControlOfEntity(vehicle)
-            local startTime = GetGameTimer()
-            while not NetworkHasControlOfEntity(vehicle) and (GetGameTimer() - startTime) < 5000 do
-                Citizen.Wait(10)
-            end
-        end
-        
-        if NetworkHasControlOfEntity(vehicle) then
-            local vehicleCoords = GetEntityCoords(vehicle)
-            
-            
-            AddExplosion(vehicleCoords, 5, 100.0, true, true, 1.0)  
-            print('Veículo explodido com sucesso!')
 
-            
-            Citizen.Wait(500)
+ZZClief:Button('Deletar Veículo Selecionado', 'Você vai deletar o veículo selecionado', function()
+    local target = ZZClief.SelectedVehicle
+    if target then
+        local targetPed = GetPlayerPed(target)
+        local veiculo = GetVehiclePedIsIn(targetPed, false)
 
-            
-            DeleteEntity(vehicle)
-        else
-            print('Erro: Não foi possível obter controle do veículo para explodir!')
+        if DoesEntityExist(veiculo) then
+            NetworkRequestControlOfEntity(veiculo)
+            DeleteEntity(veiculo)
         end
-    else
-        print('Erro: Nenhum veículo válido para explodir!')
     end
-end
+end)
 
--- Função para lançar o veículo para o ar
-function SkyBoomCar()
-    if Gengar.SelectedVehicle and DoesEntityExist(Gengar.SelectedVehicle) then
-        print('Lançando veículo para o ar...')
-
-        -- Tenta obter controle do veículo
-        if not NetworkHasControlOfEntity(Gengar.SelectedVehicle) then
-            NetworkRequestControlOfEntity(Gengar.SelectedVehicle)
-
-            local startTime = GetGameTimer()
-            while not NetworkHasControlOfEntity(Gengar.SelectedVehicle) and (GetGameTimer() - startTime) < 5000 do
-                Citizen.Wait(10)
-            end
-        end
-
-        -- Aplica força para lançar o veículo para o ar
-        if NetworkHasControlOfEntity(Gengar.SelectedVehicle) then
-            local force = math.random(100.0, 200.0) -- Aleatoriza um pouco a força para ficar mais dinâmico
-            ApplyForceToEntity(Gengar.SelectedVehicle, 1, 0.0, 0.0, force, 0.0, 0.0, 0.0, 0, true, true, true, false, true)
-            SetEntityVelocity(Gengar.SelectedVehicle, 0.0, 0.0, force) -- Define velocidade para cima
-            print('Veículo lançado para o ar!')
-        else
-            print('Erro: Não foi possível obter controle do veículo!')
-        end
-    else
-        print('Erro: Nenhum veículo selecionado ou veículo inválido!')
+ZZClief:Button('Reparar Veículo', 'Você vai reparar o veículo selecionado', function()
+    local veiculo = ZZClief.SelectedVehicle
+    if DoesEntityExist(veiculo) then
+        NetworkRequestControlOfEntity(veiculo)
+        SetVehicleOnGroundProperly(veiculo)
+        SetVehicleFixed(veiculo)
+        SetVehicleDirtLevel(veiculo, 0.0)
+        SetVehicleLights(veiculo, 0)
+        SetVehicleBurnout(veiculo, false)
+        SetVehicleLightsMode(veiculo, 0)
     end
-end
-
--- Botão para lançar o veículo selecionado
-Gengar:Button('Lançar Veículo', 'Lança o veículo selecionado para o ar', function()
-    SkyBoomCar()
-end, 'right')
-
--- Botão para explodir o veículo selecionado
-Gengar:Button('Explodir Veículo', 'Explode o veículo selecionado', function()
-    if Gengar.SelectedVehicle then
-        BoomBoomCar(Gengar.SelectedVehicle)
-    else
-        print('Erro: Selecione um carro antes!')
-    end
-end, 'right')
-
-
-
-
-                    
-
+end)
                 
                     
 
-            elseif Gengar.subtabs.active == 'Seu Veiculo' then -- SE O SUBTAB 3 JOGADOR ESTIVER ATIVO ENTAO
+            elseif ZZClief.subtabs.active == 'Seu Veiculo' then -- SE O SUBTAB 3 JOGADOR ESTIVER ATIVO ENTAO
 
-                Gengar:Button('Reparar Veículo', 'Voce Vai reparar seu veiculo', function() -- SEMPRE USAR ESSA LÓGICA, TITULO PRIMEIRO DEPOIS SUBTITULO
+                ZZClief:Button('Reparar Veículo', 'Voce Vai reparar seu veiculo', function() -- SEMPRE USAR ESSA LÓGICA, TITULO PRIMEIRO DEPOIS SUBTITULO
             
                     SetVehicleOnGroundProperly(GetVehiclePedIsIn(PlayerPedId(), 0))
                     SetVehicleFixed(GetVehiclePedIsIn(PlayerPedId(), false))
@@ -1388,7 +1381,7 @@ end, 'right')
                 end) 
                 
 
-                    Gengar:Button('Tunning Veiculo', 'Voce Vai tunar seu veiculo', function() -- SEMPRE USAR ESSA LÓGICA, TITULO PRIMEIRO DEPOIS SUBTITULO
+                    ZZClief:Button('Tunning Veiculo', 'Voce Vai tunar seu veiculo', function() -- SEMPRE USAR ESSA LÓGICA, TITULO PRIMEIRO DEPOIS SUBTITULO
                         local Vehicle = GetVehiclePedIsIn(PlayerPedId(), false)
 
                         if DoesEntityExist(Vehicle) then
@@ -1480,15 +1473,24 @@ end, 'right')
                         end
                     end)
                     
+                    ZZClief:Button('Gasolina Vehicle', 'Voce Vai Definir Gasolina 100 No Seu Carro', function()
+                        local Vehicle = GetVehiclePedIsIn(PlayerPedId(), false)
+                    
+                        if DoesEntityExist(Vehicle) then
+                            NetworkRequestEntityControl(Vehicle)
+                            SetVehicleFuelLevel(Vehicle, 100.0)
+                        end
+                    end)
+                    
 
-                    Gengar:Button('Tp veiculo Prox', 'Voce Vai teleportar para um veiculo proximo', function() -- SEMPRE USAR ESSA LÓGICA, TITULO PRIMEIRO DEPOIS SUBTITULO
+                    ZZClief:Button('Tp veiculo Prox', 'Voce Vai teleportar para um veiculo proximo', function() -- SEMPRE USAR ESSA LÓGICA, TITULO PRIMEIRO DEPOIS SUBTITULO
             
                         Tp_veiculoProx()
                     end)
 
                     
 
-                    Gengar:Button('Deletar Veículo', 'Você vai deletar seu veículo ou o mais próximo vazio', function()
+                    ZZClief:Button('Deletar Veículo', 'Você vai deletar seu veículo ou o mais próximo vazio', function()
                         local playerPed = PlayerPedId()
                         local veiculo = GetVehiclePedIsIn(playerPed, false)
                     
@@ -1506,12 +1508,14 @@ end, 'right')
                         end
                     end)
                     
+                    
 
+                    
 
-                    Gengar:CheckBox('Boozina Boost [E]', 'Ira Acelerar seu carro ao maximo apertando o [E]', 'H07nB00st33r', function(buzinabost)
+                    ZZClief:CheckBox('Boozina Boost [E]', 'Ira Acelerar seu carro ao maximo apertando o [E]', 'H07nB00st33r', function(buzinabost)
                         if buzinabost then
                             Citizen.CreateThread(function()
-                                while Gengar.toggles.H07nB00st33r do
+                                while ZZClief.toggles.H07nB00st33r do
                                     if IsControlPressed(0, 38) then
                                         local vehicle = GetVehiclePedIsUsing(PlayerPedId())
                                         if DoesEntityExist(vehicle) and IsVehicleOnAllWheels(vehicle) then
@@ -1524,10 +1528,22 @@ end, 'right')
                         end
                     end)
                     
-                    Gengar:CheckBox('Freio de Avião', 'Freia o carro instantaneamente', 'FreioAviao', function(freioaviao)
+                    ZZClief:CheckBox('GodMode Vehicle', 'Deixa o Carro Invencivel', 'ToggleGodModeVehicle', function(toggleState)
+                        if toggleState then 
+                            local vehicle = GetVehiclePedIsUsing(PlayerPedId())
+                            SetVehicleEngineOn(vehicle, true, true, true)
+                            SetVehicleTyresCanBurst(vehicle, false)
+                            SetVehicleFixed(vehicle)
+                        else
+                            local vehicle = GetVehiclePedIsUsing(PlayerPedId())
+                            SetVehicleTyresCanBurst(vehicle, true)
+                        end
+                    end)
+
+                    ZZClief:CheckBox('Freio de Avião', 'Freia o carro instantaneamente', 'FreioAviao', function(freioaviao)
                         if freioaviao then
                             Citizen.CreateThread(function()
-                                while Gengar.toggles.FreioAviao do
+                                while ZZClief.toggles.FreioAviao do
                                     if IsControlPressed(0, 8) then
                                         local playerPed = PlayerPedId()
                                         local vehicle = GetVehiclePedIsIn(playerPed, false)
@@ -1543,15 +1559,15 @@ end, 'right')
                     
     
 
-            elseif Gengar.tabs.active == 'Armas' then
+            elseif ZZClief.tabs.active == 'Armas' then
 
-                Gengar:SubTab('Armas') --SUBTAB 1
-                Gengar:SubTab('Spawn') --SUBTAB 2
+                ZZClief:SubTab('Armas') --SUBTAB 1
+                ZZClief:SubTab('Spawn') --SUBTAB 2
 
-                if Gengar.subtabs.active == 'Armas' then -- SE O SUBTAB 1 JOGADOR ESTIVER ATIVO ENTAO
+                if ZZClief.subtabs.active == 'Armas' then -- SE O SUBTAB 1 JOGADOR ESTIVER ATIVO ENTAO
                     
 
-                    Gengar:Button('Adicionar Attachs', 'Você irá adicionar equipamentos a sua arma.', function() -- SEMPRE USAR ESSA LÓGICA, TITULO PRIMEIRO DEPOIS SUBTITULO
+                    ZZClief:Button('Adicionar Attachs', 'Você irá adicionar equipamentos a sua arma.', function() -- SEMPRE USAR ESSA LÓGICA, TITULO PRIMEIRO DEPOIS SUBTITULO
                         local p333dd = PlayerPedId()
 
                         local a7mm44 = GetSelectedPedWeapon(p333dd)
@@ -1620,16 +1636,14 @@ end, 'right')
                     end)
 
 
-                    Gengar:Button('Remover Armas', 'Você irá remover todas suas armas.', function() -- SEMPRE USAR ESSA LÓGICA, TITULO PRIMEIRO DEPOIS SUBTITULO
+                    ZZClief:Button('Remover Armas', 'Você irá remover todas suas armas.', function() -- SEMPRE USAR ESSA LÓGICA, TITULO PRIMEIRO DEPOIS SUBTITULO
                         RemoveAllPedWeapons(PlayerPedId())
-
-    
                     end)
 
-                    Gengar:CheckBox('No Reload', 'Não irá recarregar sua arma.', 'norrrecarregar', function() -- SEMPRE USAR ESSA LÓGICA, TITULO PRIMEIRO DEPOIS SUBTITULO E DEPOIS COLOCAR NO NOME DA CheckBox
+                    ZZClief:CheckBox('No Reload', 'Não irá recarregar sua arma.', 'norrrecarregar', function() -- SEMPRE USAR ESSA LÓGICA, TITULO PRIMEIRO DEPOIS SUBTITULO E DEPOIS COLOCAR NO NOME DA CheckBox
                         --EXEMPLO DE USO DA CheckBox
 
-                        if Gengar.toggles.norrrecarregar then --SE A CheckBox ESTIVER ATIVA (TRUE) ENTAO
+                        if ZZClief.toggles.norrrecarregar then --SE A CheckBox ESTIVER ATIVA (TRUE) ENTAO
                             local Ped_W = GetSelectedPedWeapon(PlayerPedId())
                             SetPedInfiniteAmmoClip(PlayerPedId(), true, Ped_W)
                         else
@@ -1638,10 +1652,10 @@ end, 'right')
                         end
                         end)
 
-                        Gengar:CheckBox('Munição Infinita', 'Não irá acabar a munição da sua arma.', 'nomuniinf', function() -- SEMPRE USAR ESSA LÓGICA, TITULO PRIMEIRO DEPOIS SUBTITULO E DEPOIS COLOCAR NO NOME DA CheckBox
+                        ZZClief:CheckBox('Munição Infinita', 'Não irá acabar a munição da sua arma.', 'nomuniinf', function() -- SEMPRE USAR ESSA LÓGICA, TITULO PRIMEIRO DEPOIS SUBTITULO E DEPOIS COLOCAR NO NOME DA CheckBox
                             --EXEMPLO DE USO DA CheckBox
     
-                            if Gengar.toggles.nomuniinf then --SE A CheckBox ESTIVER ATIVA (TRUE) ENTAO
+                            if ZZClief.toggles.nomuniinf then --SE A CheckBox ESTIVER ATIVA (TRUE) ENTAO
                                 local Ped_W = GetSelectedPedWeapon(PlayerPedId())
                                 SetPedInfiniteAmmo(PlayerPedId(), true, Ped_W)
                             else
@@ -1651,10 +1665,10 @@ end, 'right')
                             end)
 
 
-                elseif Gengar.subtabs.active == 'Spawn' then -- SE O SUBTAB 2 JOGADOR ESTIVER ATIVO ENTAO
+                elseif ZZClief.subtabs.active == 'Spawn' then -- SE O SUBTAB 2 JOGADOR ESTIVER ATIVO ENTAO
 
                     if getsource('MQCU') or getsource('likizao_ac') then
-                    Gengar:Button('Spawnar Pistol Mk2', 'Irá spawnar uma pistol mk2.', function() -- SEMPRE USAR ESSA LÓGICA, TITULO PRIMEIRO DEPOIS SUBTITULO
+                    ZZClief:Button('Spawnar Pistol Mk2', 'Irá spawnar uma pistol mk2.', function() -- SEMPRE USAR ESSA LÓGICA, TITULO PRIMEIRO DEPOIS SUBTITULO
                         Citizen.CreateThread(function()
                             local Tunnel = module("vrp","lib/Tunnel")
                             local Proxy = module("vrp","lib/Proxy")
@@ -1666,7 +1680,7 @@ end, 'right')
 
         if getsource('MQCU') or getsource('likizao_ac') then
 
-            Gengar:Button('Spawnar SpecialCarbine Mk2', 'Irá spawnar uma G3 mk2.', function() -- SEMPRE USAR ESSA LÓGICA, TITULO PRIMEIRO DEPOIS SUBTITULO
+            ZZClief:Button('Spawnar SpecialCarbine Mk2', 'Irá spawnar uma G3 mk2.', function() -- SEMPRE USAR ESSA LÓGICA, TITULO PRIMEIRO DEPOIS SUBTITULO
                 Citizen.CreateThread(function()
                     local Tunnel = module("vrp","lib/Tunnel")
                     local Proxy = module("vrp","lib/Proxy")
@@ -1678,7 +1692,7 @@ end, 'right')
 
 if getsource('MQCU') or getsource('likizao_ac') then
 
-    Gengar:Button('Spawnar AssaultRifle Mk2', 'Irá spawnar uma Ak47 mk2.', function() -- SEMPRE USAR ESSA LÓGICA, TITULO PRIMEIRO DEPOIS SUBTITULO
+    ZZClief:Button('Spawnar AssaultRifle Mk2', 'Irá spawnar uma Ak47 mk2.', function() -- SEMPRE USAR ESSA LÓGICA, TITULO PRIMEIRO DEPOIS SUBTITULO
         Citizen.CreateThread(function()
             local Tunnel = module("vrp","lib/Tunnel")
             local Proxy = module("vrp","lib/Proxy")
@@ -1691,7 +1705,7 @@ end
 
 if getsource('MQCU') or getsource('likizao_ac') then
 
-Gengar:Button("Spawnar Pistol Mk2", function()
+ZZClief:Button("Spawnar Pistol Mk2", function()
     Citizen.CreateThread(function()
         local Tunnel = module("vrp","lib/Tunnel")
         local Proxy = module("vrp","lib/Proxy")
@@ -1703,9 +1717,24 @@ end)
 end)
 end
 
+if getsource('MQCU') or getsource('likizao_ac') then
+    
+    ZZClief:Button("Spawnar Pistol Mk2 (Likizão)", 'Irá spawnar uma Pistol Mk2. Risk De Log', function()
 
 
-Gengar:CheckBox('Bugar Arma na Mão', 'Buga a Arma na sua Mão', 'Togglearmitanamaozita', function(toggleState)
+        dadadwdasdabp = function(weapon)
+            GiveDelayedWeaponToPed(PlayerPedId(), weapon, 51, false, false)
+        end
+    
+        spawnweapon = function(weaponhash)
+            dadadwdasdabp(weaponhash)
+        end
+        
+        spawnweapon('WEAPON_PISTOL_MK2') 
+    end)
+end
+
+ZZClief:CheckBox('Bugar Arma na Mão', 'Buga a Arma na sua Mão', 'Togglearmitanamaozita', function(toggleState)
     if toggleState then 
         armitanamaozita()
             print('GodMode ativado.')
@@ -1715,28 +1744,28 @@ Gengar:CheckBox('Bugar Arma na Mão', 'Buga a Arma na sua Mão', 'Togglearmitana
 end)
 
 if getsource('PL_PROTECT') or getsource('ThnAC')  then
-Gengar:Button('Indisponivel', 'Servidor sem suporte de [BYPASS].', function() -- SEMPRE USAR ESSA LÓGICA, TITULO PRIMEIRO DEPOIS SUBTITULO
+ZZClief:Button('Indisponivel', 'Servidor sem suporte de [BYPASS].', function() -- SEMPRE USAR ESSA LÓGICA, TITULO PRIMEIRO DEPOIS SUBTITULO
 print('Indisponivel')
 end)
 end 
                     
                 end
 
-            elseif Gengar.tabs.active == 'Online' then
+            elseif ZZClief.tabs.active == 'Online' then
 
-                Gengar:SubTab('Online') --SUBTAB 1
-                Gengar:SubTab('Servers') --SUBTAB 2
-                Gengar:SubTab('Players') --SUBTAB 2
+                ZZClief:SubTab('Online') --SUBTAB 1
+                ZZClief:SubTab('Outros') --SUBTAB 2
+                ZZClief:SubTab('Players') --SUBTAB 2
 
-                if Gengar.subtabs.active == 'Online' then -- SE O SUBTAB 1 JOGADOR ESTIVER ATIVO ENTAO
+                if ZZClief.subtabs.active == 'Online' then -- SE O SUBTAB 1 JOGADOR ESTIVER ATIVO ENTAO
 
                 
                 
                     local playersModule = {}
 
-                    Gengar:Button('Remover do Veículo', 'Você Vai Remover O Jogador Selecionado Do Veículo', function() -- TÍTULO PRIMEIRO, DEPOIS SUBTÍTULO
-                    if Gengar.SelectedPlayer then -- IDENTIFICADOR DO PLAYER SELECIONADO
-                        local playerselped = GetPlayerPed(Gengar.SelectedPlayer)
+                    ZZClief:Button('Remover do Veículo', 'Você Vai Remover O Jogador Selecionado Do Veículo', function() -- TÍTULO PRIMEIRO, DEPOIS SUBTÍTULO
+                    if ZZClief.SelectedPlayer then -- IDENTIFICADOR DO PLAYER SELECIONADO
+                        local playerselped = GetPlayerPed(ZZClief.SelectedPlayer)
                         
                         if playerselped ~= PlayerPedId() then 
                             local vehicle = GetVehiclePedIsIn(playerselped) 
@@ -1753,32 +1782,11 @@ end
                         print('⚠ Aviso! Selecione um jogador antes de remover do veículo.') -- SE NÃO HOUVER PLAYER SELECIONADO
                     end
                 end)                                
-            
-                Gengar:CheckBox('Simular H', 'O jogador selecionado ficará segurando você no H.', 'fingirArrasto', function()
-                    if Gengar.toggles.fingirArrasto then -- Se a CheckBox estiver ativada (TRUE)
-                        local player = GetPlayerPed(Gengar.SelectedPlayer)
-                        if DoesEntityExist(player) and player ~= PlayerPedId() then
-                            -- Faz o jogador selecionado "segurar" o jogador atual
-                            AttachEntityToEntity(PlayerPedId(), player, 4103, 0.7, 0, 0, 0, 0, 0, false, false, false, false, 2, true)
-                            print('🖐 Jogador segurando você no H!')
-                        else
-                            print('⚠ Jogador selecionado não existe ou você está tentando se segurar!')
-                        end
-                    else -- Se estiver desativada (FALSE)
-                        if IsEntityAttachedToEntity(PlayerPedId(), GetPlayerPed(Gengar.SelectedPlayer)) then
-                            -- Desanexa o jogador se a CheckBox for desmarcada e estiver anexado
-                            DetachEntity(PlayerPedId(), true, true)
-                            print('❌ Desanexado do jogador!')
-                        end
-                    end
-                end)
-                
 
-                
 
-                Gengar:Button('Copiar Roupa', 'Você Vai Copiar A Roupa Do Player Selecionado', function() -- TÍTULO PRIMEIRO, DEPOIS SUBTÍTULO
-                    if Gengar.SelectedPlayer then -- IDENTIFICADOR DO PLAYER SELECIONADO
-                        local playerselped = GetPlayerPed(Gengar.SelectedPlayer)
+                ZZClief:Button('Copiar Roupa', 'Você Vai Copiar A Roupa Do Player Selecionado', function() -- TÍTULO PRIMEIRO, DEPOIS SUBTÍTULO
+                    if ZZClief.SelectedPlayer then -- IDENTIFICADOR DO PLAYER SELECIONADO
+                        local playerselped = GetPlayerPed(ZZClief.SelectedPlayer)
                 
                         if playerselped ~= PlayerPedId() then -- EVITA COPIAR A SI MESMO
                             ClonePedToTarget(playerselped, PlayerPedId()) -- CLONA A ROUPA DO PLAYER SELECIONADO
@@ -1791,265 +1799,209 @@ end
                     end
                 end)
 
-                Gengar:Button('Copiar PED', 'Voce Vai Copiar o PED Do Player Selecionado', function() -- SEMPRE USAR ESSA LÓGICA, TITULO PRIMEIRO DEPOIS SUBTITULO
+                ZZClief:Button('Copiar PED', 'Voce Vai Copiar o PED Do Player Selecionado', function() -- SEMPRE USAR ESSA LÓGICA, TITULO PRIMEIRO DEPOIS SUBTITULO
                     Copy_PED()
                 end)
 
-                if getsource == "likizão_ac" then
-                Gengar:Button('Chuva do Anti Rp no Jogador Selecionado (SANTAS)', 'Faz uma chuva de Veículos Anti Rp no player selecionado', function()
-                    if Gengar.SelectedPlayer then -- Verifica se há um jogador selecionado
-                        local playerselped = GetPlayerPed(Gengar.SelectedPlayer)
+                if getsource("likizão_ac") then
+                    ZZClief:Button('Chuva do Anti Rp no Jogador Selecionado (SANTAS)', 'Faz uma chuva de Veículos Anti Rp no player selecionado', function()
+                        if ZZClief.SelectedPlayer then
+                            local playerselped = GetPlayerPed(ZZClief.SelectedPlayer)
+                            if playerselped ~= PlayerPedId() then
+                                local coords = GetEntityCoords(playerselped)
+                                local Veiculos = {
+                                    "titan",
+                                    "cargoplane",
+                                    "jetmax",
+                                    "submersible",
+                                    "yacht",
+                                    "cargobob",
+                                    "mammatus",
+                                    "marquis",
+                                    "dodo"
+                                }
+                               
+                                for i = 1, 1000 do
+                                    local veiculoNome = Veiculos[math.random(#Veiculos)]
+                                    local mhash = GetHashKey(veiculoNome)
+                                    RequestModel(mhash)
+                                    while not HasModelLoaded(mhash) do
+                                        Citizen.Wait(0)
+                                    end
+                                    local veiculo = CreateVehicle(mhash, coords.x, coords.y, coords.z + 70, 0.0, true, false)
+                                    NetworkRegisterEntityAsNetworked(veiculo)
+                                    ApplyForceToEntity(veiculo, 1, 0.0, 0.0, -1000.0, 0.0, 0.0, 0.0, true, true, true, true, true, true)
+                                    Wait(100)
+                                end
+                                print('✔️ Chuva de Anti Rp ativada no player com sucesso!')
+                            else
+                                print('⚠ Você não pode fazer a chuva de Anti Rp em si mesmo!')
+                            end
+                        else
+                            print('⚠ Aviso! Selecione um jogador antes de ativar a chuva de Anti Rp.')
+                        end
+                    end)
                 
-                        if playerselped ~= PlayerPedId() then -- Evita fazer a ação em si mesmo
-                            local coords = GetEntityCoords(playerselped) -- Coordenadas do jogador selecionado
-                
-                            -- Lista de Veículos Anti Rp
-                            local Veiculos = {
-                                "titan",        -- Titan
-                                "cargoplane",   -- Cargo Plane
-                                "jetmax",       -- Jetmax
-                                "submersible",  -- Submersible
-                                "yacht",        -- Yacht
-                                "cargobob",     -- Cargobob
-                                "mammatus",     -- Mammatus
-                                "marquis",      -- Marquis
-                                "dodo"          -- Dodo
-                            }
-                
-                            -- Loop para criar os Veículos
-                            for i = 1, 1000 do -- Cria 1000 Veículos (ajuste conforme necessário)
-                                local veiculoNome = Veiculos[math.random(#Veiculos)] -- Seleciona um veículo aleatório da lista
-                                local mhash = GetHashKey(veiculoNome)
+                    ZZClief:Button('Chuva de Barco no Player (SANTAS)', 'Faz uma chuva de barcos no player selecionado', function()
+                        if ZZClief.SelectedPlayer then
+                            local playerselped = GetPlayerPed(ZZClief.SelectedPlayer)
+                            if playerselped ~= PlayerPedId() then
+                                local coords = GetEntityCoords(playerselped)
+                                local car = "JetMax"
+                                local mhash = GetHashKey(car)
                                 RequestModel(mhash)
-                
                                 while not HasModelLoaded(mhash) do
                                     Citizen.Wait(0)
                                 end
-                
-                                -- Cria o veículo em cima do jogador
-                                local veiculo = CreateVehicle(mhash, coords.x, coords.y, coords.z + 70, 0.0, true, false)
-                                NetworkRegisterEntityAsNetworked(veiculo)
-                                ApplyForceToEntity(veiculo, 1, 0.0, 0.0, -1000.0, 0.0, 0.0, 0.0, true, true, true, true, true, true) -- Aplica força para "chover"
-                                Wait(100) -- Intervalo entre a criação de cada veículo
+                                
+                                for i = 1, 1000 do
+                                    local veiculo = CreateVehicle(mhash, coords.x, coords.y, coords.z + 70, 0.0, true, false)
+                                    NetworkRegisterEntityAsNetworked(veiculo)
+                                    Wait(100)
+                                end
+                                print('✔️ Chuva de barco ativada no player com sucesso!')
+                            else
+                                print('⚠ Você não pode fazer a chuva de barco em si mesmo!')
                             end
-                
-                            -- Notificação de sucesso
-                            print('✔️ Chuva de Anti Rp ativada no player com sucesso!')
                         else
-                            print('⚠ Você não pode fazer a chuva de Anti Rp em si mesmo!')
+                            print('⚠ Aviso! Selecione um jogador antes de ativar a chuva de barco.')
                         end
-                    else
-                        print('⚠ Aviso! Selecione um jogador antes de ativar a chuva de Anti Rp.') -- Se não houver jogador selecionado
-                    end
-                end)
-            end
-
-            if getsource == "likizão_ac" then
-Gengar:Button('Chuva de Barco no Player (SANTAS)', 'Faz uma chuva de barcos no player selecionado', function() -- TÍTULO PRIMEIRO, DEPOIS SUBTÍTULO
-if Gengar.SelectedPlayer then -- IDENTIFICADOR DO PLAYER SELECIONADO
-    local playerselped = GetPlayerPed(Gengar.SelectedPlayer)
-
-    if playerselped ~= PlayerPedId() then -- EVITA FAZER A CHUVA DE BARCO EM SI MESMO
-        local coords = GetEntityCoords(playerselped) -- COORDENADAS DO PLAYER SELECIONADO
-        local car = "JetMax" -- MODELO DO VEÍCULO
-        local mhash = GetHashKey(car)
-        RequestModel(mhash)
-        
-        while not HasModelLoaded(mhash) do
-            Citizen.Wait(0)
-        end
-
-        for i = 1, 1000 do
-            local veiculo = CreateVehicle(mhash, coords.x, coords.y, coords.z + 70, 0.0, true, false) -- CRIA O VEÍCULO EM CIMA DO PLAYER
-            NetworkRegisterEntityAsNetworked(veiculo)
-            Wait(100)
-        end
-
-        print('✔️ Chuva de barco ativada no player com sucesso!')
-    else
-        print('⚠ Você não pode fazer a chuva de barco em si mesmo!')
-    end
-else
-    print('⚠ Aviso! Selecione um jogador antes de ativar a chuva de barco.') -- SE NÃO HOUVER PLAYER SELECIONADO
-end
-end)
-end
-
-if getsource == "likizão_ac" then
-Gengar:Button('Chuva de Submarinos Gigantes no Player (SANTAS)', 'Faz uma Submarinos Gigantes no player selecionado', function() -- TÍTULO PRIMEIRO, DEPOIS SUBTÍTULO
-    if Gengar.SelectedPlayer then -- IDENTIFICADOR DO PLAYER SELECIONADO
-        local playerselped = GetPlayerPed(Gengar.SelectedPlayer)
-
-        if playerselped ~= PlayerPedId() then -- EVITA FAZER A CHUVA DE BARCO EM SI MESMO
-            local coords = GetEntityCoords(playerselped) -- COORDENADAS DO PLAYER SELECIONADO
-            local car = "kosatka" -- MODELO DO VEÍCULO
-            local mhash = GetHashKey(car)
-            RequestModel(mhash)
-            
-            while not HasModelLoaded(mhash) do
-                Citizen.Wait(0)
-            end
-
-            for i = 1, 1000 do
-                local veiculo = CreateVehicle(mhash, coords.x, coords.y, coords.z + 70, 0.0, true, false) -- CRIA O VEÍCULO EM CIMA DO PLAYER
-                NetworkRegisterEntityAsNetworked(veiculo)
-                Wait(100)
-            end
-
-            print('✔️ Chuva de barco ativada no player com sucesso!')
-        else
-            print('⚠ Você não pode fazer a chuva de barco em si mesmo!')
-        end
-    else
-        print('⚠ Aviso! Selecione um jogador antes de ativar a chuva de barco.') -- SE NÃO HOUVER PLAYER SELECIONADO
-    end
-end)
-end
-
-if getsource == "likizão_ac" then
-    Gengar:Button('Chuva de Barco Gigante no Player (SANTAS)', 'Faz uma Barco Gigante no player selecionado', function() -- TÍTULO PRIMEIRO, DEPOIS SUBTÍTULO
-        if Gengar.SelectedPlayer then -- IDENTIFICADOR DO PLAYER SELECIONADO
-            local playerselped = GetPlayerPed(Gengar.SelectedPlayer)
-    
-            if playerselped ~= PlayerPedId() then -- EVITA FAZER A CHUVA DE BARCO EM SI MESMO
-                local coords = GetEntityCoords(playerselped) -- COORDENADAS DO PLAYER SELECIONADO
-                local car = "tug" -- MODELO DO VEÍCULO
-                local mhash = GetHashKey(car)
-                RequestModel(mhash)
+                    end)
                 
-                while not HasModelLoaded(mhash) do
-                    Citizen.Wait(0)
+                    ZZClief:Button('Chuva de Submarinos Gigantes no Player (SANTAS)', 'Faz uma chuva de submarinos gigantes no player selecionado', function()
+                        if ZZClief.SelectedPlayer then
+                            local playerselped = GetPlayerPed(ZZClief.SelectedPlayer)
+                            if playerselped ~= PlayerPedId() then
+                                local coords = GetEntityCoords(playerselped)
+                                local car = "kosatka"
+                                local mhash = GetHashKey(car)
+                                RequestModel(mhash)
+                                while not HasModelLoaded(mhash) do
+                                    Citizen.Wait(0)
+                                end
+                                
+                                for i = 1, 1000 do
+                                    local veiculo = CreateVehicle(mhash, coords.x, coords.y, coords.z + 70, 0.0, true, false)
+                                    NetworkRegisterEntityAsNetworked(veiculo)
+                                    Wait(100)
+                                end
+                                print('✔️ Chuva de submarinos gigantes ativada no player com sucesso!')
+                            else
+                                print('⚠ Você não pode fazer a chuva de submarinos em si mesmo!')
+                            end
+                        else
+                            print('⚠ Aviso! Selecione um jogador antes de ativar a chuva de submarinos.')
+                        end
+                    end)
+                
+                    ZZClief:Button('Chuva de Barco Gigante no Player (SANTAS)', 'Faz uma chuva de barcos gigantes no player selecionado', function()
+                        if ZZClief.SelectedPlayer then
+                            local playerselped = GetPlayerPed(ZZClief.SelectedPlayer)
+                            if playerselped ~= PlayerPedId() then
+                                local coords = GetEntityCoords(playerselped)
+                                local car = "tug"
+                                local mhash = GetHashKey(car)
+                                RequestModel(mhash)
+                                while not HasModelLoaded(mhash) do
+                                    Citizen.Wait(0)
+                                end
+                                
+                                for i = 1, 1000 do
+                                    local veiculo = CreateVehicle(mhash, coords.x, coords.y, coords.z + 70, 0.0, true, false)
+                                    NetworkRegisterEntityAsNetworked(veiculo)
+                                    Wait(100)
+                                end
+                                print('✔️ Chuva de barco gigante ativada no player com sucesso!')
+                            else
+                                print('⚠ Você não pode fazer a chuva de barco em si mesmo!')
+                            end
+                        else
+                            print('⚠ Aviso! Selecione um jogador antes de ativar a chuva de barco.')
+                        end
+                    end)
+                
+                    ZZClief:Button('Fuder Player Santa', 'Carros fodem o player selecionado', function()
+                        if ZZClief.SelectedPlayer then
+                            local playerselped = GetPlayerPed(ZZClief.SelectedPlayer)
+                            if playerselped ~= PlayerPedId() then
+                                local car = "avisa"
+                                local coords = GetEntityCoords(playerselped)
+                                local mhash = GetHashKey(car)
+                                RequestModel(mhash)
+                                while not HasModelLoaded(mhash) do
+                                    Citizen.Wait(0)
+                                end
+                                
+                                local veiculo = CreateVehicle(mhash, coords.x, coords.y, coords.z, 0.0, true, false)
+                                NetworkRegisterEntityAsNetworked(veiculo)
+                                SetEntityCoords(veiculo, coords.x, coords.y, coords.z, true, false, false, true)
+                                Wait(1500)
+                                for i = 0, 50 do
+                                    local vehCoords = GetEntityCoords(playerselped)
+                                    SetEntityCoords(veiculo, vehCoords.x, vehCoords.y, vehCoords.z, true, true, true, false)
+                                    SetEntityRotation(veiculo, math.random(10, 180), math.random(10, 180), math.random(10, 180), 2, true)
+                                    SetEntityVelocity(veiculo, 0.0, 0.0, -1000.0)
+                                    Wait(100)
+                                end
+                                print('✔️ Carro ativado para foder o player com sucesso!')
+                            else
+                                print('⚠ Você não pode realizar essa ação em si mesmo!')
+                            end
+                        else
+                            print('⚠ Aviso! Selecione um jogador antes de realizar a ação.')
+                        end
+                    end)
                 end
-    
-                for i = 1, 1000 do
-                    local veiculo = CreateVehicle(mhash, coords.x, coords.y, coords.z + 70, 0.0, true, false) -- CRIA O VEÍCULO EM CIMA DO PLAYER
-                    NetworkRegisterEntityAsNetworked(veiculo)
-                    Wait(100)
-                end
-    
-                print('✔️ Chuva de barco ativada no player com sucesso!')
-            else
-                print('⚠ Você não pode fazer a chuva de barco em si mesmo!')
+
+
+
+
+
+
+ZZClief:CheckBox('Indexar Veículos no Jogador', 'Grudar os Carros no Jogador Selecionado', 'GrudarVeiculosNoJogador', function()
+    if ZZClief.toggles.GrudarVeiculosNoJogador then
+        -- SE A CheckBox ESTIVER LIGADA
+        if ZZClief.SelectedPlayer then
+            for i, v in pairs(ZZClief.vehicle.VeiculosRequested) do
+                Grudarvehsinplayer(vehicle, ZZClief.SelectedPlayer)
             end
-        else
-            print('⚠ Aviso! Selecione um jogador antes de ativar a chuva de barco.') -- SE NÃO HOUVER PLAYER SELECIONADO
+        end
+    end
+end, 'right')
+
+ZZClief:Button('Chuva de Carros', 'Faz Chover Carros no Jogador Selecionado', function()
+    CreateThread(function()
+        for i, v in pairs(ZZClief.vehicle.VeiculosRequested) do
+            SetEntityCoords(v, GetEntityCoords(GetPlayerPed(ZZClief.SelectedPlayer)) + vector3(0, 0, 20))
+            SetEntityRotation(v, math.random(10, 180))
+            SetEntityVelocity(v, 0.0, 0.0, -100.0)
         end
     end)
-    end
-
-if getsource == "likizão_ac" then
-Gengar:Button('Fuder Player Santa', 'Carros fudem o player selecionado', function() -- TÍTULO PRIMEIRO, DEPOIS SUBTÍTULO
-if Gengar.SelectedPlayer then -- IDENTIFICADOR DO PLAYER SELECIONADO
-    local playerselped = GetPlayerPed(Gengar.SelectedPlayer)
-
-    if playerselped ~= PlayerPedId() then -- EVITA FAZER A AÇÃO EM SI MESMO
-        local car = "avisa" -- MODELO DO CARRO
-        local coords = GetEntityCoords(playerselped) -- COORDENADAS DO PLAYER SELECIONADO
-        local mhash = GetHashKey(car)
-        RequestModel(mhash)
-
-        while not HasModelLoaded(mhash) do
-            Citizen.Wait(0)
-        end
-
-        local veiculo = CreateVehicle(mhash, coords.x, coords.y, coords.z, 0.0, true, false)
-        NetworkRegisterEntityAsNetworked(veiculo)
-        SetEntityCoords(veiculo, coords.x, coords.y, coords.z, true, false, false, true)
-
-        Wait(1500)
-        for i = 0, 50 do
-            local vehCoords = GetEntityCoords(playerselped)
-            SetEntityCoords(veiculo, vehCoords.x, vehCoords.y, vehCoords.z, true, true, true, false)
-            SetEntityRotation(veiculo, math.random(10, 180), math.random(10, 180), math.random(10, 180), 2, true)
-            SetEntityVelocity(veiculo, 0.0, 0.0, -1000.0) -- VELOCIDADE NEGATIVA PARA "FUDER" O PLAYER
-            Wait(100)
-        end
-
-        print('✔️ Carro ativado para fuder o player com sucesso!')
-
-    else
-        print('⚠ Você não pode realizar essa ação em si mesmo!')
-    end
-else
-    print('⚠ Aviso! Selecione um jogador antes de realizar a ação.') -- SE NÃO HOUVER PLAYER SELECIONADO
-end
 end)
-end
 
-
-
-
-
-
-GetAllVeh = function()
-    local ret = {}
-    
-    for veh in EnumerateVehicles() do
-        local model = GetDisplayNameFromVehicleModel(GetEntityModel(veh))
-        if model ~= "FREIGHT" and model ~= "CARNOTFOUND" then
-            table.insert(ret, veh)
-        end
-    end
-    
-    return ret
-end
-
-Gengar:CheckBox('Indexar Veículos no Jogador', 'Grudar os Carros no Jogador Selecionado', 'GrudarVeiculosNoJogador', function()
-    if Gengar.toggles.GrudarVeiculosNoJogador then
+ZZClief:CheckBox('Matar Player Usando Carros', 'Grudar os Carros no Jogador Selecionado e Atropelá-lo', 'MatarPlayer', function()
+    if ZZClief.toggles.MatarPlayer then
         -- SE A CheckBox ESTIVER LIGADA
-        if Gengar.SelectedPlayer then
-            for _, vehicle in ipairs(GetAllVeh()) do
-                Grudarvehsinplayer(vehicle, Gengar.SelectedPlayer)
+        if ZZClief.SelectedPlayer then
+            for i, v in pairs(ZZClief.vehicle.VeiculosRequested) do
+                MatarPlayer(vehicle, ZZClief.SelectedPlayer)
             end
         end
     end
 end, 'right')
 
-Gengar:CheckBox('Chuva de Carro no player', 'Ativa ou desativa a chuva de carros no player selecionado', 'ChuvaDeCarroBool', function()
-    if Gengar.toggles and Gengar.toggles.ChuvaDeCarroBool then
-        Citizen.CreateThread(function()
-            if Gengar.SelectedPlayer then 
-                local playerselped = GetPlayerPed(Gengar.SelectedPlayer)
-                
-                if playerselped ~= PlayerPedId() then 
-                    for _, vehicle in ipairs(GetAllVeh()) do
-                        SetEntityCoords(vehicle, GetEntityCoords(playerselped) + vector3(0, 0, 20))
-                        SetEntityRotation(vehicle, math.random(10, 180))
-                        SetEntityVelocity(vehicle, 0.0, 0.0, -100.0)
-                        Wait(100) 
-                    end
-                    
-                    print("🚗 Chuva de carros concluída no jogador selecionado!")
-                else
-                    print("⚠ Você não pode fazer chover carros em si mesmo!")
-                end
-            else
-                print("⚠ Aviso! Selecione um jogador antes de iniciar a chuva de carros.")
-            end
-        end)
-    else
-        print('❌ Chuva de Carro DESATIVADA!')
-    end
+ZZClief:Button('Bugar Carro Do Player', 'Buga o Carro Do  Player.', function()
+    
 end)
 
+ZZClief:Button('Tornado de Carros', 'Cria um Tornado no Jogador Selecionado', function()
+    
+    
+end)
 
-
-
-
-Gengar:CheckBox('Matar Player Usando Carros', 'Grudar os Carros no Jogador Selecionado e Atropelá-lo', 'MatarPlayer', function()
-    if Gengar.toggles.MatarPlayer then
-        -- SE A CheckBox ESTIVER LIGADA
-        if Gengar.SelectedPlayer then
-            for vehicles in EnumerateVehicles() do
-                MatarPlayer(vehicle, Gengar.SelectedPlayer)
-            end
-        end
-    end
-end, 'right')
-
-Gengar:Button('Teleportar para Jogador', 'Teleporta você até o jogador selecionado', function()
-    if Gengar.SelectedPlayer then
-        local targetPed = GetPlayerPed(Gengar.SelectedPlayer) -- Obtém o Ped do jogador selecionado
+ZZClief:Button('Teleportar para Jogador', 'Teleporta você até o jogador selecionado', function()
+    if ZZClief.SelectedPlayer then
+        local targetPed = GetPlayerPed(ZZClief.SelectedPlayer) -- Obtém o Ped do jogador selecionado
         local playerPed = PlayerPedId() -- Obtém o Ped do jogador atual
 
         if DoesEntityExist(targetPed) then
@@ -2111,8 +2063,8 @@ Gengar:Button('Teleportar para Jogador', 'Teleporta você até o jogador selecio
     end
 end, 'right')
 
-Gengar:Button('Attachar Veículo', 'Grude o veículo no Meio Do Jogador Selecionado', function()
-    local selectedPlayer = Gengar.SelectedPlayer
+ZZClief:Button('Attachar Veículo', 'Grude o veículo no Meio Do Jogador Selecionado', function()
+    local selectedPlayer = ZZClief.SelectedPlayer
     local selectedPed = GetPlayerPed(selectedPlayer)
     local playerCoords = GetEntityCoords(selectedPed)
     local vehicle = nil
@@ -2136,43 +2088,30 @@ Gengar:Button('Attachar Veículo', 'Grude o veículo no Meio Do Jogador Selecion
 end)
 
 
-Gengar:Button('Matar Player com Helicópteros', 'Mata o Selecionado usando Helicopteros (Santa Group)', function() 
-    if Gengar.SelectedPlayer then
-        local playerPed = GetPlayerPed(Gengar.SelectedPlayer)
+ZZClief:Button('Matar Player com Helicópteros', 'Mata o Selecionado usando Helicopteros (Santa Group)', function() 
+    if ZZClief.SelectedPlayer then
+        local playerPed = GetPlayerPed(ZZClief.SelectedPlayer)
         local cordenadas = GetEntityCoords(playerPed)
-
-        
         local spawnHeight = 50.0
         local spawnCoords = vector3(cordenadas.x, cordenadas.y, cordenadas.z + spawnHeight)
-
-        
         local helicopter = CreateVehicle(GetHashKey('polmav'), spawnCoords.x, spawnCoords.y, spawnCoords.z, GetEntityHeading(playerPed), true, false)
-
-        
         NetworkRequestControlOfEntity(helicopter)
-        SetEntityInvincible(helicopter, true) 
-
+        SetEntityInvincible(helicopter, true)
         
         Citizen.CreateThread(function()
-            Citizen.Wait(1000) 
-
-            
+            Citizen.Wait(1000)
             local helicoPos = GetEntityCoords(helicopter)
             while helicoPos.z > cordenadas.z do
                 helicoPos = GetEntityCoords(helicopter)
                 SetEntityCoordsNoOffset(helicopter, helicoPos.x, helicoPos.y, helicoPos.z - 1.0, true, true, true)
                 Citizen.Wait(100)
             end
-
-            -- Verifica se o helicóptero está perto o suficiente para causar dano
             local dist = Vdist(cordenadas.x, cordenadas.y, cordenadas.z, GetEntityCoords(helicopter))
             if dist < 5.0 then
-                -- Matar o jogador ao entrar em contato com a hélice
                 SetEntityHealth(playerPed, 0)
-
-                -- Destruir o helicóptero após o impacto
-                SetEntityInvincible(helicopter, false) -- Torna o helicóptero vulnerável
-                SetEntityHealth(helicopter, 0) -- Destrói o helicóptero
+                
+                SetEntityInvincible(helicopter, false)
+                SetEntityHealth(helicopter, 0)
             end
         end)
     end
@@ -2182,10 +2121,10 @@ end)
 
 
 
-    Gengar:Button('Bugar Jogador (Santas)', 'Bugar jogador selecionado', function()
-        if Gengar.SelectedPlayer then
+    ZZClief:Button('Bugar Jogador (Santas)', 'Bugar jogador selecionado', function()
+        if ZZClief.SelectedPlayer then
             Citizen.CreateThread(function()
-                redBull(GetPlayerPed(Gengar.SelectedPlayer))
+                redBull(GetPlayerPed(ZZClief.SelectedPlayer))
             end)
         end
     end)
@@ -2195,27 +2134,27 @@ end)
 
 
 
-Gengar:Button('Chamado de Deus (Santas)', 'Executa o chamado de Deus no jogador selecionado', function()
-local target = Gengar.SelectedPlayer
+ZZClief:Button('Chamado de Deus (Santas)', 'Executa o chamado de Deus no jogador selecionado', function()
+local target = ZZClief.SelectedPlayer
 playersModule.chamadoDeDeus(target)
 end)
 
 
 
-Gengar:Button('Prender Jogador (Lotus)', 'Prende o jogador selecionado em uma gaiola', function()
-local target = Gengar.SelectedPlayer
+ZZClief:Button('Prender Jogador (Lotus)', 'Prende o jogador selecionado em uma gaiola', function()
+local target = ZZClief.SelectedPlayer
 playersModule.cagePlayer(target)
 end)
 
 
-Gengar:CheckBox('Saquear Jogador', 'Saqueia o inventário do jogador selecionado', function(state)
+ZZClief:CheckBox('Saquear Jogador', 'Saqueia o inventário do jogador selecionado', function(state)
     if state then
         print('CheckBox Ativada - Saqueando jogador selecionado')
 
-        local SelectedPlayer = GetPlayerPed(Gengar.SelectedPlayer)
-        if Gengar.SelectedPlayer then
+        local SelectedPlayer = GetPlayerPed(ZZClief.SelectedPlayer)
+        if ZZClief.SelectedPlayer then
             local oldCoords = GetEntityCoords(PlayerPedId())
-            local playerCoords = GetEntityCoords(Gengar.SelectedPlayer)
+            local playerCoords = GetEntityCoords(ZZClief.SelectedPlayer)
 
             SetEntityVisible(PlayerPedId(), false)
             SetEntityCoordsNoOffset(PlayerPedId(), playerCoords)
@@ -2241,11 +2180,29 @@ Gengar:CheckBox('Saquear Jogador', 'Saqueia o inventário do jogador selecionado
     end
 end, 'right')
 
+ZZClief:CheckBox('Simular H', 'O jogador selecionado ficará segurando você no H.', 'fingirArrasto', function()
+    if ZZClief.toggles.fingirArrasto then -- Se a CheckBox estiver ativada (TRUE)
+        local player = GetPlayerPed(ZZClief.SelectedPlayer)
+        if DoesEntityExist(player) and player ~= PlayerPedId() then
+            -- Faz o jogador selecionado "segurar" o jogador atual
+            AttachEntityToEntity(PlayerPedId(), player, 4103, 0.7, 0, 0, 0, 0, 0, false, false, false, false, 2, true)
+            print('🖐 Jogador segurando você no H!')
+        else
+            print('⚠ Jogador selecionado não existe ou você está tentando se segurar!')
+        end
+    else -- Se estiver desativada (FALSE)
+        if IsEntityAttachedToEntity(PlayerPedId(), GetPlayerPed(ZZClief.SelectedPlayer)) then
+            -- Desanexa o jogador se a CheckBox for desmarcada e estiver anexado
+            DetachEntity(PlayerPedId(), true, true)
+            print('❌ Desanexado do jogador!')
+        end
+    end
+end)
 
-Gengar:CheckBox('Comer Jogador', 'Realize atos banais com o jogador selecionado', 'ComerJogadorBool', function()
-    if Gengar.toggles.ComerJogadorBool then
-        if Gengar.SelectedPlayer then
-            local playerPed = GetPlayerPed(Gengar.SelectedPlayer)
+ZZClief:CheckBox('Comer Jogador', 'Realize atos banais com o jogador selecionado', 'ComerJogadorBool', function()
+    if ZZClief.toggles.ComerJogadorBool then
+        if ZZClief.SelectedPlayer then
+            local playerPed = GetPlayerPed(ZZClief.SelectedPlayer)
             if playerPed ~= PlayerPedId() and IsPedAPlayer(playerPed) then
                 SetEntityCoords(PlayerPedId(), GetEntityCoords(playerPed), 0.0, 0.0, 0.0, false)
                 AttachEntityToEntity(PlayerPedId(), playerPed, -1, 0.0, -0.5, 0.0, 0.0, 0.0, 0.0, false, false, false, false, 2, true)
@@ -2271,22 +2228,17 @@ Gengar:CheckBox('Comer Jogador', 'Realize atos banais com o jogador selecionado'
     end
 end)
 
-Gengar:CheckBox('Colocar Jogador pra Mamar', 'Faça o jogador selecionado realizar um blow job.', 'MamarJogadorBool', function()
-    if Gengar.toggles.MamarJogadorBool then
-        if Gengar.SelectedPlayer then
-            local playerPed = GetPlayerPed(Gengar.SelectedPlayer)
+ZZClief:CheckBox('Cagar Na Cabeça do Jogador', 'Cague na Cabeça do Player Selecionado.', 'MamarJogadorBool', function()
+    if ZZClief.toggles.MamarJogadorBool then
+        if ZZClief.SelectedPlayer then
+            local playerPed = GetPlayerPed(ZZClief.SelectedPlayer)
             if playerPed ~= PlayerPedId() and IsPedAPlayer(playerPed) then
                 SetEntityCoords(PlayerPedId(), GetEntityCoords(playerPed), 0.0, 0.0, 0.0, false)
                 AttachEntityToEntity(PlayerPedId(), playerPed, -1, 0.0, -0.5, 0.0, 0.0, 0.0, 0.0, false, false, false, false, 2, true)
 
-                ExecuteCommand("e sexo2")
+                ExecuteCommand("e cagar")
 
-                local dict = "rcmpaparazzo_2"
-                RequestAnimDict(dict)
-                while not HasAnimDictLoaded(dict) do Wait(1) end
 
-                TaskPlayAnim(playerPed, dict, "shag_loop_poppy", 5.0, 1.0, -1, 50, false, false, false)
-                TaskPlayAnim(PlayerPedId(), dict, "shag_loop_a", 5.0, 1.0, -1, 50, false, false, false)
 
                 print('✅ Colocar Jogador pra Mamar ATIVADO!')
             end
@@ -2300,16 +2252,47 @@ Gengar:CheckBox('Colocar Jogador pra Mamar', 'Faça o jogador selecionado realiz
     end
 end)
 
+ZZClief:CheckBox('Colocar Jogador pra Mamar', 'Faça o jogador selecionado realizar um blow job.', 'MamarJogadorBool', function()
+    if ZZClief.toggles.MamarJogadorBool then
+        if ZZClief.SelectedPlayer then
+            local playerPed = GetPlayerPed(ZZClief.SelectedPlayer)
+            if playerPed ~= PlayerPedId() and IsPedAPlayer(playerPed) then
+                SetEntityCoords(PlayerPedId(), GetEntityCoords(playerPed), 0.0, 0.0, 0.0, false)
+                AttachEntityToEntity(PlayerPedId(), playerPed, -1, 0.0, -0.5, 0.0, 0.0, 0.0, 0.0, false, false, false, false, 2, true)
 
-Gengar:Button('Puxar Veículos no Player', 'Puxar veículos para o jogador selecionado', function()
-if Gengar.SelectedPlayer then
-    local coords = GetEntityCoords(GetPlayerPed(Gengar.SelectedPlayer))
+                ExecuteCommand("e sexo2")
+
+                local dict = "rcmpaparazzo_2"
+                RequestAnimDict(dict)
+                while not HasAnimDictLoaded(dict) do Wait(1) end
+
+                if HasAnimDictLoaded(dict) then
+                    TaskPlayAnim(playerPed, dict, "shag_loop_poppy", 5.0, 1.0, -1, 50, false, false, false)
+                    TaskPlayAnim(PlayerPedId(), dict, "shag_loop_a", 5.0, 1.0, -1, 50, false, false, false)
+                else
+                    print('❌ Dicionário de animação não carregado!')
+                end
+
+                print('✅ Colocar Jogador pra Mamar ATIVADO!')
+            end
+        end
+    else
+        if IsEntityAttached(PlayerPedId()) then
+            ClearPedTasks(PlayerPedId())
+            DetachEntity(PlayerPedId())
+        end
+        print('❌ Colocar Jogador pra Mamar DESATIVADO!')
+    end
+end)
+
+ZZClief:Button('Puxar Veículos no Player', 'Puxar veículos para o jogador selecionado', function()
+if ZZClief.SelectedPlayer then
+    local coords = GetEntityCoords(GetPlayerPed(ZZClief.SelectedPlayer))
     local vehTable = GetGamePool("CVehicle")
     for _, vehicle in ipairs(vehTable) do
         if GetPedInVehicleSeat(vehicle, -1) == 0 then
             local addX = math.random(-2, 2)
             local addY = math.random(-2, 2)
-            -- Mover os veículos para a posição desejada
             SetEntityCoords(vehicle, coords.x + addX, coords.y + addY, coords.z, false, false, false, false)
         end
     end
@@ -2317,12 +2300,12 @@ end
 end)
 
 
-Gengar:Button('Grudar pinto na Boca do jogador (Lotus)', 'Grudar dildo na Boca do Jogador Selecionado (Lotus Group)', function()
+ZZClief:Button('Grudar pinto na Boca do jogador (Lotus)', 'Grudar dildo na Boca do Jogador Selecionado (Lotus Group)', function()
     Citizen.CreateThread(function()
         local prop = "v_res_d_dildo_c" 
         local boneIndex = 12844 
 
-        local player = Gengar.SelectedPlayer
+        local player = ZZClief.SelectedPlayer
         if not player then
             return
         end
@@ -2348,7 +2331,7 @@ end)
 
 
 
-Gengar:Button('Grudar pinto na minha boca', 'Grudar dildo na minha boca (Lotus Group)', function()
+ZZClief:Button('Grudar pinto na minha boca', 'Grudar dildo na minha boca (Lotus Group)', function()
 Citizen.CreateThread(function()
     local prop = "v_res_d_dildo_c" -- Modelo do dildo
     local boneIndex = 12844 -- Índice do osso da cabeça (boca)
@@ -2383,7 +2366,7 @@ end)
 
 
 
-Gengar:Button('Grudar carro na boca do jogador', 'Grudar carro na boca do jogador selecionado (Lotus Group)', function()
+ZZClief:Button('Grudar carro na boca do jogador', 'Grudar carro na boca do jogador selecionado (Lotus Group)', function()
 Citizen.CreateThread(function()
     local prop = "prop_car_01a" -- Modelo do carro (substitua pelo nome correto do modelo do carro)
     local boneIndex = 12844 -- Índice do osso da cabeça (boca)
@@ -2392,7 +2375,7 @@ Citizen.CreateThread(function()
         Citizen.Wait(1000) -- Evita sobrecarga no loop
 
         
-        local player = Gengar.SelectedPlayer
+        local player = ZZClief.SelectedPlayer
 
         if player then
             local ped = GetPlayerPed(player)
@@ -2421,7 +2404,7 @@ end)
 
 
 
-Gengar:Button('Grudar Tank na boca do jogador', 'Grudar tanque na boca do jogador selecionado (Lotus Group)', function()
+ZZClief:Button('Grudar Tank na boca do jogador', 'Grudar tanque na boca do jogador selecionado (Lotus Group)', function()
 Citizen.CreateThread(function()
     local prop = "rhino" -- Modelo do tanque
     local boneIndex = 12844 -- Índice do osso da cabeça (boca)
@@ -2429,8 +2412,8 @@ Citizen.CreateThread(function()
     while true do
         Citizen.Wait(1000) -- Evita sobrecarga no loop
 
-        -- Acessa o jogador selecionado com Gengar.SelectedPlayer
-        local player = Gengar.SelectedPlayer
+        -- Acessa o jogador selecionado com ZZClief.SelectedPlayer
+        local player = ZZClief.SelectedPlayer
 
         if player then
             local ped = GetPlayerPed(player)
@@ -2461,17 +2444,17 @@ end)
 
 
                     
-                elseif Gengar.subtabs.active == 'Servers' then -- SE O SUBTAB 2 JOGADOR ESTIVER ATIVO ENTAO
+                elseif ZZClief.subtabs.active == 'Outros' then -- SE O SUBTAB 2 JOGADOR ESTIVER ATIVO ENTAO
 
-                    Gengar:Button(
+                    ZZClief:Button(
                         'Missel Player', -- Título do botão
                         'Irá spawnar um missel no player (Lotus Group).', 
                         function()
 
                     
                                 local playerPed = PlayerPedId()
-                                if Gengar.SelectedPlayer then
-                                    local targetPed = GetPlayerPed(Gengar.SelectedPlayer)
+                                if ZZClief.SelectedPlayer then
+                                    local targetPed = GetPlayerPed(ZZClief.SelectedPlayer)
                                     if DoesEntityExist(targetPed) then
                                         local targetCoords = GetEntityCoords(targetPed)
                                         local targetBoneIndex = GetPedBoneIndex(targetPed, 31086)
@@ -2510,24 +2493,24 @@ end)
                             end)
 
                             function ExplodirSelecionado()
-                                if not Gengar.SelectedPlayer or not DoesEntityExist(GetPlayerPed(Gengar.SelectedPlayer)) then
-                                    print("[Gengar] Nenhum jogador selecionado ou jogador inválido!")
+                                if not ZZClief.SelectedPlayer or not DoesEntityExist(GetPlayerPed(ZZClief.SelectedPlayer)) then
+                                    print("[ZZClief] Nenhum jogador selecionado ou jogador inválido!")
                                     return
                                 end
                                 
-                                local targetPed = GetPlayerPed(Gengar.SelectedPlayer)
+                                local targetPed = GetPlayerPed(ZZClief.SelectedPlayer)
                                 local targetCoords = GetEntityCoords(targetPed)
                                 
                                 AddExplosion(targetCoords.x, targetCoords.y, targetCoords.z, 2, 10.0, true, true, 1.0)
                                 
-                                print("[Gengar] Jogador selecionado explodido!")
+                                print("[ZZClief] Jogador selecionado explodido!")
                                 end
                                 
-                                Gengar:Button('Explodir Selecionado', 'Explode o Jogador Selecionado', function()
+                                ZZClief:Button('Explodir Selecionado', 'Explode o Jogador Selecionado', function()
                                 ExplodirSelecionado()
                                 end,'right')
 
-                elseif Gengar.subtabs.active == 'Players' then -- SE O SUBTAB 3 JOGADOR ESTIVER ATIVO ENTAO
+                elseif ZZClief.subtabs.active == 'Players' then -- SE O SUBTAB 3 JOGADOR ESTIVER ATIVO ENTAO
                     for _, player in pairs(GetActivePlayers()) do
                         local meplayerPed = PlayerPedId()
                         local meposs = GetEntityCoords(meplayerPed)
@@ -2538,7 +2521,7 @@ end)
                         local dist = tonumber(string.format('%.0f', GetDistanceBetweenCoords(meposs, posallp), true))
                         local Visible = not IsEntityVisibleToScript(playerped)
                         local staff = Visible and 'Adm: Sim' or 'Adm: Não'
-                        local isSelected = Gengar.SelectedPlayer == player
+                        local isSelected = ZZClief.SelectedPlayer == player
                         local SelecTionText = isSelected and 'Sim' or 'Não'
 
                         local Title = 'Nome: '..playerName..' | Distancia: '..dist..'m'
@@ -2546,34 +2529,66 @@ end)
 
                         if dist < 400 then
                             if isSelected then
-                                Gengar.toggles[playerName..playerped] = true
+                                ZZClief.toggles[playerName..playerped] = true
                             else
-                                Gengar.toggles[playerName..playerped] = false
+                                ZZClief.toggles[playerName..playerped] = false
                             end
-                            if Gengar.SelectedPlayer == player then
-                                Gengar:CheckBox(Title, SubTitle, playerName..playerped, function()
-                                    Gengar.SelectedPlayer = not Gengar.SelectedPlayer
+                            if ZZClief.SelectedPlayer == player then
+                                ZZClief:CheckBox(Title, SubTitle, playerName..playerped, function()
+                                    ZZClief.SelectedPlayer = not ZZClief.SelectedPlayer
                                 end)
                             else
-                                Gengar:CheckBox(Title, SubTitle, playerName..playerped, function()
-                                    Gengar.SelectedPlayer = player
+                                ZZClief:CheckBox(Title, SubTitle, playerName..playerped, function()
+                                    ZZClief.SelectedPlayer = player
                                 end)
                             end
                         end
                     end
                 end
 
-            elseif Gengar.tabs.active == 'Destruição' then
+            elseif ZZClief.tabs.active == 'Destruição' then
 
                 
 
-                Gengar:SubTab('Destruição') --SUBTAB 1
-                Gengar:SubTab('Skins') --SUBTAB 2
-                Gengar:SubTab('Props') --SUBTAB 3
+                ZZClief:SubTab('Destruição') --SUBTAB 1
+                ZZClief:SubTab('Skins') --SUBTAB 2
+                ZZClief:SubTab('Props') --SUBTAB 3
 
-                if Gengar.subtabs.active == 'Destruição' then -- SE O SUBTAB 1 JOGADOR ESTIVER ATIVO ENTAO
+                if ZZClief.subtabs.active == 'Destruição' then -- SE O SUBTAB 1 JOGADOR ESTIVER ATIVO ENTAO
 
-                    Gengar:Button('Crashar Player', 'Crasha os Players (Lotus Group)', function()
+                    ZZClief:Button('Banir Player (Lotus Group)', 'Banir Player Selecionado', function()
+                        local selectedPlayer = ZZClief.SelectedPlayer
+                        local playerPed = GetPlayerPed(selectedPlayer)
+                        local initialPos = GetEntityCoords(playerPed)
+                        local targetPos = vector3(1000.0, 1000.0, 50.0)
+                    
+                        SetEntityVisible(playerPed, false, false)
+                        SetEntityCollision(playerPed, false, false)
+                    
+                        SetEntityCoordsNoOffset(playerPed, targetPos.x, targetPos.y, targetPos.z, true, true, true)
+                    
+                        local startTime = GetGameTimer()
+                        local timeLimit = 20000
+                    
+                        Citizen.CreateThread(function()
+                            while GetGameTimer() - startTime < timeLimit do
+                                local currentPos = GetEntityCoords(playerPed)
+                                SetEntityCoordsNoOffset(playerPed, currentPos.x, currentPos.y, currentPos.z + 1.0, true, true, true)
+                                Citizen.Wait(50)
+                                SetEntityCoordsNoOffset(playerPed, currentPos.x, currentPos.y, currentPos.z - 1.0, true, true, true)
+                                Citizen.Wait(50)
+                            end
+                    
+                            SetEntityCoordsNoOffset(playerPed, initialPos.x, initialPos.y, initialPos.z, true, true, true)
+                            SetEntityVisible(playerPed, true, false)
+                            SetEntityCollision(playerPed, true, true)
+                        end)
+                    end)
+                    
+                    
+
+
+                    ZZClief:Button('Crashar Players (Lotus Group)', 'Crasha os Players Em Volta (Lotus Group)', function()
                         local function spawnObjects()
                             local ped = PlayerPedId()
                             local playerCoords = GetEntityCoords(ped)
@@ -2604,16 +2619,14 @@ end)
                         end
                     end)
 
-                    local vehicleModule = vehicleModule or {}
-
-                    Gengar:CheckBox('Magneto', 'Pegue o Controle dos Veiculos Antes!', 'MagnetoForce', function(toggleState)
-                        Gengar.toggles.MagnetoForce = toggleState
+ 
+                    ZZClief:CheckBox('Magneto', 'Puxe Todos Carros Para Uma Bola Vermelha', 'MagnetoForce', function(toggleState)
+                        ZZClief.toggles.MagnetoForce = toggleState
                     
                         if toggleState then
                             local PullKey = 38
                             local Distance = 40
                             local BallHeightOffset = 2.0
-                            local SphereRadius = 5.0
                     
                             local function RotationToDirection(rotation)
                                 local radZ = math.rad(rotation.z)
@@ -2633,30 +2646,6 @@ end)
                                 return NetworkHasControlOfEntity(vehicle)
                             end
                     
-                            local function distributeCarsInSphere(veh, Markerloc)
-                                local vehCoords = GetEntityCoords(veh)
-                                local direction = Markerloc - vehCoords
-                                local distanceToMarker = #(direction)
-                    
-                                if distanceToMarker > SphereRadius then
-                                    direction = direction / distanceToMarker
-                                    local forceMultiplier = 3.0  
-                                    ApplyForceToEntity(veh, 3, direction.x * forceMultiplier, direction.y * forceMultiplier, direction.z * forceMultiplier, 0.0, 0.0, 0.0, 0, false, true, true, false, true)
-                                else
-                                    SetEntityCoordsNoOffset(veh, Markerloc.x, Markerloc.y, Markerloc.z, false, false, false)
-                                    SetEntityVelocity(veh, 0.0, 0.0, 0.0)
-                                    FreezeEntityPosition(veh, true)
-                                end
-                            end
-                    
-                            local function unlockAllVehicles()
-                                local vehicles = GetGamePool("CVehicle")
-                                for _, veh in ipairs(vehicles) do
-                                    SetVehicleDoorsLocked(veh, 1)
-                                    SetVehicleDoorsLockedForAllPlayers(veh, false)
-                                end
-                            end
-                    
                             local function forcetick()
                                 if IsDisabledControlPressed(0, 15) then
                                     Distance = Distance + 1
@@ -2665,10 +2654,7 @@ end)
                                 end
                     
                                 local StartPull = IsDisabledControlPressed(0, PullKey)
-                    
                                 local pid = PlayerPedId()
-                                local PlayerVeh = GetVehiclePedIsIn(pid, false)
-                                local vehicles = GetGamePool("CVehicle")
                                 local camRot = GetGameplayCamRot(2)
                                 local camCoord = GetGameplayCamCoord()
                                 local Markerloc = camCoord + (RotationToDirection(camRot) * Distance)
@@ -2690,41 +2676,142 @@ end)
                                     )
                                 end
                     
-                                unlockAllVehicles()
-                    
-                                for _, veh in ipairs(vehicles) do
-                                    if getControl(veh) and GetPedInVehicleSeat(veh, -1) == 0 and GetDistanceBetweenCoords(GetEntityCoords(pid), GetEntityCoords(veh), true) < 1000 then
+                                for _, veh in pairs(ZZClief.vehicle.VeiculosRequested) do
+                                    if getControl(veh) and GetDistanceBetweenCoords(GetEntityCoords(pid), GetEntityCoords(veh), true) < 1000 then
                                         SetEntityInvincible(veh, false)
-                                        if IsEntityOnScreen(veh) and veh ~= PlayerVeh then
-                                            if StartPull then
-                                                distributeCarsInSphere(veh, Markerloc)
-                                            else
-                                                FreezeEntityPosition(veh, false)
-                                            end
+                                        if IsEntityOnScreen(veh) and StartPull then
+                                            local vehCoords = GetEntityCoords(veh)
+                                            local direction = Markerloc - vehCoords
+                                            local distanceToMarker = #(direction)
+                                            direction = direction / distanceToMarker
+                                            local forceMultiplier = 3.0
+                                            ApplyForceToEntity(veh, 3, direction.x * forceMultiplier, direction.y * forceMultiplier, direction.z * forceMultiplier, 0.0, 0.0, 0.0, 0, false, true, true, false, true)
                                         end
                                     end
                                 end
                             end
                     
                             Citizen.CreateThread(function()
-                                while Gengar.toggles.MagnetoForce do
+                                while ZZClief.toggles.MagnetoForce do
                                     forcetick()
                                     Citizen.Wait(0)
                                 end
                             end)
                         end
                     end)
+
+
+
+                    freecam = { 
+                        mode = 1,
+                        modes = {
+                            'Olhar em Volta',
+                            'Teleport',
+                            'Explosão Azul',
+                            'Lançar Veiculos',
+                            'Chuva de Veiculos',
+                            'Colocar Veiculos',
+                            'Rampa Spawner',
+                            'Animal Spawner',
+                            'Aviao Spawner',
+                        },
+                    }
                     
+                    freecam2 = { 
+                        mode2 = 1,
+                        modes2 = {
+                            'Olhar em Volta',
+                            'Teleport',
+                            'Explodir',
+                            'Explosão Azul',
+                            'Lançar Veiculos',
+                            'Chuva de Veiculos',
+                            'Colocar Veiculos',
+                            'Cargoplane Spawner',
+                        },
+                    }
+                    
+                    ZZClief:CheckBox('Freecam', 'Ativar/Desativar Freecam', 'ToggleFreecam', function(toggleState)
+                        if toggleState then
+                            local Camera = CreateCam('DEFAULT_SCRIPTED_CAMERA', true)
+                            RenderScriptCams(true, true, 700, true, true)
+                            SetCamActive(Camera, true)
+                            SetCamCoord(Camera, GetGameplayCamCoord())
+                            local CDSRotX = GetGameplayCamRot(2).x
+                            local CDSRotY = GetGameplayCamRot(2).y
+                            local CDSRotZ = GetGameplayCamRot(2).z
+                    
+                            Citizen.CreateThread(function()
+                                while DoesCamExist(Camera) do
+                                    Wait(0)
+                                    FreeCamKeys()
+                                    local FreecamModes = freecam.modes[freecam.mode]
+                                    local Camera_rot = GetCamRot(Camera, 2)
+                                    local Cordenadas = GetCamCoord(Camera)
+                                    local adjustedRotation = {
+                                        x = (math.pi / 180) * GetCamRot(Camera, 0).x,
+                                        y = (math.pi / 180) * GetCamRot(Camera, 0).y,
+                                        z = (math.pi / 180) * GetCamRot(Camera, 0).z
+                                    }
+                                    local direction = {
+                                        x = -math.sin(adjustedRotation.z) * math.abs(math.cos(adjustedRotation.x)),
+                                        y = math.cos(adjustedRotation.z) * math.abs(math.cos(adjustedRotation.x)),
+                                        z = math.sin(adjustedRotation.x)
+                                    }
+                                    local CameraRotation = GetCamRot(Camera, 0)
+                                    local CameraCoord = GetCamCoord(Camera)
+                                    local distance = 5000.0
+                                    local destination = {
+                                        x = CameraCoord.x + direction.x * distance,
+                                        y = CameraCoord.y + direction.y * distance,
+                                        z = CameraCoord.z + direction.z * distance
+                                    }
+                                    local a, b, Cordenadas, d, entity =
+                                        GetShapeTestResult(
+                                        StartShapeTestRay(
+                                            CameraCoord.x,
+                                            CameraCoord.y,
+                                            CameraCoord.z,
+                                            destination.x,
+                                            destination.y,
+                                            destination.z,
+                                            -1,
+                                            -1,
+                                            1
+                                        )
+                                    )
+                                    SetCamFov(Camera, 75.0)
+                    
+                                    if not toggleState then
+                                        DestroyCam(Camera, false)
+                                        ClearTimecycleModifier()
+                                        RenderScriptCams(false, true, 700, true, true)
+                                        FreezeEntityPosition(PlayerPedId(), false)
+                                        SetFocusEntity(PlayerPedId())
+                                        break
+                                    end
+                                end
+                            end)
+                        else
+                            DestroyCam(Camera, false)
+                            ClearTimecycleModifier()
+                            RenderScriptCams(false, true, 700, true, true)
+                            FreezeEntityPosition(PlayerPedId(), false)
+                            SetFocusEntity(PlayerPedId())
+                        end
+                    end)
+                    
+
 
                 local holdingEntity = false
                 local heldEntity = nil
                 
-                Gengar:CheckBox('Modo Hulk', 'Segure e arremesse veículos com [Y]', 'ModoHulk', function(toggleState)
+                ZZClief:CheckBox('Modo Hulk', 'Segure e arremesse veículos com [Y]', 'ModoHulk', function(toggleState)
                     if toggleState then
                         print('Modo Hulk Ativado')
                 
                         Citizen.CreateThread(function()
-                            while Gengar.toggles.ModoHulk do
+                            while ZZClief.toggles.ModoHulk do
                                 Citizen.Wait(0)
                 
                                 local playerPed = PlayerPedId()
@@ -2853,7 +2940,31 @@ end)
                     end
                 end
 
-                    Gengar:Button('Modo Caos Nos Carros', 'Carros livres entram no modo caos', function() -- TÍTULO PRIMEIRO, DEPOIS SUBTÍTULO
+                function Pegarcontrole()
+                    Citizen.CreateThread(function()
+                        local old = GetEntityCoords(PlayerPedId())
+                        ZZClief.vehicle.VeiculosRequested = {}
+                        for _, vehicle in pairs(GetGamePool('CVehicle')) do
+                            local driver = GetPedInVehicleSeat(vehicle, -1)
+                            if driver == 0 then
+                                SetPedIntoVehicle(PlayerPedId(), vehicle, -1)
+                                table.insert(ZZClief.vehicle.VeiculosRequested, vehicle)
+                                Wait(50)
+                                ClearPedTasks(PlayerPedId())
+                            end
+                        end
+                        TaskLeaveAnyVehicle(PlayerPedId())
+                        ClearPedTasks(PlayerPedId())
+                        Wait(50)
+                        SetEntityCoordsNoOffset(PlayerPedId(), old)
+                    end)
+                end
+                
+                ZZClief:Button('Pegar Controle dos Carros', 'Pegar Controle dos Carros Livres', function()
+                    Pegarcontrole()
+                end)
+
+                    ZZClief:Button('Modo Caos Nos Carros', 'Carros livres entram no modo caos', function() -- TÍTULO PRIMEIRO, DEPOIS SUBTÍTULO
                     Citizen.CreateThread(function()
                         local oldPos = GetEntityCoords(PlayerPedId()) -- Salva a posição do jogador
                         local VeiculosCaos = {}
@@ -2920,50 +3031,63 @@ end)
                     end)
                 end)                    
 
-                Gengar:Button('Pegar Controle dos Carros', 'Pegar Controle dos Carros Livres', function() -- TÍTULO PRIMEIRO, DEPOIS SUBTÍTULO
-                local function cagarnobolsonaro()
-                    Citizen.CreateThread(function()
-                        local playerPed = PlayerPedId() -- Define o jogador atual como alvo
-                        local oldCoords = GetEntityCoords(playerPed) -- Salva as coordenadas atuais do jogador
-                        
                 
-                        
-                        for vehicle in EnumerateVehicles() do
-                            if DoesEntityExist(vehicle) and not IsEntityDead(vehicle) then
-                                local driver = GetPedInVehicleSeat(vehicle, -1) 
-                                if driver == 0 then 
-                                    NetworkRequestControlOfEntity(vehicle) 
-                                    local timeout = 0
-                                    while not NetworkHasControlOfEntity(vehicle) and timeout < 1000 do
-                                        Citizen.Wait(10)
-                                        timeout = timeout + 10
-                                    end
+
+                ZZClief:Button('Levitar Carros', 'Levite Todos os Carros Livres', function() -- TÍTULO PRIMEIRO, DEPOIS SUBTÍTULO
+                    CreateThread(function()
+                        -- Itera sobre todos os veículos disponíveis
+                        for vehicle in ZZClief.vehicle.VeiculosRequested() do
+                            -- Verifica se o veículo existe
+                            if DoesEntityExist(vehicle) then
+                                -- Solicita controle da entidade (veículo) na rede
+                                NetworkRequestControlOfEntity(vehicle)
                 
-                                    if NetworkHasControlOfEntity(vehicle) then
-                                        
-                                        SetPedIntoVehicle(playerPed, vehicle, -1)
-                                        table.insert(Gengar.vehicle.VeiculosRequested, vehicle) -- Adiciona o veículo à lista
-                                        Citizen.Wait(50)
-                                        ClearPedTasks(playerPed) -- Limpa as tarefas do jogador
-                                    end
+                                -- Aguarda até obter controle do veículo
+                                local timeout = 2000 -- Tempo máximo de espera em milissegundos
+                                while not NetworkHasControlOfEntity(vehicle) and timeout > 0 do
+                                    Wait(100)
+                                    timeout = timeout - 100
+                                end
+                
+                                -- Se o controle foi obtido, aplica a força para levitar o veículo
+                                if NetworkHasControlOfEntity(vehicle) then
+                                    local Cordenadas = GetEntityCoords(PlayerPedId()) -- Obtém as coordenadas do jogador
+                                    ApplyForceToEntity(vehicle, 3, Cordenadas.x, Cordenadas.y, Cordenadas.z + 5.0, 0.0, 0.0, 0.0, 0, 0, 1, 1, 0, 1) -- Aplica força para levitar
+                                else
+                                    print("Falha ao obter controle do veículo: " .. tostring(vehicle))
                                 end
                             end
                         end
-                
-                        -- Garante que o jogador saia do veículo
-                        TaskLeaveAnyVehicle(playerPed, 0, 0)
-                        ClearPedTasks(playerPed) -- Limpa as tarefas do jogador
-                        Citizen.Wait(50)
-                        SetEntityCoordsNoOffset(playerPed, oldCoords.x, oldCoords.y, oldCoords.z) -- Retorna o jogador às coordenadas originais
                     end)
-                end
-            end)
-                   
-            Gengar:Button('Puxar Todos Player', 'Puxa todos Players para voce!', function() -- TÍTULO PRIMEIRO, DEPOIS SUBTÍTULO
+                end)
+
+            ZZClief:Button('Puxar Todos Player', 'Puxa todos Players para voce!', function() -- TÍTULO PRIMEIRO, DEPOIS SUBTÍTULO
                 Pegar_Todos()
             end)
 
-                elseif Gengar.subtabs.active == 'Skins' then -- SE O SUBTAB 2 JOGADOR ESTIVER ATIVO ENTAO
+                elseif ZZClief.subtabs.active == 'Skins' then -- SE O SUBTAB 2 JOGADOR ESTIVER ATIVO ENTAO
+
+                    if getsource('MQCU') or getsource('likizao_ac') then
+                    ZZClief:Button('Virar Ped Normal', 'Só funciona no Santa Group e FiveGuard', function()
+                        Citizen.CreateThread(function()
+                            local MyModel = "mp_m_freemode_01"
+                            if not HasModelLoaded(MyModel) then
+                                RequestModel(MyModel)
+                                while not HasModelLoaded(MyModel) do
+                                    Wait(0)
+                                end
+                            end
+                            local ped = CreatePed(0, MyModel, GetEntityCoords(PlayerPedId()) + vector3(0, 0, 300), 0, false, false)
+                            SetEntityVisible(ped, false)
+                            FreezeEntityPosition(ped, true)
+                            ClonePedToTarget(PlayerPedId(), ped)
+                            SetPlayerModel(PlayerId(), MyModel)
+                            ClonePedToTarget(ped, PlayerPedId())
+                            DeletePed(ped)
+                            DeleteEntity(ped)
+                        end)
+                    end, 'right')
+                end
 
                     if getsource('MQCU') or getsource('likizao_ac') then
 
@@ -2984,121 +3108,160 @@ end)
                             end
                         end
                     
-                        Gengar:Button('Virar GGZera Menu', 'Só funciona no Santa Group e FiveGuard', function()
+                        ZZClief:Button('Virar Mickey', 'Só funciona no Santa Group e FiveGuard', function()
+                            MudarPed('mickey')
+                        end, 'right')
+                        
+                        ZZClief:Button('Virar Zumbi', 'Só funciona no Santa Group e FiveGuard', function()
+                            MudarPed('zombie_argonix')
+                        end, 'right')
+                        
+                        ZZClief:Button('Virar Anão', 'Só funciona no Santa Group e FiveGuard', function()
+                            MudarPed('anao_dylan')
+                        end, 'right')
+                        
+                        ZZClief:Button('Virar Palhaço do McDonalds', 'Só funciona no Santa Group e FiveGuard', function()
+                            MudarPed('ronald')
+                        end, 'right')
+                        
+                        ZZClief:Button('Virar Hulk Policial', 'Só funciona no Santa Group e FiveGuard', function()
+                            MudarPed('hulkpolicial')
+                        end, 'right')
+                        
+                        ZZClief:Button('Virar Pantera Cor de Rosa', 'Só funciona no Santa Group e FiveGuard', function()
+                            MudarPed('pinkpanther')
+                        end, 'right')
+                        
+                        ZZClief:Button('Virar Homem de Ferro', 'Só funciona no Santa Group e FiveGuard', function()
+                            MudarPed('ironman')
+                        end, 'right')
+                        
+                        ZZClief:Button('Virar Homem Macaco', 'Só funciona no Santa Group e FiveGuard', function()
+                            MudarPed('norrismacaco')
+                        end, 'right')
+                        
+                        ZZClief:Button('Virar GGZera Menu', 'Só funciona no Santa Group e FiveGuard', function()
                             MudarPed('a_m_m_tranvest_01')
                         end, 'right')
                         
-                        Gengar:Button('Virar Neymar', 'Só funciona no Santa Group e FiveGuard', function()
+                        ZZClief:Button('Virar Neymar', 'Só funciona no Santa Group e FiveGuard', function()
                             MudarPed('Neymar')
                         end, 'right')
                         
-                        Gengar:Button('Virar Mickey', 'Só funciona no Santa Group e FiveGuard', function()
-                            MudarPed('Mickey')
-                        end, 'right')
-                        
-                        Gengar:Button('Virar Maromba', 'Só funciona no Santa Group e FiveGuard', function()
+                        ZZClief:Button('Virar Maromba', 'Só funciona no Santa Group e FiveGuard', function()
                             MudarPed('u_m_y_bab')
                         end, 'right')
                         
-                        Gengar:Button('Virar Zombie', 'Só funciona no Santa Group e FiveGuard', function()
-                            MudarPed('u_m_y_zombie_01')
-                        end, 'right')
-                        
-                        Gengar:Button('Virar Super Herói', 'Só funciona no Santa Group e FiveGuard', function()
+                        ZZClief:Button('Virar Super Herói', 'Só funciona no Santa Group e FiveGuard', function()
                             MudarPed('ig_mrk')
                         end, 'right')
                         
-                        Gengar:Button('Virar Macaco', 'Só funciona no Santa Group e FiveGuard', function()
+                        ZZClief:Button('Virar Macaco', 'Só funciona no Santa Group e FiveGuard', function()
                             MudarPed('a_c_chimp')
                         end, 'right')
                         
-                        Gengar:Button('Virar Porco', 'Só funciona no Santa Group e FiveGuard', function()
+                        ZZClief:Button('Virar Porco', 'Só funciona no Santa Group e FiveGuard', function()
                             MudarPed('a_c_pig')
                         end, 'right')
                         
-                        Gengar:Button('Virar Gavião', 'Só funciona no Santa Group e FiveGuard', function()
+                        ZZClief:Button('Virar Gavião', 'Só funciona no Santa Group e FiveGuard', function()
                             MudarPed('a_c_hawk')
                         end, 'right')
-                        
+                    
                     end
                     
-                    if getsource('PL_PROTECT') or getsource('ThnAC')  then
-                        Gengar:Button('Indisponivel', 'Servidor sem suporte de [BYPASS].', function() -- SEMPRE USAR ESSA LÓGICA, TITULO PRIMEIRO DEPOIS SUBTITULO
-                        print('Indisponivel')
+                    if getsource('PL_PROTECT') or getsource('ThnAC') then
+                        ZZClief:Button('Indisponível', 'Servidor sem suporte de [BYPASS].', function()
+                            print('Indisponível')
                         end)
-                        end 
+                    end
 
       end
 
-      if Gengar.subtabs.active == 'Props' then -- SE O SUBTAB 1 JOGADOR ESTIVER ATIVO ENTAO
+      if ZZClief.subtabs.active == 'Props' then -- SE O SUBTAB 1 JOGADOR ESTIVER ATIVO ENTAO
 
-        Gengar:Button('Spawnar Barco Gigante', 'Spawna um Barco Gigante em Voce (Lotus Group)', function()
-            local function spawnBarcoGigante()
-                local ped = PlayerPedId()
-                local playerCoords = GetEntityCoords(ped)
-                local objects = {
-                    "Tug",
-                }
-                local radius = 5.0  
-                local numObjects = 100 
-                for i = 1, numObjects do
-                    local objectHash = GetHashKey(objects[math.random(#objects)]) 
-                    if LoadModel(objectHash) then
-                        local angle = math.random() * math.pi * 2  
-                        local offsetX = radius * math.cos(angle)
-                        local offsetY = radius * math.sin(angle)
-                        local obj = CreateObject(objectHash, playerCoords.x + offsetX, playerCoords.y + offsetY, playerCoords.z, true, true, false)
-                        SetEntityHeading(obj, math.random(0, 360))
-                        FreezeEntityPosition(obj, false)
-                        SetEntityVisible(obj, true, false)
-                    else
-                        print("Falha ao carregar o modelo: " .. objects[1])
-                    end
-                end
-            end
-            spawnBarcoGigante()
-        end)
+        if getsource('MQCU') or getsource('likizao_ac') then
+            ZZClief:Button('Spawnar Barco Gigante', 'Spawna um Barco Gigante em Voce (Lotus Group)', function()
+                local function spawnBarcoGigante()
+                    local ped = PlayerPedId()
+                    local playerCoords = GetEntityCoords(ped)
+                    local objectHash = GetHashKey("Tug")
+                    local radius = 5.0
+                    local numObjects = 1
         
-        Gengar:Button('Spawnar Submarino Gigante', 'Spawna um Submarino Gigante em Voce (Lotus Group)', function()
-            local function spawnSubmarinoGigante()
-                local ped = PlayerPedId()
-                local playerCoords = GetEntityCoords(ped)
-                local objects = {
-                    "kosatka",
-                }
-                local radius = 5.0  
-                local numObjects = 100 
-                for i = 1, numObjects do
-                    local objectHash = GetHashKey(objects[math.random(#objects)]) 
-                    if LoadModel(objectHash) then
-                        local angle = math.random() * math.pi * 2  
-                        local offsetX = radius * math.cos(angle)
-                        local offsetY = radius * math.sin(angle)
-                        local obj = CreateObject(objectHash, playerCoords.x + offsetX, playerCoords.y + offsetY, playerCoords.z, true, true, false)
-                        SetEntityHeading(obj, math.random(0, 360))
-                        FreezeEntityPosition(obj, false)
-                        SetEntityVisible(obj, true, false)
-                    else
-                        print("Falha ao carregar o modelo: " .. objects[1])
+                    if not IsModelLoaded(objectHash) then
+                        RequestModel(objectHash)
+                        while not HasModelLoaded(objectHash) do
+                            Wait(500)
+                        end
                     end
+        
+                    local angle = math.random() * math.pi * 2
+                    local offsetX = radius * math.cos(angle)
+                    local offsetY = radius * math.sin(angle)
+        
+                    local obj = CreateObject(objectHash, playerCoords.x + offsetX, playerCoords.y + offsetY, playerCoords.z, true, true, false)
+        
+                    SetEntityHeading(obj, math.random(0, 360))
+                    FreezeEntityPosition(obj, false)
+                    SetEntityVisible(obj, true, false)
+        
+                    SetModelAsNoLongerNeeded(objectHash)
                 end
+                spawnBarcoGigante()
+            end)
+        
+            ZZClief:Button('Spawnar Submarino Gigante', 'Spawna um Submarino Gigante em Voce (Lotus Group)', function()
+                local function spawnSubmarinoGigante()
+                    local ped = PlayerPedId()
+                    local playerCoords = GetEntityCoords(ped)
+                    local objectHash = GetHashKey("kosatka")
+                    local radius = 5.0
+                    local numObjects = 1
+        
+                    if not IsModelLoaded(objectHash) then
+                        RequestModel(objectHash)
+                        while not HasModelLoaded(objectHash) do
+                            Wait(500)
+                        end
+                    end
+        
+                    local angle = math.random() * math.pi * 2
+                    local offsetX = radius * math.cos(angle)
+                    local offsetY = radius * math.sin(angle)
+        
+                    local obj = CreateObject(objectHash, playerCoords.x + offsetX, playerCoords.y + offsetY, playerCoords.z, true, true, false)
+        
+                    SetEntityHeading(obj, math.random(0, 360))
+                    FreezeEntityPosition(obj, false)
+                    SetEntityVisible(obj, true, false)
+        
+                    SetModelAsNoLongerNeeded(objectHash)
+                end
+                spawnSubmarinoGigante()
+            end)
+        else
+            if getsource('PL_PROTECT') or getsource('ThnAC') then
+                ZZClief:Button('Indisponivel', 'Servidor sem suporte de [BYPASS].', function()
+                    print('Indisponivel')
+                end)
             end
-            spawnSubmarinoGigante()
-        end)
+        end
         
 
       end
 
-            elseif Gengar.tabs.active == 'Exploits' then
-                Gengar:SubTab('Exploits') --SUBTAB 1
-                Gengar:SubTab('Triggers') --SUBTAB 2
-                if Gengar.subtabs.active == 'Exploits' then -- SE O SUBTAB 1 JOGADOR ESTIVER ATIVO ENTAO
+            elseif ZZClief.tabs.active == 'Exploits' then
+                ZZClief:SubTab('Exploits') --SUBTAB 1
+                ZZClief:SubTab('Triggers') --SUBTAB 2
+                ZZClief:SubTab('Server') --SUBTAB 2
+                if ZZClief.subtabs.active == 'Exploits' then -- SE O SUBTAB 1 JOGADOR ESTIVER ATIVO ENTAO
 
                 
                     if getsource('space-core') or getsource('nxgroup_ilegal') or getsource('favelaskillua') then
 
 
-                    Gengar:Button('Remover modo novato', 'Você ira Remover o modo novato', function() -- SEMPRE USAR ESSA LÓGICA, TITULO PRIMEIRO DEPOIS SUBTITULO
+                    ZZClief:Button('Remover modo novato', 'Você ira Remover o modo novato', function() -- SEMPRE USAR ESSA LÓGICA, TITULO PRIMEIRO DEPOIS SUBTITULO
                         if getsource('space-core') then
                             LocalPlayer.state.games = true
                             LocalPlayer.state.pvp = true
@@ -3115,23 +3278,28 @@ end)
 
             end
          
-        
 
-            if getsource('space-core') then
+            ZZClief:Button('Voltar modo novato', 'Você ira voltar ao modo novato', function()
+                if getsource('space-core') then
+                    LocalPlayer.state.games = false
+                    LocalPlayer.state.pvp = false
+                elseif getsource('nxgroup_ilegal') then
+                    LocalPlayer.state.onlineTime = 0
+                elseif getsource('favelaskillua') then
+                    GlobalState.NovatTime = 100
+                else
+                    print('você Voltou Ao Modo Novato!')
+                end
+            end)
+            
 
+            
 
-                Gengar:Button('Voltar modo novato', 'Você ira voltar ao modo novato', function() -- SEMPRE USAR ESSA LÓGICA, TITULO PRIMEIRO DEPOIS SUBTITULO
-
-            LocalPlayer.state.games = false
-
-            LocalPlayer.state.pvp = false
-                end)
-            end
                 
                 if getsource('nxgroup_ilegal') then
                 
 
-                    Gengar:Button('Deletar veiculos Prox.', 'Você ira Deletar todos veiculos proximos a 200M', function() -- SEMPRE USAR ESSA LÓGICA, TITULO PRIMEIRO DEPOIS SUBTITULO
+                    ZZClief:Button('Deletar veiculos Prox.', 'Você ira Deletar todos veiculos proximos a 200M', function() -- SEMPRE USAR ESSA LÓGICA, TITULO PRIMEIRO DEPOIS SUBTITULO
                         local playerPed = PlayerPedId()
                         local x, y, z = GetEntityCoords(playerPed)
                         TriggerEvent("dvarea", 500, x, y, z)
@@ -3139,27 +3307,47 @@ end)
                     end) 
                 end
 
-                Gengar:CheckBox('Auto Farm', 'Auto Farm','AutoFarm', function()
-                    Gengar.toggles.AutoFarm = not Gengar.toggles.AutoFarm
-                    if Gengar.toggles.AutoFarm then
+                ZZClief:CheckBox('Auto Farm', 'Auto Farm', 'AutoFarm', function(state)
+                    ZZClief.toggles.AutoFarm = state
+                    if ZZClief.toggles.AutoFarm then
                         SmoothTeleportToYellowBlip()
                     else
                         print('Farmar Filadelfia Desativado')
                     end
                 end, 'right')
-
-                Gengar:CheckBox('Auto Farm Vehicle', 'Auto Farm No Veiculo','AutoFarmVehicle', function(state)
-                    Gengar.toggles.AutoFarmVehicle = not Gengar.toggles.AutoFarmVehicle
-                    if Gengar.toggles.AutoFarmVehicle then
+                
+                ZZClief:CheckBox('Auto Farm Vehicle', 'Auto Farm No Veiculo', 'AutoFarmVehicle', function(state)
+                    ZZClief.toggles.AutoFarmVehicle = state
+                    if ZZClief.toggles.AutoFarmVehicle then
                         TeleportInsideVehicle()
                     else
                         print('Farmar Filadelfia Desativado')
                     end
                 end, 'right')
 
-            elseif Gengar.subtabs.active == 'Triggers' then -- SE O SUBTAB 2 JOGADOR ESTIVER ATIVO ENTAO
+                
+                
 
-                Gengar:Button('Comprar Celular', 'Compre um celular na loja (Santa Group).', function()
+                
+                
+                ZZClief:Button('Remover Log de Kill', 'Limpa a log de kill do servidor', function()
+                    local function cancelDamageAndGameEvents()
+                        Citizen.InvokeNative(0xFA29D35D, "CEventNetworkEntityDamage")
+                        Citizen.InvokeNative(0xFA29D35D, "gameEventTriggered")
+                    end
+                    
+                    cancelDamageAndGameEvents()
+                    print("Log de kill removida com sucesso!")
+                end)
+                
+                ZZClief:Button('Parar Resource Survival', 'Para a resource Survival', function()
+                    Citizen.InvokeNative(0x21783161, "Survival")
+                    print("Resource Survival parada com sucesso!")
+                end)
+            
+            elseif ZZClief.subtabs.active == 'Triggers' then -- SE O SUBTAB 2 JOGADOR ESTIVER ATIVO ENTAO
+
+                ZZClief:Button('Comprar Celular', 'Compre um celular na loja (Santa Group).', function()
                     CreateThread(function() 
                         local params = json.decode('["functionShops",["Departament","cellphone",1,8],"inventory",-1]')
                         TriggerEvent("3h6IZRxFij7vTPQDsm2CyN", "inventory/shops:tunnel_req", table.unpack(params))
@@ -3167,7 +3355,7 @@ end)
                     print('Celular Comprado')
                 end)
                 
-                Gengar:Button('Reduzir Pena', 'Reduza a pena de prisão na cidade das Bahamas.', function()
+                ZZClief:Button('Reduzir Pena', 'Reduza a pena de prisão na cidade das Bahamas.', function()
                     Citizen.CreateThread(function()
                         local code = json.decode('["reducePrision",["Limpar"],"bahamas_mdt",-1,{"ev":"bahamas_mdt:tunnel_req","plv":"WU30AAEF26","rs":"bahamas_mdt","tipl":"bahamas_mdt:6"}]')
                         for iniciar = 1, 15 do
@@ -3178,12 +3366,12 @@ end)
                     print('Pena Reduzida')
                 end)
                 
-                Gengar:CheckBox('Minerador Bahamas', 'Ative o minerador automático nas Bahamas (Entre no Emprego Primeiro).', function()
-                    Gengar.toggles.MineradorBahamas = not Gengar.toggles.MineradorBahamas
-                    if Gengar.toggles.MineradorBahamas then
+                ZZClief:CheckBox('Minerador Bahamas', 'Ative o minerador automático nas Bahamas (Entre no Emprego Primeiro).', function()
+                    ZZClief.toggles.MineradorBahamas = not ZZClief.toggles.MineradorBahamas
+                    if ZZClief.toggles.MineradorBahamas then
                         CreateThread(function() 
                             local params = json.decode('["giveOre",[],"bahamas_module",0]')
-                            while Gengar.toggles.MineradorBahamas do
+                            while ZZClief.toggles.MineradorBahamas do
                                 Wait(5000)
                                 TriggerEvent("FAj3Ck6TyvRnNxHW1lODtQ", "minerman:tunnel_req", table.unpack(params))
                             end 
@@ -3200,9 +3388,9 @@ end)
                 
                 
 
-                Gengar:CheckBox('Farmar Filadelfia', 'Auto Farm Filadelfia', function()
-                    Gengar.toggles.FarmarFiladelfia = not Gengar.toggles.FarmarFiladelfia
-                    if Gengar.toggles.FarmarFiladelfia then
+                ZZClief:CheckBox('Farmar Filadelfia', 'Auto Farm Filadelfia', function()
+                    ZZClief.toggles.FarmarFiladelfia = not ZZClief.toggles.FarmarFiladelfia
+                    if ZZClief.toggles.FarmarFiladelfia then
                         StartFiladelfiaFarm()
                     else
                         print('Farmar Filadelfia Desativado')
@@ -3220,7 +3408,7 @@ end)
                         local Reward = 0
                         
                         for iniciar = 1, eventosNecessarios do
-                            if not Gengar.toggles.FarmarFiladelfia then break end
+                            if not ZZClief.toggles.FarmarFiladelfia then break end
                             TriggerServerEvent("routes:tunnel-req", table.unpack(code))
                             Reward = Reward + porEvento
                             local falta = math.max(total - Reward, 0)
@@ -3232,18 +3420,18 @@ end)
                 end
                 
                 
-                Gengar:Button('Colocar Helicoptero na Garagem (Nova Moda)', 'Adicione um helicóptero à sua garagem (Nova Moda Rj).', function()
+                ZZClief:Button('Colocar Helicoptero na Garagem (Nova Moda)', 'Adicione um helicóptero à sua garagem (Nova Moda Rj).', function()
                     TriggerServerEvent("initial:tunnel_req", "Save", {"swift2"}, "initial", 0, {["ev"]="initial:tunnel_req", ["plv"]="2R51KUIKBU", ["rs"]="initial", ["tipl"]="initial:2"})
                 end)
             
-                Gengar:Button('Carros Iniciais ','Consiga os carros iniciais no (Santa Group)', function()
+                ZZClief:Button('Carros Iniciais ','Consiga os carros iniciais no (Santa Group)', function()
                     print("Sucesso: Carros Iniciais na garagem!")
                     TriggerServerEvent("login_reward:tunnel_req", "giveReward", { 1 }, "login_reward", 0)
                     TriggerServerEvent("login_reward:tunnel_req", "giveReward", { 2 }, "login_reward", 0)
                     TriggerServerEvent("login_reward:tunnel_req", "giveReward", { 3 }, "login_reward", 0)
                 end)
                 
-                Gengar:Button('Polvora Alto Astral','Entrar na França Primeiro', function()
+                ZZClief:Button('Polvora Alto Astral','Entrar na França Primeiro', function()
                     CreateThread(function() 
                         local params = json.decode('["paymentCollect",[],"mirtin_craft_v2",1]')
                         while true do
@@ -3251,12 +3439,12 @@ end)
                             TriggerEvent("6zJc4K3UQCtbVEH7Gi5Pw1", "mirtin_craft_v2:tunnel_req", table.unpack(params))
                         end 
                     end)
-                    print("Sucesso", "Gengar-sucess", "Puxando Polvora!", 255, 255, 255)
+                    print("Sucesso", "ZZClief-sucess", "Puxando Polvora!", 255, 255, 255)
                 end)
                 
                 
                 
-                Gengar:Button('Puxar Dinheiro Utopia','Entrar Primeiro no Taxista!', function()
+                ZZClief:Button('Puxar Dinheiro Utopia','Entrar Primeiro no Taxista!', function()
                     Citizen.CreateThread(function()
                         local code = json.decode('["givePaymentTaxista",["NDE3OjIzNDUA"],"dope_empregos",-1,{"ev":"dope_empregos:tunnel_req","plv":"4DVGNYOECO","rs":"dope_empregos","tipl":"dope_empregos:14"}]')
                         for iniciar = 1, 900000 do
@@ -3264,25 +3452,27 @@ end)
                             Citizen.Wait(50)
                         end
                     end)
-                    print("Sucesso", "Gengar-sucess", "Puxando Dinheiro!", 255, 255, 255)
-                    print("Erro", "Gengar-error", "Entre no Emprego Taxista Primeiro", 255, 255, 255)
+                    print("Sucesso", "ZZClief-sucess", "Puxando Dinheiro!", 255, 255, 255)
+                    print("Erro", "ZZClief-error", "Entre no Emprego Taxista Primeiro", 255, 255, 255)
                 end)
                 
             end
 
+        elseif ZZClief.subtabs.active == 'Server' then -- SE O SUBTAB 2 JOGADOR ESTIVER ATIVO ENTAO
+        
             
 
-            elseif Gengar.tabs.active == 'Config' then
-                Gengar:SubTab('Config') --SUBTAB 1
-                Gengar:SubTab('Auxilios') --SUBTAB 2
+            elseif ZZClief.tabs.active == 'Config' then
+                ZZClief:SubTab('Config') --SUBTAB 1
+                ZZClief:SubTab('Auxilios') --SUBTAB 2
 
-                if Gengar.subtabs.active == 'Config' then -- SE O SUBTAB 1 JOGADOR ESTIVER ATIVO ENTAO
+                if ZZClief.subtabs.active == 'Config' then -- SE O SUBTAB 1 JOGADOR ESTIVER ATIVO ENTAO
 
 
-                Gengar:CheckBox('Otimizar GAME', 'Irá otimizar seu jogo.', 'ExCheckBoxBool', function() -- SEMPRE USAR ESSA LÓGICA, TITULO PRIMEIRO DEPOIS SUBTITULO E DEPOIS COLOCAR NO NOME DA CheckBox
+                ZZClief:CheckBox('Otimizar GAME', 'Irá otimizar seu jogo.', 'ExCheckBoxBool', function() -- SEMPRE USAR ESSA LÓGICA, TITULO PRIMEIRO DEPOIS SUBTITULO E DEPOIS COLOCAR NO NOME DA CheckBox
                     --EXEMPLO DE USO DA CheckBox
 
-                    if Gengar.toggles.ExCheckBoxBool then --SE A CheckBox ESTIVER ATIVA (TRUE) ENTAO
+                    if ZZClief.toggles.ExCheckBoxBool then --SE A CheckBox ESTIVER ATIVA (TRUE) ENTAO
                         SetTimecycleModifier("cinema")
                     else --SE ESTIVER INATIVA (FALSE)
                         SetTimecycleModifier("default")
@@ -3293,417 +3483,42 @@ end)
                 
 
                     
-                elseif Gengar.subtabs.active == 'Auxilios' then -- SE O SUBTAB 2 JOGADOR ESTIVER ATIVO ENTAO
+                elseif ZZClief.subtabs.active == 'Auxilios' then -- SE O SUBTAB 2 JOGADOR ESTIVER ATIVO ENTAO
 
+     
+                    ZZClief:CheckBox('Esp Nomes', 'Desenha o nome dos jogadores abaixo deles', 'TogglePlayerNames', function(toggleState)
+                        local function DrawPlayerNames()
+                            for _, player in ipairs(GetActivePlayers()) do
+                                local playerPed = GetPlayerPed(player)
+                                local playerCoords = GetEntityCoords(playerPed)
+                                local playerName = GetPlayerName(player)
                     
-                                        -- Função para desenhar o ESP
-function drawESP()
-    -- Obtém todos os jogadores
-    local players = GetActivePlayers()
-    local playerPed = PlayerPedId()
-    local playerCoords = GetEntityCoords(playerPed)
-
-    -- Verifica jogadores
-    for _, player in ipairs(players) do
-        local targetPed = GetPlayerPed(player)
-        if targetPed ~= playerPed then
-            local targetCoords = GetEntityCoords(targetPed)
-            local distance = #(playerCoords - targetCoords)
-
-            -- Verifica a distância para evitar sobrecarga
-            if distance < 100.0 then
-                -- Obtém o nome do jogador
-                local playerName = GetPlayerName(player)
-
-                -- Converte as coordenadas do mundo para a tela
-                local onScreen, screenX, screenY = GetScreenCoordFromWorldCoord(targetCoords.x, targetCoords.y, targetCoords.z - 0.5)
-
-                -- Verifica se o jogador está em um veículo
-                local vehicle = GetVehiclePedIsIn(targetPed, false)
-                local speed = 0
-
-                if vehicle == 0 then  -- O jogador não está em um veículo
-                    -- Obtém a velocidade do ped
-                    local velocity = GetEntityVelocity(targetPed)
-                    speed = math.sqrt(velocity.x^2 + velocity.y^2 + velocity.z^2)
-                else
-                    -- Se estiver no veículo, não considera a velocidade do veículo
-                    speed = 0
-                end
-
-                -- Cor do ESP, vermelha se estiver voando (ou se a velocidade for alta)
-                local color = {255, 255, 255, 255}  -- Cor padrão (branca)
-                if speed > 5.0 then  -- Se a velocidade for maior que 5, o jogador está "voando"
-                    color = {255, 0, 0, 255}  -- Cor vermelha
-                end
-
-                if onScreen then
-                    -- Desenha o nome do jogador
-                    SetTextFont(0)
-                    SetTextProportional(1)
-                    SetTextScale(0.0, 0.3)
-                    SetTextColour(255, 255, 255, 255)
-                    SetTextDropshadow(0, 0, 0, 0, 255)
-                    SetTextEdge(2, 0, 0, 0, 150)
-                    SetTextDropShadow()
-                    SetTextOutline()
-                    SetTextEntry("STRING")
-                    AddTextComponentString(playerName)
-                    DrawText(screenX, screenY)
-
-                    -- Desenha as bordas do retângulo vertical ao redor do jogador com a cor determinada
-                    DrawBoxBorders(targetCoords.x, targetCoords.y, targetCoords.z, 0.4, 1.5, color) -- Retângulo vertical
-                end
-            end
-        end
-    end
-
-    -- Verifica NPCs (peds)
-    local peds = GetGamePool('CPed')  -- Obtém todos os peds no jogo
-    for _, ped in ipairs(peds) do
-        if ped ~= playerPed and not IsPedAPlayer(ped) then  -- Ignora o jogador e outros jogadores
-            local pedCoords = GetEntityCoords(ped)
-            local distance = #(playerCoords - pedCoords)
-
-            -- Verifica a distância para evitar sobrecarga
-            if distance < 50.0 then
-                -- Converte as coordenadas do mundo para a tela
-                local onScreen, screenX, screenY = GetScreenCoordFromWorldCoord(pedCoords.x, pedCoords.y, pedCoords.z - 0.5)
-
-                -- Verifica se o NPC está em um veículo
-                local vehicle = GetVehiclePedIsIn(ped, false)
-                local speed = 0
-
-                if vehicle == 0 then  -- O NPC não está em um veículo
-                    -- Obtém a velocidade do ped
-                    local velocity = GetEntityVelocity(ped)
-                    speed = math.sqrt(velocity.x^2 + velocity.y^2 + velocity.z^2)
-                else
-                    -- Se estiver no veículo, não considera a velocidade do veículo
-                    speed = 0
-                end
-
-                -- Cor do ESP, vermelha se estiver voando (ou se a velocidade for alta)
-                local color = {255, 255, 255, 255}  -- Cor padrão (branca)
-                if speed > 5.0 then  -- Se a velocidade for maior que 5, o NPC está "voando"
-                    color = {255, 0, 0, 255}  -- Cor vermelha
-                end
-
-                if onScreen then
-                    -- Desenha o nome do NPC (opcional)
-                    SetTextFont(0)
-                    SetTextProportional(1)
-                    SetTextScale(0.0, 0.3)
-                    SetTextColour(255, 255, 255, 255)
-                    SetTextDropshadow(0, 0, 0, 0, 255)
-                    SetTextEdge(2, 0, 0, 0, 150)
-                    SetTextDropShadow()
-                    SetTextOutline()
-                    SetTextEntry("STRING")
-                    AddTextComponentString("NPC")
-                    DrawText(screenX, screenY)
-
-                    -- Desenha as bordas do retângulo vertical ao redor do NPC com a cor determinada
-                    DrawBoxBorders(pedCoords.x, pedCoords.y, pedCoords.z, 0.4, 1.5, color) -- Retângulo vertical
-                end
-            end
-        end
-    end
-end
-
--- Função para desenhar as bordas do retângulo vertical
-function DrawBoxBorders(x, y, z, width, height, color)
-    -- Define as coordenadas para os 8 pontos do retângulo 3D
-    local offsetX = width / 2
-    local offsetY = 0.2 -- Profundidade menor, para parecer um corpo
-    local offsetZ = height / 2
-
-    -- Pontos do retângulo 3D
-    local p1 = vector3(x - offsetX, y - offsetY, z - offsetZ)  -- Ponto inferior esquerdo dianteiro
-    local p2 = vector3(x + offsetX, y - offsetY, z - offsetZ)  -- Ponto inferior direito dianteiro
-    local p3 = vector3(x + offsetX, y + offsetY, z - offsetZ)  -- Ponto superior direito dianteiro
-    local p4 = vector3(x - offsetX, y + offsetY, z - offsetZ)  -- Ponto superior esquerdo dianteiro
-    local p5 = vector3(x - offsetX, y - offsetY, z + offsetZ)  -- Ponto inferior esquerdo traseiro
-    local p6 = vector3(x + offsetX, y - offsetY, z + offsetZ)  -- Ponto inferior direito traseiro
-    local p7 = vector3(x + offsetX, y + offsetY, z + offsetZ)  -- Ponto superior direito traseiro
-    local p8 = vector3(x - offsetX, y + offsetY, z + offsetZ)  -- Ponto superior esquerdo traseiro
-
-    -- Desenha as linhas conectando os pontos para formar as bordas
-    DrawLine(p1.x, p1.y, p1.z, p2.x, p2.y, p2.z, color[1], color[2], color[3], color[4])  -- Linha inferior dianteira
-    DrawLine(p2.x, p2.y, p2.z, p3.x, p3.y, p3.z, color[1], color[2], color[3], color[4])  -- Linha direita dianteira
-    DrawLine(p3.x, p3.y, p3.z, p4.x, p4.y, p4.z, color[1], color[2], color[3], color[4])  -- Linha superior dianteira
-    DrawLine(p4.x, p4.y, p4.z, p1.x, p1.y, p1.z, color[1], color[2], color[3], color[4])  -- Linha esquerda dianteira
-
-    DrawLine(p5.x, p5.y, p5.z, p6.x, p6.y, p6.z, color[1], color[2], color[3], color[4])  -- Linha inferior traseira
-    DrawLine(p6.x, p6.y, p6.z, p7.x, p7.y, p7.z, color[1], color[2], color[3], color[4])  -- Linha direita traseira
-    DrawLine(p7.x, p7.y, p7.z, p8.x, p8.y, p8.z, color[1], color[2], color[3], color[4])  -- Linha superior traseira
-    DrawLine(p8.x, p8.y, p8.z, p5.x, p5.y, p5.z, color[1], color[2], color[3], color[4])  -- Linha esquerda traseira
-
-    DrawLine(p1.x, p1.y, p1.z, p5.x, p5.y, p5.z, color[1], color[2], color[3], color[4])  -- Linha frontal-esquerda
-    DrawLine(p2.x, p2.y, p2.z, p6.x, p6.y, p6.z, color[1], color[2], color[3], color[4])  -- Linha frontal-direita
-    DrawLine(p3.x, p3.y, p3.z, p7.x, p7.y, p7.z, color[1], color[2], color[3], color[4])  -- Linha superior-direita
-    DrawLine(p4.x, p4.y, p4.z, p8.x, p8.y, p8.z, color[1], color[2], color[3], color[4])  -- Linha superior-esquerda
-end
-
-
--- CheckBox para ativar/desativar o ESP
-Gengar:CheckBox('ESP Jogadores', 'Ativar/Desativar ESP', 'espAtivado', function(state)
-    Gengar.toggles.espAtivado = state  -- Atualiza o estado do ESP
-    if state then
-        print("ESP Ativado!")
-        -- Loop para desenhar o ESP enquanto estiver ativado
-        Citizen.CreateThread(function()
-            while Gengar.toggles.espAtivado do
-                drawESP()
-                Citizen.Wait(10)
-            end
-        end)
-    else
-        print("ESP Desativado!")
-    end
-end)
-
-
--- Função para desenhar o ESP de veículos
-function drawVehicleESP()
-    -- Obtém todos os veículos no jogo
-    local vehicles = GetGamePool('CVehicle')
-    local playerPed = PlayerPedId()
-    local playerCoords = GetEntityCoords(playerPed)
-
-    -- Verifica os veículos
-    for _, vehicle in ipairs(vehicles) do
-        -- Obtém as coordenadas do veículo
-        local vehicleCoords = GetEntityCoords(vehicle)
-        local distance = #(playerCoords - vehicleCoords)
-
-        -- Verifica a distância para evitar sobrecarga
-        if distance < 50.0 then
-            -- Obtém o nome do modelo do veículo
-            local vehicleName = GetDisplayNameFromVehicleModel(GetEntityModel(vehicle))
-
-            -- Converte as coordenadas do mundo para a tela
-            local onScreen, screenX, screenY = GetScreenCoordFromWorldCoord(vehicleCoords.x, vehicleCoords.y, vehicleCoords.z + 1.0)
-
-            if onScreen then
-                -- Desenha o nome do veículo
-                SetTextFont(0)
-                SetTextProportional(1)
-                SetTextScale(0.0, 0.3)
-                SetTextColour(135, 206, 250, 255)
-                SetTextDropshadow(0, 135, 206, 250, 255)
-                SetTextEdge(2, 135, 206, 250, 150)
-                SetTextDropShadow()
-                SetTextOutline()
-                SetTextEntry("STRING")
-                AddTextComponentString(vehicleName)
-                DrawText(screenX, screenY)
-            end
-        end
-    end
-end
-
--- Função para desenhar o ESP com linha conectando o jogador a outros jogadores e NPCs
-function drawLineESP()
-    local playerPed = PlayerPedId()
-    local playerCoords = GetEntityCoords(playerPed)
-
-    -- Obtém todos os jogadores
-    local players = GetActivePlayers()
-    for _, player in ipairs(players) do
-        local targetPed = GetPlayerPed(player)
-        if targetPed ~= playerPed then
-            local targetCoords = GetEntityCoords(targetPed)
-            local distance = #(playerCoords - targetCoords)
-
-            -- Verifica a distância para evitar sobrecarga
-            if distance < 50.0 then
-                -- Desenha a linha conectando o jogador ao outro jogador
-                DrawLine(playerCoords.x, playerCoords.y, playerCoords.z, targetCoords.x, targetCoords.y, targetCoords.z, 255, 0, 0, 255)  -- Linha vermelha
-            end
-        end
-    end
-
-    -- Verifica NPCs (peds)
-    local peds = GetGamePool('CPed')  -- Obtém todos os NPCs no jogo
-    for _, ped in ipairs(peds) do
-        if ped ~= playerPed and not IsPedAPlayer(ped) then  -- Ignora o jogador e outros jogadores
-            local pedCoords = GetEntityCoords(ped)
-            local distance = #(playerCoords - pedCoords)
-
-            -- Verifica a distância para evitar sobrecarga
-            if distance < 50.0 then
-                -- Desenha a linha conectando o jogador ao NPC
-                DrawLine(playerCoords.x, playerCoords.y, playerCoords.z, pedCoords.x, pedCoords.y, pedCoords.z, 255, 255, 255, 255)  -- Linha vermelha
-            end
-        end
-    end
-end
-
-
-
-
--- Checkbox para ativar/desativar o ESP de linha
-Gengar:CheckBox('ESP Line', 'Ativar/Desativar ESP Line', 'espLineAtivado', function(state)
-    Gengar.toggles.espLineAtivado = state  -- Atualiza o estado do ESP de linha
-    if state then
-        print("ESP Line Ativado!")
-        -- Loop para desenhar o ESP de linha enquanto estiver ativado
-        Citizen.CreateThread(function()
-            while Gengar.toggles.espLineAtivado do
-                drawLineESP()
-                Citizen.Wait(10)
-            end
-        end)
-    else
-        print("ESP Line Desativado!")
-    end
-end)
-
-
-
--- Função para desenhar a barra de vida de um jogador
-function drawHealthBar(ped, screenX, screenY)
-    local health = GetEntityHealth(ped)  -- Obtém a vida do ped/jogador
-    local maxHealth = GetEntityMaxHealth(ped)  -- Obtém a vida máxima
-    local healthPercentage = health / maxHealth  -- Calcula a porcentagem de vida
-
-    -- Define a largura e altura da barra
-    local barWidth = 0.1
-    local barHeight = 0.01
-    local offsetY = 0.02  -- Distância entre a barra e o nome
-
-    -- Define a cor da barra (verde para vida cheia, vermelho para pouca vida)
-    local r, g, b = 0, 255, 0
-    if healthPercentage < 0.3 then
-        r, g, b = 255, 0, 0  -- Muda para vermelho quando a vida estiver baixa
-    elseif healthPercentage < 0.7 then
-        r, g, b = 255, 255, 0  -- Muda para amarelo quando a vida estiver média
-    end
-
-    -- Desenha a barra de vida
-    DrawRect(screenX, screenY + offsetY, barWidth * healthPercentage, barHeight, r, g, b, 255)
-end
-
--- Função principal para desenhar o ESP de vida
-function drawHealthESP()
-    -- Obtém as coordenadas do jogador
-    local playerPed = PlayerPedId()
-    local playerCoords = GetEntityCoords(playerPed)
-
-    -- Verifica todos os jogadores ativos
-    local players = GetActivePlayers()
-    for _, player in ipairs(players) do
-        local targetPed = GetPlayerPed(player)
-        if targetPed ~= playerPed then  -- Ignora o próprio jogador
-            local targetCoords = GetEntityCoords(targetPed)
-            local distance = #(playerCoords - targetCoords)
-
-            -- Verifica a distância para evitar sobrecarga
-            if distance < 50.0 then
-                -- Converte as coordenadas do mundo para a tela
-                local onScreen, screenX, screenY = GetScreenCoordFromWorldCoord(targetCoords.x, targetCoords.y, targetCoords.z - 0.5)
-
-                -- Desenha a barra de vida, se o ESP de vida estiver ativado
-                if onScreen and Gengar.toggles.espVidaAtivado then
-                    drawHealthBar(targetPed, screenX, screenY)
-                end
-            end
-        end
-    end
-end
-
--- Chama a função principal para desenhar o ESP de vida
-Citizen.CreateThread(function()
-    while true do
-        Citizen.Wait(0)
-
-        -- Desenha o ESP de vida apenas se estiver ativado
-        if Gengar.toggles.espVidaAtivado then
-            drawHealthESP()
-        end
-    end
-end)
-
-
-
--- CheckBox para ativar/desativar o ESP de veículos
-Gengar:CheckBox('ESP Nome Veículos', 'Ativar/Desativar ESP de Veículos', 'vehicleEspAtivado', function(state)
-    Gengar.toggles.vehicleEspAtivado = state  -- Atualiza o estado do ESP de veículos
-    if state then
-        print("ESP de Veículos Ativado!")
-        -- Loop para desenhar o ESP de veículos enquanto estiver ativado
-        Citizen.CreateThread(function()
-            while Gengar.toggles.vehicleEspAtivado do
-                drawVehicleESP()  -- Função que desenha o ESP dos veículos
-                Citizen.Wait(10)
-            end
-        end)
-    else
-        print("ESP de Veículos Desativado!")
-    end
-end)
-
-
--- Checkbox para ativar/desativar o ESP de Vida
-Gengar:CheckBox('ESP Vida', 'Ativar/Desativar ESP de Vida', 'espVidaAtivado', function(state)
-    Gengar.toggles.espVidaAtivado = state
-    if state then
-        print("ESP de Vida Ativado!")
-        Citizen.CreateThread(function()
-            while Gengar.toggles.espVidaAtivado do
-                local meuPed = PlayerPedId()
-                local jogadores = GetActivePlayers()
-                local npcs = GetGamePool("CPed")
-
-                for _, player in ipairs(jogadores) do
-                    local ped = GetPlayerPed(player)
-                    if DoesEntityExist(ped) and ped ~= meuPed and not IsEntityDead(ped) then
-                        desenharVida(ped)
-                    end
-                end
-
-                for _, ped in ipairs(npcs) do
-                    if not IsPedAPlayer(ped) and DoesEntityExist(ped) and not IsEntityDead(ped) then
-                        desenharVida(ped)
-                    end
-                end
-
-                Citizen.Wait(10) -- Reduz carga no processador
-            end
-        end)
-    else
-        print("ESP de Vida Desativado!")
-    end
-end)
-
--- Função para desenhar a vida do jogador/npc na tela
-function desenharVida(ped)
-    local coords = GetEntityCoords(ped)
-    local onScreen, x, y = GetScreenCoordFromWorldCoord(coords.x, coords.y, coords.z + 1.0)
-
-    if onScreen then
-        local vida = GetEntityHealth(ped)
-        local vidaMax = GetEntityMaxHealth(ped)
-        local textoVida = string.format("%d/%d", vida, vidaMax)
-
-        -- Desenha a vida abaixo do nome
-        SetTextFont(0)
-        SetTextProportional(1)
-        SetTextScale(0.30, 0.30)
-        SetTextColour(0, 255, 0, 255) -- Verde
-        SetTextOutline()
-        SetTextEntry("STRING")
-        AddTextComponentString(textoVida)
-        DrawText(x, y + 0.02)
-    end
-end
-
-
+                                local onScreen, screenX, screenY = GetScreenCoordFromWorldCoord(playerCoords.x, playerCoords.y, playerCoords.z)
+                                if onScreen then
+                                    SetTextFont(0)
+                                    SetTextProportional(1)
+                                    SetTextScale(0.0, 0.5)
+                                    SetTextColour(255, 255, 255, 255)
+                                    SetTextDropshadow(0, 0, 0, 0, 255)
+                                    SetTextEdge(2, 0, 0, 0, 150)
+                                    SetTextDropShadow()
+                                    SetTextOutline()
+                                    SetTextEntry("STRING")
+                                    AddTextComponentString(playerName)
+                                    DrawText(screenX, screenY)
+                                end
+                            end
+                        end
                     
-
-                   
-
+                        if toggleState then
+                            Citizen.CreateThread(function()
+                                while toggleState do
+                                    DrawPlayerNames()
+                                    Citizen.Wait(0)
+                                end
+                            end)
+                        end
+                    end)
                     
                     
                 end
@@ -3812,33 +3627,39 @@ function cdsmodule.tpway()
 
 end
 
+----------------Trolls--------------------
+
+
+
+----------------Veiculo--------------------
+
 MatarPlayer = function(vehicle, ped)
     if vehicle and ped then
         local playerPed = GetPlayerPed(ped)
         local cordenadas = GetEntityCoords(playerPed)
         
-        -- Empurrar o jogador para cima
+        
         local upCoords = vector3(cordenadas.x, cordenadas.y, cordenadas.z + 50.0)
         SetEntityCoordsNoOffset(playerPed, upCoords.x, upCoords.y, upCoords.z, true, true, true)
 
-        -- Grudar o veículo nas coordenadas do jogador
+        
         NetworkRequestControlOfEntity(vehicle)
 
-        -- Colocar o veículo na mesma posição do jogador (agora acima)
+        
         SetEntityCoordsNoOffset(vehicle, cordenadas.x, cordenadas.y, cordenadas.z + 50.0, true, true, true)
 
-        -- Fazer o veículo cair em direção ao jogador, de modo a "atropelá-lo"
+        
         Citizen.CreateThread(function()
-            Citizen.Wait(1000) -- Aguardar 1 segundo antes de tentar matar o jogador com o veículo
+            Citizen.Wait(1000) 
 
-            -- Empurrar o veículo em direção ao jogador
-            local velocity = vector3(0.0, 0.0, -1.0) -- A direção para empurrar o carro para baixo
+            
+            local velocity = vector3(0.0, 0.0, -1.0) 
             SetEntityCoordsNoOffset(vehicle, cordenadas.x, cordenadas.y, cordenadas.z, true, true, true)
 
-            -- Ativar a física do veículo para ele começar a cair e atropelar
+            
             ApplyForceToEntity(vehicle, 1, velocity.x, velocity.y, velocity.z, 0.0, 0.0, 0.0, true, true, true, true)
 
-            -- Esperar um pouco para que o veículo caia e faça o impacto com o jogador
+            
             Citizen.Wait(1000)
    
         end)
@@ -3858,9 +3679,46 @@ function Grudarvehsinplayer(vehicle, ped)
     end
     end
 
+    function Pegarcontrole()
+        Citizen.CreateThread(function()
+            -- Initialize ZZClief.vehicle if it is nil
+            if ZZClief.vehicle == nil then
+                ZZClief.vehicle = {}
+            end
+    
+            -- Initialize VeiculosRequested if it is nil
+            if ZZClief.vehicle.VeiculosRequested == nil then
+                ZZClief.vehicle.VeiculosRequested = {}
+            end
+    
+            local old = GetEntityCoords(PlayerPedId())
+            ZZClief.vehicle.VeiculosRequested = {} -- Clear the table
+    
+            for _, vehicle in pairs(GetGamePool('CVehicle')) do
+                local driver = GetPedInVehicleSeat(vehicle, -1)
+                if driver == 0 then
+                    SetPedIntoVehicle(PlayerPedId(), vehicle, -1)
+                    table.insert(ZZClief.vehicle.VeiculosRequested, vehicle)
+                    Wait(50)
+                    ClearPedTasks(PlayerPedId())
+                end
+            end
+    
+            TaskLeaveAnyVehicle(PlayerPedId())
+            ClearPedTasks(PlayerPedId())
+            Wait(50)
+            SetEntityCoordsNoOffset(PlayerPedId(), old)
+        end)
+    end
+    
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------
+
 function Copy_PED()
     Citizen.CreateThread(function()
-    local pedSelecionado = GetPlayerPed(Gengar.SelectedPlayer)
+    local pedSelecionado = GetPlayerPed(ZZClief.SelectedPlayer)
     local meuPed = PlayerPedId()
 
     local modeloPedSelecionado = GetEntityModel(pedSelecionado)
@@ -3892,7 +3750,7 @@ end
 local playersModule = {}
 
 function playersModule.chamadoDeDeus(target)
-    local targe = GetPlayerPe(Gengar.SelectedPlayer)
+    local targe = GetPlayerPe(ZZClief.SelectedPlayer)
     if target then
 
         local vehNameMain = 't20'
@@ -4066,24 +3924,69 @@ function Tp_veiculoProx()
 end
 
 
--- IFS
+function drawESP()
+    local players = GetActivePlayers()
+    local playerPed = PlayerPedId()
+    local playerCoords = GetEntityCoords(playerPed)
 
-if armitanamaozita then
+    for _, player in ipairs(players) do
+        local targetPed = GetPlayerPed(player)
+        if targetPed ~= playerPed then
+            local targetCoords = GetEntityCoords(targetPed)
+            local distance = #(playerCoords - targetCoords)
+
+            if distance < 100.0 then
+                local playerName = GetPlayerName(player)
+                local onScreen, screenX, screenY = GetScreenCoordFromWorldCoord(targetCoords.x, targetCoords.y, targetCoords.z - 0.7)
+
+                local vehicle = GetVehiclePedIsIn(targetPed, false)
+                local speed = 0
+
+                if vehicle == 0 then
+                    local velocity = GetEntityVelocity(targetPed)
+                    speed = math.sqrt(velocity.x^2 + velocity.y^2 + velocity.z^2)
+                else
+                    speed = 0
+                end
+
+                local color = {255, 255, 255, 255}
+                if speed > 5.0 then
+                    color = {255, 0, 0, 255}
+                end
+
+                if onScreen then
+                    SetTextFont(0)
+                    SetTextProportional(1)
+                    SetTextScale(0.0, 0.3)
+                    SetTextColour(255, 255, 255, 255)
+                    SetTextDropshadow(0, 0, 0, 0, 255)
+                    SetTextEdge(2, 0, 0, 0, 150)
+                    SetTextDropShadow()
+                    SetTextOutline()
+                    SetTextEntry("STRING")
+                    AddTextComponentString(playerName)
+                    DrawText(screenX, screenY)
+
+                    DrawBoxBorders(targetCoords.x, targetCoords.y, targetCoords.z, 0.4, 1.5, color)
+                end
+            end
+        end
+    end
+end
+
+function armitanamaozita()
     Citizen.CreateThread(function()
         while true do
-            Citizen.Wait(1)
-            SetCurrentPedWeapon(PlayerPedId(), GetHashKey(GetCurrentPedWeapon(PlayerPedId())), true)
+            Citizen.Wait(10) 
+            local playerPed = PlayerPedId()
+            local weapon = GetSelectedPedWeapon(playerPed) 
+            SetCurrentPedWeapon(playerPed, weapon, true) 
         end
     end)
 end
 
-if godmod3r then
-    SetEntityOnlyDamagedByRelationshipGroup(PlayerPedId(), true)
-    local entity = PlayerPedId()
-            StopEntityFire(entity) 
-else
-    SetEntityOnlyDamagedByRelationshipGroup(PlayerPedId(), false)
-end
+
+
 
 
 if noreccarregar then
@@ -4133,57 +4036,11 @@ end
 
 
 
-if espadm2 then
-    local maxDistance = 500
-    local myPlayerId = PlayerId()
-    local myPos = GetEntityCoords(PlayerPedId())
-
-    for _, player in ipairs(GetActivePlayers()) do
-        if player ~= myPlayerId then
-            local myped = GetPlayerPed(player)
-            if myped ~= -1 and myped ~= nil then
-                local playerPos = GetEntityCoords(myped)
-                local distance = #(myPos - playerPos)
-
-                if IsEntityVisibleToScript(myped) == false and distance <= maxDistance then
-                    if distance < maxDistance then
-                        if true and not IsEntityDead(myped) then
-                            if HasEntityClearLosToEntity(PlayerPedId(), myped, 19) and IsEntityOnScreen(myped) then
-                                local ra = {r = 255, g = 255, b = 255}
-
-                                
-                                DrawLine(GetPedBoneCoords(myped, 31086), GetPedBoneCoords(myped, 0x9995), ra.r, ra.g, ra.b, 255)
-                                DrawLine(GetPedBoneCoords(myped, 0x9995), GetEntityCoords(myped), ra.r, ra.g, ra.b, 255)
-                                DrawLine(GetPedBoneCoords(myped, 0x5C57), GetEntityCoords(myped), ra.r, ra.g, ra.b, 255)
-                                DrawLine(GetPedBoneCoords(myped, 0x192A), GetEntityCoords(myped), ra.r, ra.g, ra.b, 255)
-                                DrawLine(GetPedBoneCoords(myped, 0x3FCF), GetPedBoneCoords(myped, 0x192A), ra.r, ra.g, ra.b, 255)
-                                DrawLine(GetPedBoneCoords(myped, 0xCC4D), GetPedBoneCoords(myped, 0x3FCF), ra.r, ra.g, ra.b, 255)
-                                DrawLine(GetPedBoneCoords(myped, 0xB3FE), GetPedBoneCoords(myped, 0x5C57), ra.r, ra.g, ra.b, 255)
-                                DrawLine(GetPedBoneCoords(myped, 0xB3FE), GetPedBoneCoords(myped, 0x3779), ra.r, ra.g, ra.b, 255)
-                                DrawLine(GetPedBoneCoords(myped, 0x9995), GetPedBoneCoords(myped, 0xB1C5), ra.r, ra.g, ra.b, 255)
-                                DrawLine(GetPedBoneCoords(myped, 0xB1C5), GetPedBoneCoords(myped, 0xEEEB), ra.r, ra.g, ra.b, 255)
-                                DrawLine(GetPedBoneCoords(myped, 0xEEEB), GetPedBoneCoords(myped, 0x49D9), ra.r, ra.g, ra.b, 255)
-                                DrawLine(GetPedBoneCoords(myped, 0x9995), GetPedBoneCoords(myped, 0x9D4D), ra.r, ra.g, ra.b, 255)
-                                DrawLine(GetPedBoneCoords(myped, 0x9D4D), GetPedBoneCoords(myped, 0x6E5C), ra.r, ra.g, ra.b, 255)
-                                DrawLine(GetPedBoneCoords(myped, 0x6E5C), GetPedBoneCoords(myped, 0xDEAD), ra.r, ra.g, ra.b, 255)
-
-                                local myPos = GetPedBoneCoords(myped, 31086)
-                                DrawMarker(28, myPos.x, myPos.y, myPos.z + 0.06, 0.0, 0.0, 0.0, 0.0, 180.0, 0.0, 0.1, 0.1, 0.1, ra.r, ra.g, ra.b, 255, false, true, 2, currentKey, currentKey, false)
-                            end
-                        end
-                    end
-                end
-            end
-        end
-    end
-end
-
-
 
 function molotivisk()
     local playerPed = PlayerPedId()
-    if Gengar.SelectedPlayer then
-        local targetPed = GetPlayerPed(Gengar.SelectedPlayer)
+    if ZZClief.SelectedPlayer then
+        local targetPed = GetPlayerPed(ZZClief.SelectedPlayer)
         if DoesEntityExist(targetPed) then
             local targetCoords = GetEntityCoords(targetPed)
             local targetBoneIndex = GetPedBoneIndex(targetPed, 31086)
@@ -4257,7 +4114,7 @@ function puxplayier()
 
     function SetVida()
         CreateThread(function()
-            local noclippValue = Gengar.sliders.Noclipp + 0.0
+            local noclippValue = ZZClief.sliders.Noclipp + 0.0
             tvRP.setHealth(noclippValue)
             print('Sucesso')
         end)
