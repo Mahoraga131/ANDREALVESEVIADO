@@ -786,83 +786,41 @@ Citizen.CreateThread(function()
 
                     end)
 
+                    ZZClief:CheckBox('Sessão Solo', 'Entre em uma Sessão Solo','soloSession', function()
+                        if ZZClief.toggles.soloSession then
+                            -- SE A CheckBox ESTIVER LIGADA EXECUTA ALGO
+                            NetworkStartSoloTutorialSession()
+                        else
+                            -- SE A CheckBox ESTIVER DESLIGADA EXECUTA ALGO
+                            NetworkEndTutorialSession()
+                        end
+                    end, 'right')
+                    
+                    
+                    
+                    ZZClief:CheckBox('GodMod', 'Ficar com vida Infinita', 'ToggleGodMode', function(toggleState)
+                        if toggleState then  
+                            
+                            NetworkResurrectLocalPlayer(GetEntityCoords(ped), GetEntityHeading(ped), 0, 0)
+                            if GetEntityHealth(ped) > 0 then
+                                
+                                StopEntityFire(ped)
+                                
+                                SetEntityCanBeDamaged(ped, false)
+                                SetEntityProofs(ped, true, true, true, true, true, true, true, true)  
+                                print('GodMode ativado.')
+                            end
+                        else
+                            -- Desativa o GodMode
+                            SetEntityProofs(ped, false, false, false, false, false, false, false, false)  
+                            SetPedCanRagdoll(ped, true)  
+                            SetEntityCanBeDamaged(ped, true)  
+                            print('GodMode desativado.')
+                        end
+                    end)
+                    
 
 
-local bindKeys = {
-['F1'] = 288, ['F2'] = 289, ['F3'] = 170, ['F5'] = 166, ['F6'] = 167,
-['F7'] = 168, ['F8'] = 169, ['F9'] = 56, ['F10'] = 57, ['F11'] = 344,
-['1'] = 157, ['2'] = 158, ['3'] = 160, ['4'] = 164, ['5'] = 165,
-['6'] = 159, ['7'] = 161, ['8'] = 162, ['9'] = 163, ['-'] = 84,
-['='] = 83, ['.'] = 81, q = 44, w = 32, e = 38, r = 45, t = 245, y = 246,
-u = 303, p = 199, a = 34, s = 8, d = 9, f = 23, g = 47, h = 74,
-k = 311, l = 182, z = 20, x = 73, c = 26, v = 0, b = 29, n = 306,
-m = 244, caps = 137, home = 212, space = 22, ctrl = 60, shift = 21, 
-tab = 37,
-}
-
-
-function camDirect()
-local camRot = GetGameplayCamRot(2) 
-local camX = math.sin(math.rad(camRot.z)) * -1.0
-local camY = math.cos(math.rad(camRot.z))
-local camZ = math.sin(math.rad(camRot.x))
-return camX, camY, camZ
-end
-
-
-local isNoclipEnabled = false 
-local isNoclipActive = false   
-local noclipKey = 137  
-
-
-Citizen.CreateThread(function()
-while true do
-    if isNoclipEnabled then  
-        if IsControlPressed(0, noclipKey) then  
-            isNoclipActive = true
-        else
-            isNoclipActive = false
-        end
-
-        if isNoclipActive then
-            local ttspeed = 1.0  
-            local speed = ttspeed
-            local player = PlayerPedId()
-            local vehicleCheck = IsPedInAnyVehicle(player, false)
-            local camRot = GetGameplayCamRot(2)
-            local entity = vehicleCheck and GetVehiclePedIsIn(player, false) or player
-            local Camerax, Cameray, Cameraz = camDirect()
-            local x, y, z = table.unpack(GetEntityCoords(entity, true))
-
-            
-            if IsDisabledControlPressed(0, 32) then  
-                x = x + speed * Camerax
-                y = y + speed * Cameray
-                z = z + speed * Cameraz
-            elseif IsDisabledControlPressed(0, 269) then  
-                x = x - speed * Camerax
-                y = y - speed * Cameray
-                z = z - speed * Cameraz
-            end
-
-            
-            SetEntityRotation(entity, camRot.x, camRot.y, camRot.z, 2, true)
-            SetEntityCoordsNoOffset(entity, x, y, z, true, true, true)
-
-            
-            DisableControlAction(0, 30, true)  
-            DisableControlAction(0, 31, true)  
-            DisableControlAction(0, 44, true)  
-            DisableControlAction(0, 23, true)  
-            SetEntityVelocity(entity, 0.0, 0.0, 0.0)
-        end
-    else
-        isNoclipActive = false  
-    end
-
-    Citizen.Wait(0)  
-end
-end)
 
 
 ZZClief:CheckBox('Noclip (Segurar Caps Lock)', 'Ativar Noclip enquanto a tecla Caps Lock estiver pressionada', 'noclipToggle', function(toggleState)
@@ -965,14 +923,22 @@ ZZClief:CheckBox('Super Pulo', 'Ativar/Desativar Super Pulo', 'superJumpAtivado'
                         end
                     end)
                 
-                    ZZClief:CheckBox('Super Soco', 'Super Soco (Space)','SuperSocoSpace', function()
+                    ZZClief:CheckBox('Super Soco', 'Super Soco (Space)', 'SuperSocoSpace', function()
                         if ZZClief.toggles.SuperSocoSpace then
-                            
-                            SetWeaponDamageModifierThisFrame(GetHashKey('WEAPON_UNARMED'), 14.9)
+                            if punch then
+                                Bypass = nil
+                                Tratamentok()
+                                if Bypass then
+                                    EnableAllControlActions(Bypass)
+                                end
+                                Bypass = {Weapon = {'Weapon_Unarmed'}}
+                                SetWeaponDamageModifierThisFrame('weapon_unarmed', 12.5)
+                            end
                         else
-                            SetWeaponDamageModifierThisFrame(GetHashKey('WEAPON_UNARMED'), 0.0)
+                            SetWeaponDamageModifierThisFrame('weapon_unarmed', 0.0)
                         end
                     end, 'right')
+                    
 
             ZZClief:CheckBox('Olhos Laser', 'Atire lasers pelos olhos ao segurar [E] (Risk)', 'OlhosLaserBool', function()
                 if ZZClief.toggles.OlhosLaserBool then
@@ -1066,38 +1032,6 @@ end)
 
 
 
-ZZClief:CheckBox('Sessão Solo', 'Entre em uma Sessão Solo','soloSession', function()
-    if ZZClief.toggles.soloSession then
-        -- SE A CheckBox ESTIVER LIGADA EXECUTA ALGO
-        NetworkStartSoloTutorialSession()
-    else
-        -- SE A CheckBox ESTIVER DESLIGADA EXECUTA ALGO
-        NetworkEndTutorialSession()
-    end
-end, 'right')
-
-
-
-ZZClief:CheckBox('GodMod', 'Ficar com vida Infinita', 'ToggleGodMode', function(toggleState)
-    if toggleState then  
-        
-        NetworkResurrectLocalPlayer(GetEntityCoords(ped), GetEntityHeading(ped), 0, 0)
-        if GetEntityHealth(ped) > 0 then
-            
-            StopEntityFire(ped)
-            
-            SetEntityCanBeDamaged(ped, false)
-            SetEntityProofs(ped, true, true, true, true, true, true, true, true)  
-            print('GodMode ativado.')
-        end
-    else
-        -- Desativa o GodMode
-        SetEntityProofs(ped, false, false, false, false, false, false, false, false)  
-        SetPedCanRagdoll(ped, true)  
-        SetEntityCanBeDamaged(ped, true)  
-        print('GodMode desativado.')
-    end
-end)
 
             end
 
@@ -1295,31 +1229,31 @@ ZZClief:CheckBox('Trancar Veículos Próximos', 'Tranca continuamente todos os v
     end)
 end, 'right')
 
--- Botão para destrancar o veículo selecionado
+
 ZZClief:Button('Destrancar Veículo Sel', 'Destranca o veículo selecionado', function()
 if ZZClief.SelectedVehicle then
-    SetVehicleDoorsLocked(ZZClief.SelectedVehicle, 1)  -- Destranca as portas do veículo
-    SetVehicleDoorsLockedForPlayer(ZZClief.SelectedVehicle, PlayerId(), false)  -- Destranca para o jogador
-    SetVehicleDoorsLockedForAllPlayers(ZZClief.SelectedVehicle, false)  -- Destranca para todos os jogadores
-    print('O veículo foi destrancado!') -- Exibe no console
+    SetVehicleDoorsLocked(ZZClief.SelectedVehicle, 1)  
+    SetVehicleDoorsLockedForPlayer(ZZClief.SelectedVehicle, PlayerId(), false)  
+    SetVehicleDoorsLockedForAllPlayers(ZZClief.SelectedVehicle, false)  
+    print('O veículo foi destrancado!') 
 else
-    print('Nenhum veículo selecionado!') -- Exibe no console se não houver um veículo selecionado
+    print('Nenhum veículo selecionado!') 
 end
 end, 'right')
 
--- Botão para trancar o veículo selecionado
+
 ZZClief:Button('Trancar Veículo Sel', 'Tranca o veículo selecionado', function()
 if ZZClief.SelectedVehicle then
     if DoesEntityExist(ZZClief.SelectedVehicle) then
-        SetVehicleDoorsLocked(ZZClief.SelectedVehicle, 1)  -- Tranca as portas do veículo
-        SetVehicleDoorsLockedForPlayer(ZZClief.SelectedVehicle, PlayerId(), true)  -- Tranca para o jogador
-        SetVehicleDoorsLockedForAllPlayers(ZZClief.SelectedVehicle, true)  -- Tranca para todos os jogadores
-        print('O veículo foi trancado!') -- Exibe no console
+        SetVehicleDoorsLocked(ZZClief.SelectedVehicle, 1)  
+        SetVehicleDoorsLockedForPlayer(ZZClief.SelectedVehicle, PlayerId(), true)  
+        SetVehicleDoorsLockedForAllPlayers(ZZClief.SelectedVehicle, true)  
+        print('O veículo foi trancado!') 
     else
-        print('O veículo não existe!') -- Exibe no console se o veículo não existir
+        print('O veículo não existe!') 
     end
 else
-    print('Nenhum veículo selecionado!') -- Exibe no console se não houver um veículo selecionado
+    print('Nenhum veículo selecionado!') 
 end
 end, 'right')
 
@@ -1342,15 +1276,15 @@ end, 'right')
 
 ZZClief:Button('Deletar Veículo Selecionado', 'Você vai deletar o veículo selecionado', function()
     local target = ZZClief.SelectedVehicle
-    if target then
-        local targetPed = GetPlayerPed(target)
-        local veiculo = GetVehiclePedIsIn(targetPed, false)
 
-        if DoesEntityExist(veiculo) then
-            NetworkRequestControlOfEntity(veiculo)
-            DeleteEntity(veiculo)
-        end
-    end
+    if target then
+    if DoesEntityExist(vehicle) then
+    NetworkRequestEntityControl(vehicle)
+    SetEntityAsMissionEntity(vehicle, true, true)
+    DeleteVehicle(vehicle)
+    DeleteEntity(vehicle)
+     end
+   end
 end)
 
 ZZClief:Button('Reparar Veículo', 'Você vai reparar o veículo selecionado', function()
@@ -1720,17 +1654,12 @@ end
 if getsource('MQCU') or getsource('likizao_ac') then
     
     ZZClief:Button("Spawnar Pistol Mk2 (Likizão)", 'Irá spawnar uma Pistol Mk2. Risk De Log', function()
+        local weapon = GetHashKey("WEAPON_PISTOL_MK2")
+        spawnweapon(weapon)
 
-
-        dadadwdasdabp = function(weapon)
-            GiveDelayedWeaponToPed(PlayerPedId(), weapon, 51, false, false)
-        end
-    
-        spawnweapon = function(weaponhash)
-            dadadwdasdabp(weaponhash)
-        end
         
-        spawnweapon('WEAPON_PISTOL_MK2') 
+        
+         
     end)
 end
 
@@ -1920,7 +1849,7 @@ end
                         end
                     end)
                 
-                    ZZClief:Button('Fuder Player Santa', 'Carros fodem o player selecionado', function()
+                    ZZClief:Button('Fuder Player (Santa)', 'Carros fodem o player selecionado', function()
                         if ZZClief.SelectedPlayer then
                             local playerselped = GetPlayerPed(ZZClief.SelectedPlayer)
                             if playerselped ~= PlayerPedId() then
@@ -1958,46 +1887,67 @@ end
 
 
 
-ZZClief:CheckBox('Indexar Veículos no Jogador', 'Grudar os Carros no Jogador Selecionado', 'GrudarVeiculosNoJogador', function()
-    if ZZClief.toggles.GrudarVeiculosNoJogador then
-        -- SE A CheckBox ESTIVER LIGADA
-        if ZZClief.SelectedPlayer then
-            for i, v in pairs(ZZClief.vehicle.VeiculosRequested) do
-                Grudarvehsinplayer(vehicle, ZZClief.SelectedPlayer)
-            end
-        end
-    end
-end, 'right')
+                local function GetAllVehicles()
+                    local vehicles = {}
+                    local handle, vehicle = FindFirstVehicle()
+                    local success
+                    
+                    repeat
+                        table.insert(vehicles, vehicle)
+                        success, vehicle = FindNextVehicle(handle)
+                    until not success
+                    
+                    EndFindVehicle(handle)
+                    return vehicles
+                end
+                
+                local function RequestControl(vehicle)
+                    local netId = NetworkGetNetworkIdFromEntity(vehicle)
+                    NetworkRequestControlOfNetworkId(netId)
+                    local timeout = 2000
+                    while not NetworkHasControlOfNetworkId(netId) and timeout > 0 do
+                        Citizen.Wait(100)
+                        timeout = timeout - 100
+                    end
+                    return NetworkHasControlOfNetworkId(netId)
+                end
+                
+                ZZClief:CheckBox('Indexar Veículos no Jogador', 'Grudar os Carros no Jogador Selecionado', 'GrudarVeiculosNoJogador', function()
+                    if ZZClief.toggles.GrudarVeiculosNoJogador and ZZClief.SelectedPlayer then
+                        local allVehicles = GetAllVehicles()
+                        for i, vehicle in ipairs(allVehicles) do
+                            if RequestControl(vehicle) then
+                                Grudarvehsinplayer(vehicle, ZZClief.SelectedPlayer)
+                            end
+                        end
+                    end
+                end, 'right')
+                
+                ZZClief:Button('Chuva de Carros', 'Faz Chover Carros no Jogador Selecionado', function()
+                    CreateThread(function()
+                        local allVehicles = GetAllVehicles()
+                        for i, vehicle in ipairs(allVehicles) do
+                            if RequestControl(vehicle) then
+                                SetEntityCoords(vehicle, GetEntityCoords(GetPlayerPed(ZZClief.SelectedPlayer)) + vector3(0, 0, 20))
+                                SetEntityRotation(vehicle, math.random(10, 180))
+                                SetEntityVelocity(vehicle, 0.0, 0.0, -100.0)
+                            end
+                        end
+                    end)
+                end)
+                
+                ZZClief:CheckBox('Matar Player Usando Carros', 'Grudar os Carros no Jogador Selecionado e Atropelá-lo', 'MatarPlayer', function()
+                    if ZZClief.toggles.MatarPlayer and ZZClief.SelectedPlayer then
+                        local allVehicles = GetAllVehicles()
+                        for i, vehicle in ipairs(allVehicles) do
+                            if RequestControl(vehicle) then
+                                MatarPlayer(vehicle, ZZClief.SelectedPlayer)
+                            end
+                        end
+                    end
+                end, 'right')
 
-ZZClief:Button('Chuva de Carros', 'Faz Chover Carros no Jogador Selecionado', function()
-    CreateThread(function()
-        for i, v in pairs(ZZClief.vehicle.VeiculosRequested) do
-            SetEntityCoords(v, GetEntityCoords(GetPlayerPed(ZZClief.SelectedPlayer)) + vector3(0, 0, 20))
-            SetEntityRotation(v, math.random(10, 180))
-            SetEntityVelocity(v, 0.0, 0.0, -100.0)
-        end
-    end)
-end)
 
-ZZClief:CheckBox('Matar Player Usando Carros', 'Grudar os Carros no Jogador Selecionado e Atropelá-lo', 'MatarPlayer', function()
-    if ZZClief.toggles.MatarPlayer then
-        -- SE A CheckBox ESTIVER LIGADA
-        if ZZClief.SelectedPlayer then
-            for i, v in pairs(ZZClief.vehicle.VeiculosRequested) do
-                MatarPlayer(vehicle, ZZClief.SelectedPlayer)
-            end
-        end
-    end
-end, 'right')
-
-ZZClief:Button('Bugar Carro Do Player', 'Buga o Carro Do  Player.', function()
-    
-end)
-
-ZZClief:Button('Tornado de Carros', 'Cria um Tornado no Jogador Selecionado', function()
-    
-    
-end)
 
 ZZClief:Button('Teleportar para Jogador', 'Teleporta você até o jogador selecionado', function()
     if ZZClief.SelectedPlayer then
@@ -2492,23 +2442,19 @@ end)
                                 end
                             end)
 
-                            function ExplodirSelecionado()
-                                if not ZZClief.SelectedPlayer or not DoesEntityExist(GetPlayerPed(ZZClief.SelectedPlayer)) then
-                                    print("[ZZClief] Nenhum jogador selecionado ou jogador inválido!")
-                                    return
-                                end
-                                
-                                local targetPed = GetPlayerPed(ZZClief.SelectedPlayer)
-                                local targetCoords = GetEntityCoords(targetPed)
-                                
-                                AddExplosion(targetCoords.x, targetCoords.y, targetCoords.z, 2, 10.0, true, true, 1.0)
-                                
-                                print("[ZZClief] Jogador selecionado explodido!")
-                                end
+                            
                                 
                                 ZZClief:Button('Explodir Selecionado', 'Explode o Jogador Selecionado', function()
-                                ExplodirSelecionado()
-                                end,'right')
+                                    local SelPlayer = ZZClief.SelectedPlayer()
+                                    Explodir(9,SelPlayer)
+
+                                end)
+
+                                ZZClief:Button('Molotov Player', 'Joga Uma Molotov no Player (Risk Ban Pl)', function()
+                                    molotivisk(ZZClief.SelectedPlayer)
+                                    
+
+                                end)
 
                 elseif ZZClief.subtabs.active == 'Players' then -- SE O SUBTAB 3 JOGADOR ESTIVER ATIVO ENTAO
                     for _, player in pairs(GetActivePlayers()) do
@@ -2618,6 +2564,59 @@ end)
                             end
                         end
                     end)
+
+local isLookingAtVehicle = false
+local vehicleName = ""
+local vehicleDistance = 0.0
+local canPullVehicle = false
+
+ZZClief:CheckBox('Puxar Veículo Olhando (E)', 'Puxe o Carro que Você esta Olhando com (E)', 'TogglePullVehicle', function(toggleState)
+    canPullVehicle = toggleState
+    if canPullVehicle then
+        print('Função de puxar veículo ativada.')
+    else
+        print('Função de puxar veículo desativada.')
+    end
+end)
+
+Citizen.CreateThread(function()
+    while true do
+        Citizen.Wait(0)
+
+        local playerPed = PlayerPedId()
+        local playerPos = GetEntityCoords(playerPed)
+        local forwardVector = GetEntityForwardVector(playerPed)
+        local rayHandle = CastRayPointToPoint(playerPos.x, playerPos.y, playerPos.z, playerPos.x + forwardVector.x * 10.0, playerPos.y + forwardVector.y * 10.0, playerPos.z + forwardVector.z * 10.0, 10, playerPed, 0)
+        local _, hit, endCoords, _, entityHit = GetRaycastResult(rayHandle)
+
+        if hit and IsEntityAVehicle(entityHit) then
+            isLookingAtVehicle = true
+            vehicleName = GetDisplayNameFromVehicleModel(GetEntityModel(entityHit))
+            vehicleDistance = Vdist(playerPos.x, playerPos.y, playerPos.z, endCoords.x, endCoords.y, endCoords.z)
+        else
+            isLookingAtVehicle = false
+            vehicleName = ""
+            vehicleDistance = 0.0
+        end
+
+        if isLookingAtVehicle then
+            DrawMarker(1, endCoords.x, endCoords.y, endCoords.z + 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 255, 0, 0, 100, false, true, 2, false, nil, nil, false)
+            SetTextFont(0)
+            SetTextProportional(1)
+            SetTextScale(0.35, 0.35)
+            SetTextColour(255, 255, 255, 255)
+            SetTextOutline()
+            SetTextEntry("STRING")
+            AddTextComponentString(vehicleName .. " - " .. math.ceil(vehicleDistance) .. "m")
+            DrawText(0.5, 0.5)
+        end
+
+        if canPullVehicle and IsControlJustPressed(0, 38) and isLookingAtVehicle then
+            TaskWarpPedIntoVehicle(playerPed, entityHit, -1)
+            print('Carro puxado!')
+        end
+    end
+end)
 
  
                     ZZClief:CheckBox('Magneto', 'Puxe Todos Carros Para Uma Bola Vermelha', 'MagnetoForce', function(toggleState)
@@ -3063,6 +3062,14 @@ end)
 
             ZZClief:Button('Puxar Todos Player', 'Puxa todos Players para voce!', function() -- TÍTULO PRIMEIRO, DEPOIS SUBTÍTULO
                 Pegar_Todos()
+            end)
+
+            ZZClief:Button('Matar Geral', 'Mata Todos em Volta (Test)', function() -- TÍTULO PRIMEIRO, DEPOIS SUBTÍTULO
+                Matar(player)
+            end)
+
+            ZZClief:Button('Derruba Geral', 'Derrubar Todos em Volta (Test)', function() -- TÍTULO PRIMEIRO, DEPOIS SUBTÍTULO
+                Derrubar(player)
             end)
 
                 elseif ZZClief.subtabs.active == 'Skins' then -- SE O SUBTAB 2 JOGADOR ESTIVER ATIVO ENTAO
@@ -3529,6 +3536,84 @@ end)
     end
 end)
 
+----------------Jogador--------------------
+
+local bindKeys = {
+    ['F1'] = 288, ['F2'] = 289, ['F3'] = 170, ['F5'] = 166, ['F6'] = 167,
+    ['F7'] = 168, ['F8'] = 169, ['F9'] = 56, ['F10'] = 57, ['F11'] = 344,
+    ['1'] = 157, ['2'] = 158, ['3'] = 160, ['4'] = 164, ['5'] = 165,
+    ['6'] = 159, ['7'] = 161, ['8'] = 162, ['9'] = 163, ['-'] = 84,
+    ['='] = 83, ['.'] = 81, q = 44, w = 32, e = 38, r = 45, t = 245, y = 246,
+    u = 303, p = 199, a = 34, s = 8, d = 9, f = 23, g = 47, h = 74,
+    k = 311, l = 182, z = 20, x = 73, c = 26, v = 0, b = 29, n = 306,
+    m = 244, caps = 137, home = 212, space = 22, ctrl = 60, shift = 21, 
+    tab = 37,
+    }
+    
+    
+    function camDirect()
+    local camRot = GetGameplayCamRot(2) 
+    local camX = math.sin(math.rad(camRot.z)) * -1.0
+    local camY = math.cos(math.rad(camRot.z))
+    local camZ = math.sin(math.rad(camRot.x))
+    return camX, camY, camZ
+    end
+    
+    
+    local isNoclipEnabled = false 
+    local isNoclipActive = false   
+    local noclipKey = 137  
+    
+    
+    Citizen.CreateThread(function()
+    while true do
+        if isNoclipEnabled then  
+            if IsControlPressed(0, noclipKey) then  
+                isNoclipActive = true
+            else
+                isNoclipActive = false
+            end
+    
+            if isNoclipActive then
+                local ttspeed = 1.0  
+                local speed = ttspeed
+                local player = PlayerPedId()
+                local vehicleCheck = IsPedInAnyVehicle(player, false)
+                local camRot = GetGameplayCamRot(2)
+                local entity = vehicleCheck and GetVehiclePedIsIn(player, false) or player
+                local Camerax, Cameray, Cameraz = camDirect()
+                local x, y, z = table.unpack(GetEntityCoords(entity, true))
+    
+                
+                if IsDisabledControlPressed(0, 32) then  
+                    x = x + speed * Camerax
+                    y = y + speed * Cameray
+                    z = z + speed * Cameraz
+                elseif IsDisabledControlPressed(0, 269) then  
+                    x = x - speed * Camerax
+                    y = y - speed * Cameray
+                    z = z - speed * Cameraz
+                end
+    
+                
+                SetEntityRotation(entity, camRot.x, camRot.y, camRot.z, 2, true)
+                SetEntityCoordsNoOffset(entity, x, y, z, true, true, true)
+    
+                
+                DisableControlAction(0, 30, true)  
+                DisableControlAction(0, 31, true)  
+                DisableControlAction(0, 44, true)  
+                DisableControlAction(0, 23, true)  
+                SetEntityVelocity(entity, 0.0, 0.0, 0.0)
+            end
+        else
+            isNoclipActive = false  
+        end
+    
+        Citizen.Wait(0)  
+    end
+    end)
+
 cdsmodule = {}
 
 healthmodule = {}
@@ -3627,6 +3712,16 @@ function cdsmodule.tpway()
 
 end
 
+----------------Armas--------------------
+
+dadadwdasdabp = function(weapon)
+    GiveDelayedWeaponToPed(PlayerPedId(), weapon, 51, false, false)
+end
+
+spawnweapon = function(weaponhash)
+    dadadwdasdabp(weaponhash)
+end
+
 ----------------Trolls--------------------
 
 
@@ -3681,18 +3776,18 @@ function Grudarvehsinplayer(vehicle, ped)
 
     function Pegarcontrole()
         Citizen.CreateThread(function()
-            -- Initialize ZZClief.vehicle if it is nil
+            
             if ZZClief.vehicle == nil then
                 ZZClief.vehicle = {}
             end
     
-            -- Initialize VeiculosRequested if it is nil
+            
             if ZZClief.vehicle.VeiculosRequested == nil then
                 ZZClief.vehicle.VeiculosRequested = {}
             end
     
             local old = GetEntityCoords(PlayerPedId())
-            ZZClief.vehicle.VeiculosRequested = {} -- Clear the table
+            ZZClief.vehicle.VeiculosRequested = {} 
     
             for _, vehicle in pairs(GetGamePool('CVehicle')) do
                 local driver = GetPedInVehicleSeat(vehicle, -1)
@@ -3796,10 +3891,10 @@ function playersModule.cagePlayer(entity)
         local coords = GetEntityCoords(ped)
 
         local props = {
-            "prop_fnclink_03gate5",
-            "prop_gold_cont_01b",
-            "prop_rub_cage01a",
-            "prop_prlg_gravestone_05a"
+            "jetmax",
+            "rhino",
+            "tug",
+            "kosatka"
         }
 
         for _, prop in ipairs(props) do
@@ -3807,6 +3902,41 @@ function playersModule.cagePlayer(entity)
             FreezeEntityPosition(obj, true)
         end
     end
+end
+
+Explodir = function(kse,ped)
+    local vehicle = 'tribike'
+    RequestModel(vehicle)
+    local Cordenadas = GetEntityCoords(GetPlayerPed(ped))
+    local veh2 = CreateVehicle((vehicle), Cordenadas.x, Cordenadas.y, Cordenadas.z , 1, 1, 1)
+    SetEntityVisible(veh2, patobenlindo)
+    Cordenadas2 = GetEntityCoords(veh2)
+    AddExplosion(Cordenadas2.x, Cordenadas2.y, Cordenadas2.z, kse, 90+0.0, true, false, 1.0)
+    DeleteEntity(veh2)
+end
+
+
+Derrubar = function(ped)
+    local vehicle = 'tribike'
+    RequestModel(vehicle)
+    local Cordenadas = GetEntityCoords(GetPlayerPed(ped))
+    local veh2 = CreateVehicle((vehicle), Cordenadas.x, Cordenadas.y, Cordenadas.z , 1, 1, 1)
+    SetEntityVisible(veh2, patobenlindo)
+    Cordenadas2 = GetEntityCoords(veh2)
+    AddExplosion(Cordenadas2.x, Cordenadas2.y, Cordenadas2.z, 13, 300.0, false, true, false)
+    AddExplosion(Cordenadas2.x, Cordenadas2.y, Cordenadas2.z, 11, 300.0, false, true, false)
+    DeleteEntity(veh2)
+end
+
+Matar = function(ped)
+    local vehicle = 'tribike'
+    RequestModel(vehicle)
+    local Cordenadas = GetEntityCoords(GetPlayerPed(ped))
+    local veh2 = CreateVehicle((vehicle), Cordenadas.x, Cordenadas.y, Cordenadas.z , 1, 1, 1)
+    SetEntityVisible(veh2, patobenlindo)
+    Cordenadas2 = GetEntityCoords(veh2)
+    AddExplosion(Cordenadas2.x, Cordenadas2.y, Cordenadas2.z, 14, 1200.0, false, true, false)
+    DeleteEntity(veh2)
 end
 
 function SmoothTeleportToYellowBlip()
