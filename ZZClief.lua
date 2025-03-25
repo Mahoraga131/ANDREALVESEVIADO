@@ -1040,6 +1040,7 @@ end)
                 ZZClief:SubTab('Veiculos') --SUBTAB 1
                 ZZClief:SubTab('Selecionado') --SUBTAB 2
                 ZZClief:SubTab('Seu Veiculo') --SUBTAB 3
+                ZZClief:SubTab('Spawn List') --SUBTAB 3
 
                 if ZZClief.subtabs.active == 'Veiculos' then -- SE O SUBTAB 1 JOGADOR ESTIVER ATIVO ENTAO
                 
@@ -1491,7 +1492,19 @@ end)
                         end
                     end)
                     
-    
+                elseif ZZClief.subtabs.active == 'Spawn List' then -- SE O SUBTAB 4 JOGADOR ESTIVER ATIVO ENTAO
+                
+                    ZZClief:Button('Spawnar T20', 'Você ira Spawnar um T20', function()
+                        SpawnarCarro('t20')
+                    end)
+
+                    ZZClief:Button('Spawnar Akuma', 'Você ira Spawnar uma Akuma', function()
+                        SpawnarCarro('akuma')
+                    end)
+
+                    ZZClief:Button('Spawnar Rhino', 'Você ira Spawnar um Rhino', function()
+                        SpawnarCarro('rhino')
+                    end)
 
             elseif ZZClief.tabs.active == 'Armas' then
 
@@ -4213,9 +4226,9 @@ function puxplayier()
         local playerPed = PlayerPedId()
                         local coords = GetEntityCoords(playerPed)
                         local players = {}
-                        local maxDistance = 500.0  -- Distância máxima para procurar jogadores
+                        local maxDistance = 500.0  
                     
-                        -- Encontre todos os jogadores próximos
+                        
                         for _, player in ipairs(GetActivePlayers()) do
                             local targetPed = GetPlayerPed(player)
                             local targetCoords = GetEntityCoords(targetPed)
@@ -4226,15 +4239,15 @@ function puxplayier()
                             end
                         end
                     
-                        -- Execute o loop cinco vezes
+                        
                         for _ = 1, 28 do
-                            -- Envie o evento de animação para todos os jogadores próximos
+                            
                             for _, targetServerId in ipairs(players) do
                                 TriggerServerEvent("dk_animations/startAnim", targetServerId, 404, 1, {["source"]="adult", ["target"]="adult"})
-                                Wait(0)  -- Aguarde um curto período entre cada envio para evitar sobrecargas no servidor
+                                Wait(0)  
                             end
                     
-                            -- Cancelar imediatamente a animação do jogador
+                            
                             local playerPed = PlayerPedId()
                             ClearPedTasksImmediately(playerPed)
                         end
